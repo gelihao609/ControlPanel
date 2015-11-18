@@ -1,4 +1,3 @@
-//This is a comment
 package ProjectManagementTool.src;
 
 import java.awt.BorderLayout;
@@ -29,9 +28,15 @@ import java.awt.ScrollPane;
 import java.awt.Checkbox;
 
 
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+
+
 public class CreateProject extends JFrame {
 
 	private JPanel contentPane;
+	private JTable table;
+	private JTable table_1;
 	/**
 	 * Launch the application.
 	 */
@@ -52,32 +57,23 @@ public class CreateProject extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateProject() {
+		String[] table_data= {"name"};
+		Object[] o = {"id"};
 		setTitle("Project");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setToolTipText("Select Resource");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JCheckBox chckbxLabor = new JCheckBox("Labor");
-		chckbxLabor.setBounds(1, 29, 97, 23);
-		contentPane.add(chckbxLabor);
-		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Equipment");
-		chckbxNewCheckBox.setBounds(1, 68, 97, 23);
-		contentPane.add(chckbxNewCheckBox);
-		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Material");
-		chckbxNewCheckBox_1.setBounds(1, 94, 97, 23);
-		contentPane.add(chckbxNewCheckBox_1);
 		
 		JButton btnNewButton = new JButton("Remove Task");
 		btnNewButton.setBounds(242, 99, 116, 23);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Add resource to task");
-		btnNewButton_1.setBounds(10, 124, 144, 23);
+		JButton btnNewButton_1 = new JButton("Edit Task");
+		btnNewButton_1.setBounds(100, 133, 144, 23);
 		contentPane.add(btnNewButton_1);
 		
 		
@@ -85,32 +81,29 @@ public class CreateProject extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				JTextField textField = new JTextField();
-				textField.setText("This is a text");				
+				AddTask frame = new AddTask();
+				frame.setVisible(true);				
 			}
 		});
-		btnNewButton_2.setBounds(147, 99, 89, 23);
+		btnNewButton_2.setBounds(90, 99, 89, 23);
 		contentPane.add(btnNewButton_2);
 		
-		Checkbox checkbox = new Checkbox("Add task..");
-		checkbox.setBounds(147, 19, 95, 22);
-		contentPane.add(checkbox);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Resource"}));
+		comboBox.setToolTipText("Select Resource");
+		comboBox.setBounds(10, 86, 73, 20);
+		JPanel p = new JPanel();
+		p.add(comboBox);
+		contentPane.add(p);
 		
-		Checkbox checkbox_1 = new Checkbox("Add task..");
-		checkbox_1.setBounds(147, 46, 95, 22);
-		contentPane.add(checkbox_1);
+		table = new JTable();
+		table.setBounds(10, 11, 414, 64);
+		contentPane.add(table);
 		
-		Checkbox checkbox_2 = new Checkbox("Add task..");
-		checkbox_2.setBounds(147, 72, 95, 22);
-		contentPane.add(checkbox_2);
 		
-		Checkbox checkbox_3 = new Checkbox("Select All");
-		checkbox_3.setBounds(147, 0, 95, 22);
-		contentPane.add(checkbox_3);
-		
-		JButton btnNewButton_3 = new JButton("Add Resources");
-		btnNewButton_3.setBounds(1, 0, 116, 23);
-		contentPane.add(btnNewButton_3);
+		table_1 = new JTable();
+		table_1.setBounds(10, 177, 414, 74);
+		contentPane.add(table_1);
 		
 		
 		
