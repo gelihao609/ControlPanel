@@ -13,11 +13,10 @@ public class Project extends Element {
      * @param resourcePool
      * @param name
      */
-    public Project(Set<Task> tasks, Set<Resource> resourcePool,String name) {
+    public Project(List<Task> taskPool, List<Resource> resourcePool,String name) {
     	super(name);
-    	this._tasks=tasks;
+    	this._taskPool=taskPool;
     	this._resourcePool=resourcePool;
-    	
     	this._id = this.hashCode();
     }
     
@@ -28,14 +27,14 @@ public class Project extends Element {
 		super(name);
 	}
 
-	public Set<Task> getTasks() {
-		return _tasks;
+	public List<Task> getTaskPool() {
+		return _taskPool;
 	}
     
     public void addTasks(Task t) {
-		_tasks.add(t);
+    	_taskPool.add(t);
 	}
-	public Set<Resource> getResourcePool() {
+	public List<Resource> getResourcePool() {
 		return _resourcePool;
 	}
 	
@@ -44,8 +43,8 @@ public class Project extends Element {
 		_resourcePool.add(r);
 	}
 
-    private Set<Task> _tasks;
-    private Set<Resource> _resourcePool;
-
+    private List<Resource> _resourcePool;
+    private List<Task> _taskPool;
+    private ILoader _XMLloader;
 
 }

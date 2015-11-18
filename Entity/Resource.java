@@ -37,4 +37,8 @@ public class Resource {
 
 	private int _id;
 	private String _name;
+	private String _type;
+	private Date _startDate;
+	private Date _endDate;
+	private double _rate;
 }
