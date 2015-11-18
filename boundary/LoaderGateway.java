@@ -1,8 +1,10 @@
 package boundary;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -39,6 +41,7 @@ import Entity.*;
  * 	<TaskID><\TaskID>
  * <parent><\parent>
  * 	<TaskID><\TaskID>
+ * 
  * <Task>
  * 	<ID><\ID>
  * 	<Name><\Name>
@@ -71,7 +74,7 @@ public class LoaderGateway implements ILoader {
     	elementProj.setAttributeNode(projectName);    	
     	
     	Element elementPredec = document.createElement("TaskPool");
-    	Set<Task> taskPool = project.getTasks();
+    	List<Task> taskPool = project.getTaskPool();
     	Iterator<Task> iterTask =taskPool.iterator();
     	while(iterTask.hasNext())
     	{
@@ -106,7 +109,7 @@ public class LoaderGateway implements ILoader {
 	   
 	   NodeList list = document.getElementsByTagName("Project");
 	   
-	   Set<Task> taskPoolSet = new HashSet<Task>();
+	   List<Task> taskPoolSet = new ArrayList<Task>();
 	   
 	   for(int i=0;i<list.getLength();i++)
 	   {

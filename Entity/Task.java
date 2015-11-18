@@ -16,8 +16,8 @@ public class Task extends Element {
      * @param resources
      * @param successors
      */
-    public Task(String name, Task parent, Set<Task> children, Set<Task> predecessors, Set<Resource> resources,
-			Set<Task> successors) {
+    public Task(String name, Task parent, List<Task> children, List<Task> predecessors, List<Resource> resources,
+    		List<Task> successors) {
 		super(name);
 		this._id = this.hashCode();
 		this._parent = parent;
@@ -60,35 +60,35 @@ public class Task extends Element {
 		this._parent = parent;
 	}
 
-	public Set<Task> getChildren() {
+	public List<Task> getChildren() {
 		return _children;
 	}
 
-	public void setChildren(Set<Task> children) {
+	public void setChildren(List<Task> children) {
 		this._children = children;
 	}
 
-	public Set<Task> getPredecessors() {
+	public List<Task> getPredecessors() {
 		return _predecessors;
 	}
 
-	public void setPredecessors(Set<Task> predecessors) {
+	public void setPredecessors(List<Task> predecessors) {
 		this._predecessors = predecessors;
 	}
 
-	public Set<Resource> getResources() {
+	public List<Resource> getResources() {
 		return _resources;
 	}
 
-	public void setResources(Set<Resource> resources) {
+	public void setResources(List<Resource> resources) {
 		this._resources = resources;
 	}
 
-	public Set<Task> getSuccessors() {
+	public List<Task> getSuccessors() {
 		return _successors;
 	}
 
-	public void setSuccessors(Set<Task> successors) {
+	public void setSuccessors(List<Task> successors) {
 		this._successors = successors;
 	}
 
@@ -102,22 +102,22 @@ public class Task extends Element {
     /**
      * 
      */
-    private Set<Task> _children;
+    private List<Task> _children;
 
     /**
      * 
      */
-    private Set<Task> _predecessors;
+    private List<Task> _predecessors;
 
     /**
      * 
      */
-    private Set<Resource> _resources;
+    private List<Resource> _resources;
 
     /**
      * 
      */
-    private Set<Task> _successors;
+    private List<Task> _successors;
     
     
 

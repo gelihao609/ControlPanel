@@ -1,3 +1,5 @@
+package ProjectManagementTool.src;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;

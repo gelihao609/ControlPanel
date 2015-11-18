@@ -48,6 +48,19 @@ public abstract class Element {
      */
     protected int _id;
     protected String _name;
+    protected String _description;
+    protected int _duration;
+    protected Date _startDate;
+    protected Date _endDate;
+    protected double _percentageCompleted;
+    
+    protected List<Task> _successors;
+    protected List<Task> _predecessors;
+    protected List<Task> _children;
+    protected Task _parent;
+
+
+
 
 
 }

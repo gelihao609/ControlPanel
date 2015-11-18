@@ -1,3 +1,5 @@
+package ProjectManagementTool.src;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -25,7 +27,6 @@ import java.awt.event.ActionEvent;
 import java.awt.ScrollPane;
 import java.awt.Checkbox;
 
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -39,7 +40,7 @@ public class CreateProject extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
