@@ -1,8 +1,9 @@
-/.classpath
-/.project
-/Controller/
-/Entity/
+projectWithPredec.xml
+/ProjectManagementTool-v2.mdj
 /ProjectManagementTool/
+/Entity/
 /boundary/
-/ProjectManagementTool.mdj
 /testSet/
+/ProjectManagementTool_useCaseDiags.mdj
+/Controller/
+/ProjectManagementTool.mdj
