@@ -1,2 +1,9 @@
 projectWithPredec.xml
 /ProjectManagementTool-v2.mdj
+*.class
+*.classpath
+*.zip
+*.jar
+*.prefs
+*.mdj
+*.project
