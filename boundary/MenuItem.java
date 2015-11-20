@@ -2,17 +2,20 @@ package boundary;
 
 import java.util.*;
 
+import javax.swing.JMenuItem;
+
 import Controller.Controller;
 
 /**
  * 
  */
-public class MenuItem {
+public class MenuItem extends JMenuItem {
 
     /**
      * Default constructor
      */
-    public MenuItem() {
+    public MenuItem(String s) {
+    	super(s);
     }
 
     /**

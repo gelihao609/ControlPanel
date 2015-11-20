@@ -2,15 +2,18 @@ package boundary;
 
 import java.util.*;
 
+import javax.swing.JMenu;
+
 /**
  * 
  */
-public class Menu {
+public class Menu extends JMenu {
 
     /**
      * Default constructor
      */
-    public Menu() {
+    public Menu(String name) {
+    	super(name);
     }
 
 

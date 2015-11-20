@@ -20,11 +20,22 @@ public class Project extends Element {
     	this._id = this.hashCode();
     }
     
+    
+    
 	/**
 	 * @param name
 	 */
 	public Project(String name) {
 		super(name);
+		_author=null;
+		_company=null;
+		_startDate=null;
+	}
+	public Project(String name,String author, String com, Date start) {
+		super(name);
+		_author=author;
+		_company=com;
+		_startDate=start;
 	}
 
 	public List<Task> getTaskPool() {
@@ -46,5 +57,8 @@ public class Project extends Element {
     private List<Resource> _resourcePool;
     private List<Task> _taskPool;
     private ILoader _XMLloader;
+    private String _author;
+    private String _company;
+    private Date _startDate;
 
 }
