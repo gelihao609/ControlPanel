@@ -60,5 +60,5 @@ public class Project extends Element {
     private String _author;
     private String _company;
     private Date _startDate;
-
+    private Schedule _schedule;
 }

@@ -16,6 +16,17 @@ public abstract class Element {
     public Element(String name) {
     	this._name = name;
     }
+    
+    public Element(String name, Task parent, List<Element> children, List<Element> predecessors, List<Resource> resources,
+    		List<Element> successors) {
+    	this._name = name;
+    	this._id = this.hashCode();
+		this._parent = parent;
+		this._children = children;
+		this._predecessors = predecessors;
+		this._resources = resources;
+		this._successors = successors;
+	}
 
     /**
 	 * @param _id
@@ -54,10 +65,11 @@ public abstract class Element {
     protected Date _endDate;
     protected double _percentageCompleted;
     
-    protected List<Task> _successors;
-    protected List<Task> _predecessors;
-    protected List<Task> _children;
-    protected Task _parent;
+    protected List<Element> _successors;
+    protected List<Element> _predecessors;
+    protected List<Element> _children;
+    protected List<Resource> _resources;
+    protected Element _parent;
 
 
 

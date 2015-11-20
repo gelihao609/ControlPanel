@@ -6,6 +6,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Entity.Project;
+import Entity.Schedule;
 
 /**
  * 
@@ -22,7 +23,7 @@ public class ScheduleView extends JTable implements View {
     /**
      * 
      */
-    private Project project;
+    private Schedule schedule;
 
 
 	@Override

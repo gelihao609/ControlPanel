@@ -3,6 +3,7 @@ package boundary;
 import java.util.*;
 
 import Entity.Project;
+import Entity.ResourcePool;
 
 /**
  * 
@@ -18,7 +19,8 @@ public class ResourceView implements View {
     /**
      * 
      */
-    private Project project;
+    
+    private ResourcePool pool;
 
 	@Override
 	public void update(Observable o, Object arg) {

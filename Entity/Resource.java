@@ -41,4 +41,5 @@ public class Resource {
 	private Date _startDate;
 	private Date _endDate;
 	private double _rate;
+	private List<Element> _references;
 }

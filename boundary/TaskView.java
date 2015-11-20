@@ -3,6 +3,7 @@ package boundary;
 import java.util.*;
 
 import Entity.Project;
+import Entity.TaskPool;
 
 /**
  * 
@@ -19,7 +20,7 @@ public class TaskView implements View {
     /**
      * 
      */
-    private Project project;
+    private TaskPool pool;
 
 
 	@Override

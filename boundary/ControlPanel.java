@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  * 
  */
-public class ControlPanel {
+public class ControlPanel implements Oracle {
 	
 	/**
 	 * Launch the application.
@@ -127,15 +127,18 @@ public class ControlPanel {
 				});
 	}
 	
-	private Object ask(String query) {
+	/*private Object ask(String query) {
 			if(query.equals("createProject"))
 			{
-				CreateProjectWindow cpw = new CreateProjectWindow();
-				return cpw.getProject();
+				//CreateProjectWindow cpw = new CreateProjectWindow();
+				//return cpw.getProject();
 			}
 			else return null;
+	}*/
+	public Object ask(String cmd)
+	{
+		return null;
 	}
-
 	private JFrame _mainWindow;
 
     /**
