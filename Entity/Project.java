@@ -1,5 +1,7 @@
 package Entity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -8,12 +10,29 @@ import java.util.*;
 public class Project extends Element {
 
 
-    /**
+    
+	
+	/**
+	 * @param name
+	 */
+	public Project() {
+		super("untitled");
+    	this._id = this.hashCode();
+		_author="untitled";
+		_company="untitled";
+		_startDate=new Date();
+		_resourcePool = new ArrayList<Resource>();
+		_taskPool = new ArrayList<Element>();
+	}
+
+
+
+	/**
      * @param tasks
      * @param resourcePool
      * @param name
      */
-    public Project(List<Task> taskPool, List<Resource> resourcePool,String name) {
+    public Project(List<Element> taskPool, List<Resource> resourcePool,String name) {
     	super(name);
     	this._taskPool=taskPool;
     	this._resourcePool=resourcePool;
@@ -27,9 +46,9 @@ public class Project extends Element {
 	 */
 	public Project(String name) {
 		super(name);
-		_author=null;
-		_company=null;
-		_startDate=null;
+		_author="untitled";
+		_company="untitled";
+		_startDate=new Date();
 	}
 	public Project(String name,String author, String com, Date start) {
 		super(name);
@@ -38,7 +57,7 @@ public class Project extends Element {
 		_startDate=start;
 	}
 
-	public List<Task> getTaskPool() {
+	public List<Element> getTaskPool() {
 		return _taskPool;
 	}
     
@@ -55,10 +74,46 @@ public class Project extends Element {
 	}
 
     private List<Resource> _resourcePool;
-    private List<Task> _taskPool;
+    private List<Element> _taskPool;
     private ILoader _XMLloader;
     private String _author;
     private String _company;
     private Date _startDate;
     private Schedule _schedule;
+	public String getCompanyName() {
+		return _company;
+	}
+	public String getStartDateInString() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return dateFormat.format(_startDate);
+	}
+
+
+
+	public String getProjectName() {
+		return super._name;
+	}
+
+
+
+	public void setProperties(Project p) {
+		_name = p.getName();
+		_company = p.getCompanyName();
+		_author = p.getAuthorName();
+		 _startDate = p.getStartDate();
+		 this.notifyObservers();
+	}
+
+
+
+	public Date getStartDate() {
+		return _startDate;
+	}
+
+
+
+	public String getAuthorName() {
+		return _author;
+	}
+	
 }

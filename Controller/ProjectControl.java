@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.*;
 
+import Entity.Project;
 import boundary.Oracle;
 
 /**
@@ -15,7 +16,11 @@ public class ProjectControl implements Controller{
     public ProjectControl() {
     }
     
-    public void createProject(){
+    public ProjectControl(Project p) {
+    	project = p;
+    }
+
+	public void createProject(){
     	
     }
     
@@ -28,10 +33,12 @@ public class ProjectControl implements Controller{
    }
 	@Override
 	public void execute(String cmd, Oracle o) {
-		// TODO Auto-generated method stub
-		
+		if(cmd.equals("createProject"))
+		{
+			project.setProperties((Project)o.ask(cmd));
+		}
 	}
 
-
+	private Project project;
 
 }

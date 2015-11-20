@@ -5,11 +5,14 @@ import java.util.*;
 /**
  * 
  */
-public abstract class Element {
+public abstract class Element extends Observable {
 
     /**
      * Default constructor
      */
+	public Element(){
+		_name="untitled";
+	}
     /**
      * @param name
      */
