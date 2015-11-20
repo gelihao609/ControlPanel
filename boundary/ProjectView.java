@@ -66,7 +66,8 @@ public class ProjectView extends JPanel implements View {
 		startDateTF.setColumns(10);
 		startDateTF.setEditable(false);
 
-		setProject(p);
+		loadProject(p);
+		setTextfield();
 		project.addObserver(this);
 	}
 
@@ -79,19 +80,26 @@ public class ProjectView extends JPanel implements View {
 
 
 	
-	private void setProject(Project project) {
+	private void loadProject(Project project) {
 		this.project = project;
-		update(null,null);
 	}
 
 
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-			authrorNameTF.setText(project.getName());
-			compNameTF.setText(project.getCompanyName());
-			projNameTF.setText(project.getProjectName());
-			startDateTF.setText(project.getStartDateInString());
+			System.out.println("update is called.");
+			project=(Project) arg0;
+			setTextfield();
+			
+	}
+	
+	private void setTextfield()
+	{
+		authrorNameTF.setText(project.getName());
+		compNameTF.setText(project.getCompanyName());
+		projNameTF.setText(project.getProjectName());
+		startDateTF.setText(project.getStartDateInString());
 	}
 
 }

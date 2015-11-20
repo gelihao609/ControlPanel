@@ -101,6 +101,7 @@ public class Project extends Element {
 		_company = p.getCompanyName();
 		_author = p.getAuthorName();
 		 _startDate = p.getStartDate();
+		 setChanged();
 		 this.notifyObservers();
 	}
 

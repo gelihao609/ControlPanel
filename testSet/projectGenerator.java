@@ -21,7 +21,7 @@ public class projectGenerator {
 		ts.add(t2);
 		ts.add(t3);
 		ts.add(t4);
-		List<Task> predec = new ArrayList<Task>();
+		List<Element> predec = new ArrayList<Element>();
 		predec.add(t1);
 		predec.add(t3);
 		Task t_withPrede= new Task("havePre",null,null,predec,null,null);
