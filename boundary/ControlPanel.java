@@ -19,6 +19,7 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.Controller;
 import Controller.ProjectControl;
 import Entity.Project;
 
@@ -107,7 +108,7 @@ public class ControlPanel implements Oracle {
 		projectMenu.add(saveProject);
 		projectMenu.add(closeProject);	
 		//define controller, command, and oracle of a menuItem
-		createProject.addController(pc, "createProject",this);
+		createProject.addController(pc, "createProject",new CreateProjectWindow());
 		openProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -123,16 +124,22 @@ public class ControlPanel implements Oracle {
 		
 	}
 
-	public Object ask(String cmd)
+	public Object ask(String cmd,Controller c)
 	{
 		if(cmd.equals("createProject"))
 		{
-			CreateProjectWindow cpw = new CreateProjectWindow();
-			if(cpw.getProject()!=null)
-			return cpw.getProject();
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						@SuppressWarnings("unused")
+						CreateProjectWindow window = new CreateProjectWindow(c);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 		}
-		System.out.println("Not getting user info..");
-		return new Project();
+		return null;
 	}
 	
 	private JFrame _mainWindow;

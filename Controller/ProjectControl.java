@@ -35,8 +35,13 @@ public class ProjectControl implements Controller{
 	public void execute(String cmd, Oracle o) {
 		if(cmd.equals("createProject"))
 		{
-			project.setProperties((Project)o.ask(cmd));
+			o.ask(cmd,this);
 		}
+	}
+	
+	public void setProjectProperties(Project p)
+	{
+		project.setProperties(p);
 	}
 
 	private Project project;

@@ -16,7 +16,7 @@ public class projectGenerator {
 		Task t2 = new Task("t2");
 		Task t3 = new Task("t3");
 		Task t4 = new Task("t4");
-		List<Task> ts = new ArrayList<Task>();
+		List<Element> ts = new ArrayList<Element>();
 		ts.add(t1);
 		ts.add(t2);
 		ts.add(t3);

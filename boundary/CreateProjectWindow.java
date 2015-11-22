@@ -15,7 +15,10 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 
-public class CreateProjectWindow {
+import Controller.Controller;
+import Controller.ProjectControl;
+
+public class CreateProjectWindow implements Oracle{
 
 	private JFrame frame;
 	private JTextField nametextField;
@@ -30,26 +33,28 @@ public class CreateProjectWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CreateProjectWindow window = new CreateProjectWindow();
-					window.frame.setVisible(true);
+					//CreateProjectWindow window = new CreateProjectWindow();
+					//window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	public CreateProjectWindow(){}
 	/**
 	 * Create the application.
+	 * @param c 
 	 */
-	public CreateProjectWindow() {
-		initialize();
+	public CreateProjectWindow(Controller c) {
+		initialize(c);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param c 
 	 */
-	private void initialize() {
+	private void initialize(Controller c) {
 		frame = new JFrame("Create...");
 		frame.setBounds(450, 300, 269, 235);
 		frame.setVisible(true);
@@ -106,8 +111,9 @@ public class CreateProjectWindow {
 		
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				collect();
-				if(p!=null)JOptionPane.showMessageDialog(frame, "New project is created.");
+				Project tempP=collect();
+				if(tempP!=null)JOptionPane.showMessageDialog(frame, "New project is created.");
+				 ((ProjectControl) c).setProjectProperties(tempP);
 				frame.dispose();
 			}
 
@@ -116,16 +122,25 @@ public class CreateProjectWindow {
 	}
 	
 	
-	private void collect() {
+	private Project collect() {
 		String name =  nametextField.getText();
 		String author =  authortextField_1.getText();
 		String company =  companytextField_2.getText();
 		Date start =  dateChooser.getDate();
-		p = new Project(name,author,company,start);
+		return new Project(name,author,company,start);
 	}
 	
 	public Project getProject() {
 		return p;
 	}
+	public JFrame getFrame()
+	{
+		return frame;
+	}
 
+	@Override
+	public Object ask(String cmd, Controller control) {
+		initialize(control);
+		return null;
+	}
 }
