@@ -16,10 +16,11 @@ public class Task extends Element {
      * @param resources
      * @param successors
      */
-    public Task(String name, Task parent, List<Element> children, List<Element> predecessors, List<Resource> resources,
-    		List<Element> successors) {
-		super( name,  parent,  children,  predecessors, resources,
-	    		 successors) ;
+    public Task(String name, Element parent, List<Task> children, List<Task> predecessors, List<Resource> resources,
+    		List<Task> successors) {
+		super( name,  parent,  children, resources) ;
+		this._predecessors = predecessors;
+		this._successors = successors;
 		this._id = this.hashCode();
 	}
 
@@ -50,5 +51,8 @@ public class Task extends Element {
 		
 	}
     
-
+    protected String _description;
+    protected List<Task> _successors;
+    protected List<Task> _predecessors;
+    protected List<Resource> _resources;
 }

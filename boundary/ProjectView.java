@@ -16,6 +16,10 @@ public class ProjectView extends JPanel implements View {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	//entity
 	private Project project;
 	//views

@@ -74,8 +74,8 @@ public class LoaderGateway implements ILoader {
     	elementProj.setAttributeNode(projectName);    	
     	
     	Element elementPredec = document.createElement("TaskPool");
-    	List<Entity.Element> taskPool = project.getTaskPool();
-    	Iterator<Entity.Element> iterTask =taskPool.iterator();
+    	TaskPool taskPool = project.getTaskPool();
+    	Iterator<Task> iterTask =taskPool.iterator();
     	while(iterTask.hasNext())
     	{
         	Task task = (Task)iterTask.next();
@@ -108,7 +108,7 @@ public class LoaderGateway implements ILoader {
 	   
 	   NodeList list = document.getElementsByTagName("Project");
 	   
-	   List<Entity.Element> taskPoolSet = new ArrayList<Entity.Element>();
+	   List<Task> taskPoolSet = new ArrayList<Task>();
 	   
 	   for(int i=0;i<list.getLength();i++)
 	   {
@@ -137,7 +137,7 @@ public class LoaderGateway implements ILoader {
 			   }
 		   }
 	   }
-	   return new Project(taskPoolSet,null,filename);
+	   return new Project(new TaskPool(taskPoolSet),null,filename);
    }
 
 }

@@ -1,11 +1,18 @@
 package Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
 public class ResourcePool extends Observable {
 private List<Resource> resources;
-
+public ResourcePool()
+{
+	resources = new ArrayList<Resource>();
+}
+public ResourcePool(List<Resource> rs) {
+	resources = rs;
+}
 public void addResource(Resource resource)
 {
 	
@@ -32,6 +39,9 @@ public void removeTaskAssociation(List<Element> tasks, Resource res)
 	
 }
 public void removeTaskReference(Resource res, Element t){
+}
+public void add(Resource r) {
+	resources.add(r);
 }
 
 }

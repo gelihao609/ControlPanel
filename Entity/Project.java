@@ -21,8 +21,9 @@ public class Project extends Element {
 		_author="untitled";
 		_company="untitled";
 		_startDate=new Date();
-		_resourcePool = new ArrayList<Resource>();
-		_taskPool = new ArrayList<Element>();
+		_resourcePool = new ResourcePool();
+		_taskPool = new TaskPool();
+		_schedule = new Schedule(_taskPool);
 	}
 
 
@@ -32,7 +33,7 @@ public class Project extends Element {
      * @param resourcePool
      * @param name
      */
-    public Project(List<Element> taskPool, List<Resource> resourcePool,String name) {
+    public Project(TaskPool taskPool, ResourcePool resourcePool,String name) {
     	super(name);
     	this._taskPool=taskPool;
     	this._resourcePool=resourcePool;
@@ -57,14 +58,14 @@ public class Project extends Element {
 		_startDate=start;
 	}
 
-	public List<Element> getTaskPool() {
+	public TaskPool getTaskPool() {
 		return _taskPool;
 	}
     
     public void addTasks(Task t) {
     	_taskPool.add(t);
 	}
-	public List<Resource> getResourcePool() {
+	public ResourcePool getResourcePool() {
 		return _resourcePool;
 	}
 	
@@ -73,13 +74,6 @@ public class Project extends Element {
 		_resourcePool.add(r);
 	}
 
-    private List<Resource> _resourcePool;
-    private List<Element> _taskPool;
-    private ILoader _XMLloader;
-    private String _author;
-    private String _company;
-    private Date _startDate;
-    private Schedule _schedule;
 	public String getCompanyName() {
 		return _company;
 	}
@@ -116,5 +110,17 @@ public class Project extends Element {
 	public String getAuthorName() {
 		return _author;
 	}
+	
+	public Schedule getSchedule(){
+		return _schedule;
+	}
+	
+    private ResourcePool _resourcePool;
+    private TaskPool _taskPool;
+    private ILoader _XMLloader;
+    private String _author;
+    private String _company;
+    private Date _startDate;
+    private Schedule _schedule;
 	
 }

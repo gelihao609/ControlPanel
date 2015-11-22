@@ -16,12 +16,12 @@ public class projectGenerator {
 		Task t2 = new Task("t2");
 		Task t3 = new Task("t3");
 		Task t4 = new Task("t4");
-		List<Element> ts = new ArrayList<Element>();
+		List<Task> ts = new ArrayList<Task>();
 		ts.add(t1);
 		ts.add(t2);
 		ts.add(t3);
 		ts.add(t4);
-		List<Element> predec = new ArrayList<Element>();
+		List<Task> predec = new ArrayList<Task>();
 		predec.add(t1);
 		predec.add(t3);
 		Task t_withPrede= new Task("havePre",null,null,predec,null,null);
@@ -29,7 +29,7 @@ public class projectGenerator {
 		List<Resource> rs = new ArrayList<Resource>();
 		rs.add(r2);
 		rs.add(r1);
-		Project p = new Project(ts,rs,"projectWithPredec");
+		Project p = new Project(new TaskPool(ts),new ResourcePool(rs),"projectWithPredec");
 		return p;
 	}
 }

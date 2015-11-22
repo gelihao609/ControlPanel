@@ -16,7 +16,21 @@ public class ScheduleView extends JTable implements View {
     /**
      * Default constructor
      */
-    public ScheduleView() {
+    public ScheduleView(){
+    	
+		 setModel(new DefaultTableModel(
+			new String[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {"Day", "Tasks"}) {
+			/**
+			 * 
+			 */
+		});
     }
 
 

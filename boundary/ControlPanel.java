@@ -52,45 +52,24 @@ public class ControlPanel implements Oracle {
     }
     
 	private void initialize(Project project,ProjectControl pc) {
-		//window
+		//define window
 		_mainWindow = new JFrame();
 		_mainWindow.setTitle("Control Panel");
 		_mainWindow.setBounds(100, 100, 817, 600);
 		_mainWindow.setVisible(true);
 		_mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//menuBar
+		//define menuBar
 		_menuBar = new MenuBar();
 		_mainWindow.setJMenuBar(_menuBar);
 		_mainWindow.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		//addProjectView
 		 _projectView = new ProjectView(project,new FlowLayout(FlowLayout.LEFT, 5, 5));
-		_mainWindow.getContentPane().add(_projectView, BorderLayout.NORTH);
-
-		
-		JPanel left_panel = new JPanel();
-		_mainWindow.getContentPane().add(left_panel, BorderLayout.WEST);
-		
+		_mainWindow.getContentPane().add(_projectView, BorderLayout.NORTH);		
 		//Schedule View
-		ScheduleView sView = new ScheduleView();
-		sView.setModel(new DefaultTableModel(
-			new String[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Day", "Task"
-			}
-		) {
-			/**
-			 * 
-			 */
-		});
-		JScrollPane scrollPane = new JScrollPane(sView);
-		left_panel.add(scrollPane);
+		 _scheduleView = new ScheduleView();
+		JScrollPane leftScrollPane = new JScrollPane(_scheduleView);
+		_mainWindow.getContentPane().add(leftScrollPane, BorderLayout.WEST);		
 		//addMenu
 		Menu projectMenu = new Menu("Project");
 		Menu taskMenu = new Menu("Task");
@@ -126,19 +105,6 @@ public class ControlPanel implements Oracle {
 
 	public Object ask(String cmd,Controller c)
 	{
-		if(cmd.equals("createProject"))
-		{
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						@SuppressWarnings("unused")
-						CreateProjectWindow window = new CreateProjectWindow(c);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		}
 		return null;
 	}
 	
@@ -153,7 +119,5 @@ public class ControlPanel implements Oracle {
      * 
      */
     private ProjectView _projectView;
-
-    private JTable table;
-
+    private ScheduleView _scheduleView;
 }
