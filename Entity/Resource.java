@@ -37,9 +37,11 @@ public class Resource {
 
 	private int _id;
 	private String _name;
+	//-- Is these attributes necessary?
 	private String _type;
 	private Date _startDate;
 	private Date _endDate;
-	private double _rate;
-	private List<Element> _references;
+	//--------------------//
+	private String _rate;
+	private List<Task> _references;
 }

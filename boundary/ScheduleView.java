@@ -15,22 +15,19 @@ public class ScheduleView extends JTable implements View {
 
     /**
      * Default constructor
+     * @param sc 
      */
-    public ScheduleView(){
-    	
+    public ScheduleView(Schedule sc){
+    	schedule = sc;
 		 setModel(new DefaultTableModel(
 			new String[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {"Day", "Tasks"}) {
-			/**
-			 * 
-			 */
-		});
+				{"0", "Task1"},
+				{"1", "Task2"},
+				{"2", "Taks2,Task3"}},new String[] {"Day", "Tasks"}));
+		 //getColumnModel().getColumn(0).setPreferredWidth(15);
+		 getColumnModel().getColumn(0).setMaxWidth(150);
+		 getColumnModel().getColumn(1).setMaxWidth(150);
+		 //getColumnModel().getColumn(1).setPreferredWidth(45);
     }
 
 
@@ -45,11 +42,4 @@ public class ScheduleView extends JTable implements View {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-	public void setModel(DefaultTableModel defaultTableModel) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

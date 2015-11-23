@@ -1,24 +1,14 @@
 package boundary;
 
 import java.awt.EventQueue;
-import java.util.*;
-
 import javax.swing.JFrame;
-
-import ProjectManagementTool.src.ProjectManagementApplication;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
-import javax.swing.JList;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import Controller.Controller;
 import Controller.ProjectControl;
 import Entity.Project;
@@ -55,21 +45,47 @@ public class ControlPanel implements Oracle {
 		//define window
 		_mainWindow = new JFrame();
 		_mainWindow.setTitle("Control Panel");
-		_mainWindow.setBounds(100, 100, 817, 600);
+		_mainWindow.setBounds(100, 100, 900, 600);
 		_mainWindow.setVisible(true);
 		_mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//define menuBar
 		_menuBar = new MenuBar();
 		_mainWindow.setJMenuBar(_menuBar);
 		_mainWindow.getContentPane().setLayout(new BorderLayout(0, 0));
-		
 		//addProjectView
 		 _projectView = new ProjectView(project,new FlowLayout(FlowLayout.LEFT, 5, 5));
-		_mainWindow.getContentPane().add(_projectView, BorderLayout.NORTH);		
-		//Schedule View
-		 _scheduleView = new ScheduleView();
-		JScrollPane leftScrollPane = new JScrollPane(_scheduleView);
-		_mainWindow.getContentPane().add(leftScrollPane, BorderLayout.WEST);		
+		_mainWindow.getContentPane().add(_projectView, BorderLayout.NORTH);
+		//addScheduleView
+		 JPanel leftPanel = new JPanel();
+		 _mainWindow.getContentPane().add(leftPanel, BorderLayout.WEST);
+		 leftPanel.setLayout(null);
+		 _scheduleView = new ScheduleView(project.getSchedule());
+		JScrollPane leftScdllPane = new JScrollPane(_scheduleView);
+		leftPanel.add(leftScdllPane);
+		//addTaskView
+		JPanel centerPanel = new JPanel();
+		_mainWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
+		centerPanel.setLayout(null);
+		JScrollPane centerTaskSPane = new JScrollPane();
+		centerPanel.add(centerTaskSPane);
+		_taskView = new TaskView(project.getTaskPool());
+		centerTaskSPane.setViewportView(_taskView);
+		//addResourceView
+		JPanel rightPanel = new JPanel();
+		_mainWindow.getContentPane().add(rightPanel, BorderLayout.EAST);
+		rightPanel.setLayout(null);
+		_resourceView = new ResourceView(project.getResourcePool());
+		JScrollPane resourceSPane = new JScrollPane(_resourceView);
+		rightPanel.add(resourceSPane);
+		//set panel dimension
+		leftPanel.setPreferredSize(new Dimension(300,500));
+		centerPanel.setPreferredSize(new Dimension(300,500));
+		rightPanel.setPreferredSize(new Dimension(300,500));
+		//set inner sPane dimension
+		leftScdllPane.setBounds(5, 5, 295, 495);
+		centerTaskSPane.setBounds(5, 5, 295, 495);
+		resourceSPane.setBounds(5, 5, 295, 495);
+		_mainWindow.pack();
 		//addMenu
 		Menu projectMenu = new Menu("Project");
 		Menu taskMenu = new Menu("Task");
@@ -81,26 +97,18 @@ public class ControlPanel implements Oracle {
 		MenuItem createProject = new MenuItem("Create");
 		MenuItem openProject = new MenuItem("Open...");
 		MenuItem saveProject = new MenuItem("Save");
+		MenuItem generScdl = new MenuItem("Generate Schedule");
 		MenuItem closeProject = new MenuItem("Close");
 		projectMenu.add(createProject);
 		projectMenu.add(openProject);
 		projectMenu.add(saveProject);
-		projectMenu.add(closeProject);	
-		//define controller, command, and oracle of a menuItem
+		projectMenu.add(closeProject);
+		projectMenu.add(generScdl);	
+		//---define controller, command, and oracle of a menuItem
+		//createProject
 		createProject.addController(pc, "createProject",new CreateProjectWindow());
-		openProject.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		saveProject.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		closeProject.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
+		//generateSchedule
+		generScdl.addController(pc, "generateSchedule",null);
 	}
 
 	public Object ask(String cmd,Controller c)
@@ -120,4 +128,6 @@ public class ControlPanel implements Oracle {
      */
     private ProjectView _projectView;
     private ScheduleView _scheduleView;
+    private ResourceView _resourceView;
+    private TaskView _taskView;
 }

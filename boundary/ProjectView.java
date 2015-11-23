@@ -1,6 +1,5 @@
 package boundary;
 
-import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import java.util.Observable;
 
