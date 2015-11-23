@@ -22,7 +22,7 @@ public class Project extends Element {
 		_company="untitled";
 		_startDate=new Date();
 		_resourcePool = new ResourcePool();
-		_taskPool = new TaskPool();
+		_taskPool = new TaskPool(this);
 		_schedule = new Schedule(_taskPool);
 	}
 

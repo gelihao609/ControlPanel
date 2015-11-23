@@ -35,6 +35,7 @@ public abstract class Element extends Observable {
 	public Element(String name) {
     	this._name = name;
     	this._id = this.hashCode();
+    	this._children = new ArrayList<Task>();
 	}
 	public Element(String name, int duration, Element parent) {
     	this._name = name;

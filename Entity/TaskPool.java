@@ -9,8 +9,9 @@ public class TaskPool extends Observable{
 	
 private List<Task> pool;
 private Project head;
-public TaskPool(){
+public TaskPool(Project head){
 	pool = new ArrayList<Task>();
+	this.head = head;
 }
 public TaskPool(List<Task> taskPoolSet) {
 	pool = taskPoolSet;
@@ -48,9 +49,5 @@ public Iterator<Task> iterator() {
 public Project getHead()
 {
 	return head;
-}
-public void addHead(Project p) {
-	head =p;
-	
 }
 }

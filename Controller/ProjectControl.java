@@ -50,7 +50,6 @@ public class ProjectControl implements Controller{
 	public void setProjectProperties(Project p)
 	{
 		project.setProperties(p);
-		project.getTaskPool().addHead(p);
 	}
 
 	private Project project;
