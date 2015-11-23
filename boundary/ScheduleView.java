@@ -24,10 +24,8 @@ public class ScheduleView extends JTable implements View {
 				{"0", "Task1"},
 				{"1", "Task2"},
 				{"2", "Taks2,Task3"}},new String[] {"Day", "Tasks"}));
-		 //getColumnModel().getColumn(0).setPreferredWidth(15);
 		 getColumnModel().getColumn(0).setMaxWidth(150);
 		 getColumnModel().getColumn(1).setMaxWidth(150);
-		 //getColumnModel().getColumn(1).setPreferredWidth(45);
     }
 
 

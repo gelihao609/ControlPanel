@@ -8,7 +8,7 @@ import java.util.Observable;
 public class TaskPool extends Observable{
 	
 private List<Task> pool;
-
+private Project head;
 public TaskPool(){
 	pool = new ArrayList<Task>();
 }
@@ -33,10 +33,24 @@ public void deleteTask(Task t)
 }
 public void add(Task t) {
 	pool.add(t);
+	setChanged();
+	notifyObservers(head);
+}
+public int size()
+{
+	return pool.size();
 }
 public Iterator<Task> iterator() {
 	// TODO Auto-generated method stub
 	return pool.iterator();
 }
-
+//Head is main Task, which is Project
+public Project getHead()
+{
+	return head;
+}
+public void addHead(Project p) {
+	head =p;
+	
+}
 }

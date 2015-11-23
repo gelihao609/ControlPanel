@@ -42,17 +42,22 @@ public class Task extends Element {
 	 */
 	public Task(int id, String name) {
 		super(id, name);
-		// TODO Auto-generated constructor stub
 	}
 
+
+	public Task(String name, String duration, String description, Element parent) {		
+		super(name,Integer.parseInt(duration),parent);
+		parent.addChild(this);
+		_description=description;
+	}
 
 	public void unassignResource()
 	{
-		
+	
 	}
     
-    protected String _description;
-    protected List<Task> _successors;
-    protected List<Task> _predecessors;
-    protected List<Resource> _resources;
+    private String _description;
+    private List<Task> _successors;
+    private List<Task> _predecessors;
+    private List<Resource> _resources;
 }

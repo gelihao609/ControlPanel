@@ -5,6 +5,9 @@ import java.util.*;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+
+import Entity.Project;
+import Entity.Task;
 import Entity.TaskPool;
 
 /**
@@ -21,29 +24,45 @@ public class TaskView extends JTree implements View {
 	/**
      * Default constructor
      */
-    public TaskView(TaskPool p) {
-    	pool = p;
+    public TaskView(Project p) 
+    {
+    	init(p);
+    	pool.addObserver(this);
+    }
+    
+	public void init(Project p)
+    {
+    	pool = p.getTaskPool();
     	setModel(new DefaultTreeModel(
-    			new DefaultMutableTreeNode("Project") {
-    				/**
+    			new DefaultMutableTreeNode("Main") {
+					/**
 					 * 
 					 */
+					{
+						traverse(this,p);
+    				}
+    				/**
+					 *  travese to build Jtree of Task, need to test
+					 */
+					private void traverse(DefaultMutableTreeNode parent,Entity.Element t)
+					{
+						if(t.getChildren()!=null)
+						for(int i=0;i<t.getChildren().size();i++)
+						{
+							DefaultMutableTreeNode newSon = new DefaultMutableTreeNode(t.getChildren().get(i).getName());
+							parent.add(newSon);
+							traverse(newSon,t.getChildren().get(i));
+						}
+					}
+					
 					private static final long serialVersionUID = 1L;
 
-					{
-    					DefaultMutableTreeNode node_1;
-    					node_1 = new DefaultMutableTreeNode("Task1");
-    						node_1.add(new DefaultMutableTreeNode("Task1.1"));
-    						node_1.add(new DefaultMutableTreeNode("Task1.2"));
-    					add(node_1);
-    					node_1 = new DefaultMutableTreeNode("Task2");
-    						node_1.add(new DefaultMutableTreeNode("Task2.1"));
-    						node_1.add(new DefaultMutableTreeNode("Task2.2"));
-    					add(node_1);
-    				}
     			}
     		));
     }
+    
+
+
 
 
     /**
@@ -53,9 +72,11 @@ public class TaskView extends JTree implements View {
 
 
 	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+	public void update(Observable o, Object arg) {			
+		init((Project)arg);
 	}
+
+
+
 
 }

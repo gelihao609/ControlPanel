@@ -32,9 +32,7 @@ public class ProjectView extends JPanel implements View {
 	 * @param layout
 	 */
 	public ProjectView(Project p, LayoutManager layout) {
-		super(layout);
-		
-		
+		super(layout);			
 		JLabel lblAuthor = new JLabel("Author:");
 		lblAuthor.setHorizontalAlignment(SwingConstants.LEFT);
 		this.add(lblAuthor);
@@ -43,7 +41,6 @@ public class ProjectView extends JPanel implements View {
 		this.add(authrorNameTF);
 		authrorNameTF.setColumns(10);
 		authrorNameTF.setEditable(false);
-
 		
 		JLabel lblCompany = new JLabel("Company:");
 		this.add(lblCompany);
@@ -74,27 +71,19 @@ public class ProjectView extends JPanel implements View {
 		project.addObserver(this);
 	}
 
-
-
-
 	public Project getProject() {
 		return project;
 	}
 
-
-	
 	private void loadProject(Project project) {
 		this.project = project;
 	}
 
-
-
 	@Override
 	public void update(Observable arg0, Object arg1) {
-			System.out.println("update is called.");
+			//System.out.println("update is called.");
 			project=(Project) arg0;
 			setTextfield();
-			
 	}
 	
 	private void setTextfield()

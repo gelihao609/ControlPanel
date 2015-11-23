@@ -13,12 +13,7 @@ public abstract class Element extends Observable {
 	public Element(){
 		_name="untitled";
 	}
-    /**
-     * @param name
-     */
-    public Element(String name) {
-    	this._name = name;
-    }
+
     
     public Element(String name, Element parent, List<Task> children, List<Resource> resources) {
     	this._name = name;
@@ -37,6 +32,18 @@ public abstract class Element extends Observable {
 		this._name = _name;
 	}
 
+	public Element(String name) {
+    	this._name = name;
+    	this._id = this.hashCode();
+	}
+	public Element(String name, int duration, Element parent) {
+    	this._name = name;
+    	this._id = this.hashCode();
+        _duration = duration;
+        _parent = parent;
+        //This happens when adding a parent
+        _children = new ArrayList<Task>();
+        }
 	/**
      * 
      */
@@ -52,6 +59,11 @@ public abstract class Element extends Observable {
 	public void setName(String name) {
 		this._name = name;
 	}
+	
+	public ArrayList<Task> getChildren()
+	{
+		return _children!=null?(ArrayList<Task>) _children:null;
+	}
 
 	/**
      * 
@@ -62,13 +74,9 @@ public abstract class Element extends Observable {
     protected Date _startDate;
     protected Date _endDate;
     protected double _percentageCompleted;
-    
-
     protected List<Task> _children;
     protected Element _parent;
-
-
-
-
-
+	protected void addChild(Task task) {
+		_children.add(task);
+	}
 }

@@ -2,7 +2,9 @@ package Controller;
 
 import java.util.*;
 
+import Entity.Project;
 import Entity.ResourcePool;
+import Entity.Task;
 import Entity.TaskPool;
 import boundary.Oracle;
 
@@ -14,16 +16,34 @@ public class TaskControl implements Controller{
     /**
      * Default constructor
      */
-    public TaskControl() {
+    public TaskControl(Project p) {
+    	setProject(p);
+    	taskpool=p.getTaskPool();
+    	resourcePool=p.getResourcePool();
     }
-    
+    private Project project;
     private TaskPool taskpool;
     private ResourcePool resourcePool;
 
 	@Override
 	public void execute(String cmd, Oracle o) {
-		// TODO Auto-generated method stub
+		if(cmd.equals("addTask"))
+		{
+			o.ask(cmd,this);
+		}
 		
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public void addTaskToTaskPool(Task temT) {
+		taskpool.add(temT);
 	}
 
 

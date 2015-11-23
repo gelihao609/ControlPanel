@@ -58,6 +58,7 @@ public class CreateProjectWindow implements Oracle{
 		frame = new JFrame("Create...");
 		frame.setBounds(450, 300, 269, 235);
 		frame.setVisible(true);
+		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		

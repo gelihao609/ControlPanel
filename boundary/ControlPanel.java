@@ -11,6 +11,7 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import Controller.Controller;
 import Controller.ProjectControl;
+import Controller.TaskControl;
 import Entity.Project;
 
 /**
@@ -44,6 +45,7 @@ public class ControlPanel implements Oracle {
 	private void initialize(Project project,ProjectControl pc) {
 		//define window
 		_mainWindow = new JFrame();
+		_mainWindow.setResizable(false);
 		_mainWindow.setTitle("Control Panel");
 		_mainWindow.setBounds(100, 100, 900, 600);
 		_mainWindow.setVisible(true);
@@ -68,7 +70,7 @@ public class ControlPanel implements Oracle {
 		centerPanel.setLayout(null);
 		JScrollPane centerTaskSPane = new JScrollPane();
 		centerPanel.add(centerTaskSPane);
-		_taskView = new TaskView(project.getTaskPool());
+		_taskView = new TaskView(project);
 		centerTaskSPane.setViewportView(_taskView);
 		//addResourceView
 		JPanel rightPanel = new JPanel();
@@ -89,11 +91,11 @@ public class ControlPanel implements Oracle {
 		//addMenu
 		Menu projectMenu = new Menu("Project");
 		Menu taskMenu = new Menu("Task");
-		Menu viewMenu = new Menu("View");
+		Menu resourceMenu = new Menu("Resource");
 		_menuBar.add(projectMenu);
 		_menuBar.add(taskMenu);
-		_menuBar.add(viewMenu);
-		//addMenuItem
+		_menuBar.add(resourceMenu);
+		//addMenuItem in Project
 		MenuItem createProject = new MenuItem("Create");
 		MenuItem openProject = new MenuItem("Open...");
 		MenuItem saveProject = new MenuItem("Save");
@@ -104,11 +106,21 @@ public class ControlPanel implements Oracle {
 		projectMenu.add(saveProject);
 		projectMenu.add(closeProject);
 		projectMenu.add(generScdl);	
-		//---define controller, command, and oracle of a menuItem
-		//createProject
-		createProject.addController(pc, "createProject",new CreateProjectWindow());
-		//generateSchedule
-		generScdl.addController(pc, "generateSchedule",null);
+		//addMenuItem in Task
+		MenuItem addTask = new MenuItem("Add task");
+		MenuItem editTask = new MenuItem("Edit task");
+		MenuItem deleteTask = new MenuItem("Delete task");
+		taskMenu.add(addTask);
+		taskMenu.add(editTask);
+		taskMenu.add(deleteTask);
+		//define controller, command, and oracle of a menuItem
+		//Project
+		createProject.addController(pc, "createProject",new CreateProjectWindow());	//createProject
+		generScdl.addController(pc, "generateSchedule",null);//generateSchedule
+		//Task
+		TaskControl tc = new TaskControl(project);
+		addTask.addController(tc, "addTask", new AddTaskWindow());//addTask
+
 	}
 
 	public Object ask(String cmd,Controller c)
