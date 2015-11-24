@@ -45,9 +45,24 @@ public Iterator<Task> iterator() {
 	// TODO Auto-generated method stub
 	return pool.iterator();
 }
+public String[] getTaskNameToArray()
+{
+	String[] s=new String[pool.size()];
+	for(int i=0;i<pool.size();i++)
+	{
+		s[i]=pool.get(i).getName();
+	}
+	return s;
+}
 //Head is main Task, which is Project
 public Project getHead()
 {
 	return head;
 }
+
+public Task get(int index) {
+	
+	return pool.get(index);
+}
+
 }

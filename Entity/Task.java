@@ -49,6 +49,13 @@ public class Task extends Element {
 		super(name,Integer.parseInt(duration),parent);
 		parent.addChild(this);
 		_description=description;
+		_predecessors = new ArrayList<Task>();
+		_resources = new ArrayList<Resource>();
+	}
+
+	@Override
+	public String toString() {
+		return _name;
 	}
 
 	public void unassignResource()

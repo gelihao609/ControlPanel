@@ -7,16 +7,22 @@ import javax.swing.JFrame;
 import Controller.Controller;
 import Controller.TaskControl;
 import Entity.Task;
+import Entity.TaskPool;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListDataListener;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.AbstractListModel;
 
 public class AddTaskWindow implements Oracle {
 	
@@ -58,7 +64,7 @@ public class AddTaskWindow implements Oracle {
 		frame = new JFrame("Add a task");
 		frame.setVisible(true);
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 413, 294);
+		frame.setBounds(400, 200, 413, 294);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -117,8 +123,10 @@ public class AddTaskWindow implements Oracle {
 		predSPane.setBounds(227, 29, 141, 75);
 		frame.getContentPane().add(predSPane);
 		
-		JList<String> predlist = new JList<String>();
+		JList<Task> predlist = new JList<Task>();
 		predSPane.setViewportView(predlist);
+		predlist.setModel(new ListTask(((TaskControl) c).getProject().getTaskPool()) {
+		});
 		
 		JScrollPane resourceSPn = new JScrollPane();
 		resourceSPn.setBounds(227, 120, 141, 75);
@@ -131,6 +139,7 @@ public class AddTaskWindow implements Oracle {
 			public void actionPerformed(ActionEvent e) {
 				Task temT = collect();
 				((TaskControl) c).addTaskToTaskPool(temT);
+				frame.dispose();
 			}
 			private Task collect() {
 				String name = taskNameTF.getText();
@@ -139,6 +148,7 @@ public class AddTaskWindow implements Oracle {
 				// TODO: finish IList showing tasks and resources
 			return new Task(name,duration,description,((TaskControl) c).getProject());
 			}
+			
 		});
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -153,5 +163,33 @@ public class AddTaskWindow implements Oracle {
 	public Object ask(String cmd, Controller control) {
 			initialize(control);
 		return null;
+	}
+	
+	private class ListTask implements ListModel<Task> {
+		TaskPool values;
+		public ListTask(TaskPool ts){
+				values=ts;
+			}
+		@Override
+		public Task getElementAt(int index) {
+			return values.get(index);
+		}
+		@Override
+		public int getSize() {
+			return values.size();
+		}
+
+		@Override
+		public void addListDataListener(ListDataListener l) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void removeListDataListener(ListDataListener l) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }

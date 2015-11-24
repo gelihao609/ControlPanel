@@ -13,10 +13,7 @@ public ResourcePool()
 public ResourcePool(List<Resource> rs) {
 	resources = rs;
 }
-public void addResource(Resource resource)
-{
-	
-}
+
 public void setProperties(Object result)
 {
 	
@@ -42,6 +39,16 @@ public void removeTaskReference(Resource res, Element t){
 }
 public void add(Resource r) {
 	resources.add(r);
+	setChanged();
+	notifyObservers(this);
+}
+
+public int size() {
+	return resources.size();
+	
+}
+public Resource get(int i) {
+	return resources.get(i);
 }
 
 }

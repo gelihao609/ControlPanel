@@ -8,7 +8,9 @@ public class Schedule extends Observable{
 	public Schedule(TaskPool p){
 		pool=p;
 	}
-
+	public TaskPool getTaskPool(){
+		return pool;
+	}
 	public Schedule() {
 		// TODO Auto-generated constructor stub
 	}

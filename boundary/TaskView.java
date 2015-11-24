@@ -14,30 +14,22 @@ import Entity.TaskPool;
  * 
  */
 public class TaskView extends JTree implements View {
-
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-
 	/**
      * Default constructor
      */
     public TaskView(Project p) 
     {
-    	init(p);
-    	pool.addObserver(this);
+    	initialize(p);
     }
-    
-	public void init(Project p)
+	public void initialize(Project p)
     {
     	pool = p.getTaskPool();
     	setModel(new DefaultTreeModel(
     			new DefaultMutableTreeNode("Main") {
-					/**
-					 * 
-					 */
 					{
 						traverse(this,p);
     				}
@@ -53,31 +45,19 @@ public class TaskView extends JTree implements View {
 							parent.add(newSon);
 							traverse(newSon,t.getChildren().get(i));
 						}
-					}
-					
+					}					
 					private static final long serialVersionUID = 1L;
-
     			}
     		));
+    	pool.addObserver(this);
     }
-    
-
-
-
-
     /**
      * 
      */
     private TaskPool pool;
-
-
 	@Override
 	public void update(Observable o, Object arg) {			
-		init((Project)arg);
+		initialize((Project)arg);
 		//System.out.println("enter Taskview update");
 	}
-
-
-
-
 }

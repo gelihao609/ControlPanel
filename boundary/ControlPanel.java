@@ -11,6 +11,8 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import Controller.Controller;
 import Controller.ProjectControl;
+import Controller.ResourceControl;
+import Controller.ScheduleControl;
 import Controller.TaskControl;
 import Entity.Project;
 
@@ -92,6 +94,7 @@ public class ControlPanel implements Oracle {
 		Menu projectMenu = new Menu("Project");
 		Menu taskMenu = new Menu("Task");
 		Menu resourceMenu = new Menu("Resource");
+		Menu viewMenu = new Menu("View");
 		_menuBar.add(projectMenu);
 		_menuBar.add(taskMenu);
 		_menuBar.add(resourceMenu);
@@ -113,14 +116,28 @@ public class ControlPanel implements Oracle {
 		taskMenu.add(addTask);
 		taskMenu.add(editTask);
 		taskMenu.add(deleteTask);
+		//addMenuItem in Resource
+		MenuItem addResource = new MenuItem("Add resource");
+		MenuItem editResource = new MenuItem("Edit resource");
+		resourceMenu.add(addResource);
+		resourceMenu.add(editResource);
+		//addMenuItem in View
+		MenuItem viewTask = new MenuItem("view task");
+		MenuItem viewResource = new MenuItem("view resource");
+		viewMenu.add(viewTask);
+		viewMenu.add(viewResource);
 		//define controller, command, and oracle of a menuItem
 		//Project
 		createProject.addController(pc, "createProject",new CreateProjectWindow());	//createProject
-		generScdl.addController(pc, "generateSchedule",null);//generateSchedule
+		//Schedule
+		ScheduleControl sc = new ScheduleControl(project.getSchedule());
+		generScdl.addController(sc, "generateSchedule",null);//generateSchedule
 		//Task
 		TaskControl tc = new TaskControl(project);
 		addTask.addController(tc, "addTask", new AddTaskWindow());//addTask
-
+		//Resource
+		ResourceControl rc = new ResourceControl(project);
+		addResource.addController(rc, "addResource", new AddResourceWindow());
 	}
 
 	public Object ask(String cmd,Controller c)

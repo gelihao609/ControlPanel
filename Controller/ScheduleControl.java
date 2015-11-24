@@ -16,12 +16,15 @@ public class ScheduleControl implements Controller{
     public ScheduleControl() {
     }
     
-    private Schedule schedule;
+    public ScheduleControl(Schedule schedule) {
+		this.schedule=schedule;
+	}
+
+	private Schedule schedule;
 
 	@Override
 	public void execute(String cmd, Oracle o) {
-		// TODO Auto-generated method stub
-		
+			
 	}
 
 }

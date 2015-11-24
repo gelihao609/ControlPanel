@@ -41,10 +41,6 @@ public class ProjectControl implements Controller{
 		{
 			o.ask(cmd,this);
 		}
-		if(cmd.equals("generateSchedule"))
-		{
-			
-		}
 	}
 	
 	public void setProjectProperties(Project p)

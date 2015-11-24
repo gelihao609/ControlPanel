@@ -2,6 +2,8 @@ package Controller;
 
 import java.util.*;
 
+import Entity.Project;
+import Entity.Resource;
 import Entity.ResourcePool;
 import boundary.Oracle;
 
@@ -16,11 +18,23 @@ public class ResourceControl implements Controller {
     public ResourceControl() {
     }
     
-    private ResourcePool pool;
+    public ResourceControl(Project project) {
+		pool = project.getResourcePool();
+	}
+
+	private ResourcePool pool;
 
 	@Override
 	public void execute(String cmd, Oracle o) {
-		// TODO Auto-generated method stub
+		if(cmd.equals("addResource"))
+		{
+			o.ask(cmd,this);
+		}
+		
+	}
+
+	public void addResourceToResourcePool(Resource temR) {
+		pool.add(temR);
 		
 	}
 

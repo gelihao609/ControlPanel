@@ -18,12 +18,18 @@ public class Resource {
 	 * @param name
 	 */
 	public Resource(String name) {
-		super();
 		this._id = this.hashCode();
 		this._name = name;
 	}
 
-    public int getId() {
+    public Resource(String name, String rate, String type) {
+    	this._id = this.hashCode();
+    	this._name = name;
+    	this._rate = rate;
+    	this._type = type;
+	}
+
+	public int getId() {
 		return _id;
 	}
 
@@ -38,10 +44,17 @@ public class Resource {
 	private int _id;
 	private String _name;
 	//-- Is these attributes necessary?
-	private String _type;
 	private Date _startDate;
 	private Date _endDate;
 	//--------------------//
+	private String _type;
 	private String _rate;
 	private List<Task> _references;
+	public String getType() {
+		return _type;
+	}
+
+	public String getCost() {
+		return _rate;
+	}
 }
