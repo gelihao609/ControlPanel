@@ -2,8 +2,6 @@ package boundary;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -131,7 +129,7 @@ public class ControlPanel implements Oracle {
 		createProject.addController(pc, "createProject",new CreateProjectWindow());	//createProject
 		//Schedule
 		ScheduleControl sc = new ScheduleControl(project.getSchedule());
-		generScdl.addController(sc, "generateSchedule",null);//generateSchedule
+		generScdl.addController(sc, "generateSchedule",null);// TODO generateSchedule
 		//Task
 		TaskControl tc = new TaskControl(project);
 		addTask.addController(tc, "addTask", new AddTaskWindow());//addTask

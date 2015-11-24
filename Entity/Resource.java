@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Resource {
 
-    /**
+	/**
      * Default constructor
      */
     public Resource() {
@@ -27,6 +27,7 @@ public class Resource {
     	this._name = name;
     	this._rate = rate;
     	this._type = type;
+    	_references = new ArrayList<Task>();
 	}
 
 	public int getId() {
@@ -56,5 +57,15 @@ public class Resource {
 
 	public String getCost() {
 		return _rate;
+	}
+	
+	public String toString()
+	{
+		return _name;
+	}
+
+	public void addReference(Task task) {
+		_references.add(task);
+		
 	}
 }

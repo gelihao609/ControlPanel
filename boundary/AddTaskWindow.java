@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 
 import Controller.Controller;
 import Controller.TaskControl;
+import Entity.Resource;
+import Entity.ResourcePool;
 import Entity.Task;
 import Entity.TaskPool;
 
@@ -20,9 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
-import javax.swing.AbstractListModel;
 
 public class AddTaskWindow implements Oracle {
 	
@@ -94,8 +94,8 @@ public class AddTaskWindow implements Oracle {
 		durationTF.setColumns(10);
 		
 		JLabel lblAssignResource = new JLabel("Assign Resource:");
-		lblAssignResource.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAssignResource.setBounds(227, 103, 99, 16);
+		lblAssignResource.setHorizontalAlignment(SwingConstants.LEFT);
+		lblAssignResource.setBounds(227, 103, 118, 16);
 		frame.getContentPane().add(lblAssignResource);
 		
 		JButton btnAdd = new JButton("Add");
@@ -132,9 +132,10 @@ public class AddTaskWindow implements Oracle {
 		resourceSPn.setBounds(227, 120, 141, 75);
 		frame.getContentPane().add(resourceSPn);
 		
-		JList<String> resourcelist = new JList<String>();
+		JList<Resource> resourcelist = new JList<Resource>();
 		resourceSPn.setViewportView(resourcelist);
-		
+		resourcelist.setModel(new ListResource(((TaskControl) c).getProject().getResourcePool()) {
+		});
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Task temT = collect();
@@ -145,8 +146,11 @@ public class AddTaskWindow implements Oracle {
 				String name = taskNameTF.getText();
 				String duration = durationTF.getText();
 				String description = DescTA.getText();
-				// TODO: finish IList showing tasks and resources
-			return new Task(name,duration,description,((TaskControl) c).getProject());
+				ArrayList<Task> pred = new ArrayList<Task>(predlist.getSelectedValuesList());
+				// TODO validate predecessor
+				ArrayList<Resource> assignedResource = new ArrayList<Resource>(resourcelist.getSelectedValuesList());
+				// TODO validate resource assign
+			return new Task(name,duration,description,pred,assignedResource,((TaskControl) c).getProject());
 			}
 			
 		});
@@ -178,18 +182,23 @@ public class AddTaskWindow implements Oracle {
 		public int getSize() {
 			return values.size();
 		}
-
+		public void addListDataListener(ListDataListener l) {}
+		public void removeListDataListener(ListDataListener l) {}
+	}
+	private class ListResource implements ListModel<Resource> {
+		ResourcePool values;
+		public ListResource(ResourcePool ts){
+				values=ts;
+			}
 		@Override
-		public void addListDataListener(ListDataListener l) {
-			// TODO Auto-generated method stub
-			
+		public Resource getElementAt(int index) {
+			return values.get(index);
 		}
-
 		@Override
-		public void removeListDataListener(ListDataListener l) {
-			// TODO Auto-generated method stub
-			
+		public int getSize() {
+			return values.size();
 		}
-		
+		public void addListDataListener(ListDataListener l) {}
+		public void removeListDataListener(ListDataListener l) {}
 	}
 }

@@ -12,6 +12,5 @@ public class Schedule extends Observable{
 		return pool;
 	}
 	public Schedule() {
-		// TODO Auto-generated constructor stub
 	}
 }

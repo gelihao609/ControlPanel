@@ -7,15 +7,12 @@ import javax.swing.JFrame;
 import Controller.Controller;
 import Controller.ResourceControl;
 import Entity.Resource;
-import Entity.Task;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
-import java.time.Duration;
 import java.awt.event.ActionEvent;
 
 public class AddResourceWindow implements Oracle {

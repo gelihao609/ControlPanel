@@ -42,7 +42,6 @@ public int size()
 	return pool.size();
 }
 public Iterator<Task> iterator() {
-	// TODO Auto-generated method stub
 	return pool.iterator();
 }
 public String[] getTaskNameToArray()
