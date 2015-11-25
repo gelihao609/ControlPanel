@@ -34,10 +34,7 @@ public class ResourceView extends JTable implements View {
     		table[i][2]=p.get(i).getCost();
     	}
 		 setModel(new DefaultTableModel(
-				 table,new String[] {"Resource","Type","Daily Cost"}));
-		// getColumnModel().getColumn(0).setPreferredWidth(15);
-		// getColumnModel().getColumn(0).setPreferredWidth(70);
-	    	
+				 table,new String[] {"Resource","Type","Daily Cost"}));	    	
     }
     
     private ResourcePool pool;

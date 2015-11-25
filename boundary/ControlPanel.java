@@ -96,6 +96,7 @@ public class ControlPanel implements Oracle {
 		_menuBar.add(projectMenu);
 		_menuBar.add(taskMenu);
 		_menuBar.add(resourceMenu);
+		_menuBar.add(viewMenu);
 		//addMenuItem in Project
 		MenuItem createProject = new MenuItem("Create");
 		MenuItem openProject = new MenuItem("Open...");
@@ -127,6 +128,7 @@ public class ControlPanel implements Oracle {
 		//define controller, command, and oracle of a menuItem
 		//Project
 		createProject.addController(pc, "createProject",new CreateProjectWindow());	//createProject
+		saveProject.addController(pc,"saveProject",null);// TODO add fileChooser
 		//Schedule
 		ScheduleControl sc = new ScheduleControl(project.getSchedule());
 		generScdl.addController(sc, "generateSchedule",null);// TODO generateSchedule

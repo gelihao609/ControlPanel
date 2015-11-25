@@ -150,9 +150,9 @@ public class AddTaskWindow implements Oracle {
 				// TODO validate predecessor
 				ArrayList<Resource> assignedResource = new ArrayList<Resource>(resourcelist.getSelectedValuesList());
 				// TODO validate resource assign
+				// TODO calculate start date and end date in terms of predecessor, duration, and assigned resource
 			return new Task(name,duration,description,pred,assignedResource,((TaskControl) c).getProject());
-			}
-			
+			}			
 		});
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
