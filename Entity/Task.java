@@ -21,7 +21,6 @@ public class Task extends Element {
 		super( name,  parent,  children, resources) ;
 		this._predecessors = predecessors;
 		this._successors = successors;
-		this._id = this.hashCode();
 	}
 
 	private void linkSelfAsSuccessor(List<Task> predecessors) {
@@ -41,8 +40,6 @@ public class Task extends Element {
 	 */
 	public Task(String name) {
 		super(name);
-		this._id = this.hashCode();
-
 	}
 
 	
@@ -90,11 +87,26 @@ public class Task extends Element {
 
 	public void unassignResource()
 	{
-	
 	}
     
     private String _description;
     private List<Task> _successors;
     private List<Task> _predecessors;
     private List<Resource> _resources;
+    
+	public String getDescr() {
+		return _description;
+	}
+
+	public ArrayList<Task> getPredecessor() {
+		return (ArrayList<Task>) _predecessors;
+	}
+
+	public ArrayList<Resource> getResource() {
+		return (ArrayList<Resource>) _resources;
+	}
+
+
+	
+
 }

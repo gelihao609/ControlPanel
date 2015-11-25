@@ -1,8 +1,15 @@
 package Entity;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+import boundary.LoaderGateway;
 
 /**
  * 
@@ -17,13 +24,12 @@ public class Project extends Element {
 	 */
 	public Project() {
 		super("untitled");
-    	this._id = this.hashCode();
 		_author="untitled";
 		_company="untitled";
-		_startDate=new Date();
 		_resourcePool = new ResourcePool();
 		_taskPool = new TaskPool(this);
 		_schedule = new Schedule(_taskPool);
+		_XMLloader = new LoaderGateway();
 	}
 
 
@@ -49,13 +55,11 @@ public class Project extends Element {
 		super(name);
 		_author="untitled";
 		_company="untitled";
-		_startDate=new Date();
 	}
 	public Project(String name,String author, String com, Date start) {
-		super(name);
+		super(name,start);
 		_author=author;
 		_company=com;
-		_startDate=start;
 	}
 
 	public TaskPool getTaskPool() {
@@ -82,10 +86,8 @@ public class Project extends Element {
 		return dateFormat.format(_startDate);
 	}
 
-
-
 	public String getProjectName() {
-		return super._name;
+		return _name;
 	}
 
 
@@ -99,14 +101,6 @@ public class Project extends Element {
 		 this.notifyObservers();
 	}
 
-
-
-	public Date getStartDate() {
-		return _startDate;
-	}
-
-
-
 	public String getAuthorName() {
 		return _author;
 	}
@@ -114,13 +108,19 @@ public class Project extends Element {
 	public Schedule getSchedule(){
 		return _schedule;
 	}
-	
+	public void save() throws Exception
+	{
+		_XMLloader.createXML(this);
+	}
+	public void load(String filename) throws SAXException, IOException, ParserConfigurationException
+	{
+		 _XMLloader.readXML(this,filename);
+	}
     private ResourcePool _resourcePool;
     private TaskPool _taskPool;
-    private ILoader _XMLloader;
+    private LoaderGateway _XMLloader;
     private String _author;
     private String _company;
-    private Date _startDate;
     private Schedule _schedule;
 	
 }

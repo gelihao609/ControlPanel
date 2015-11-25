@@ -3,6 +3,7 @@ package Controller;
 import java.util.*;
 
 import Entity.Project;
+import boundary.LoaderGateway;
 import boundary.Oracle;
 
 /**
@@ -40,6 +41,15 @@ public class ProjectControl implements Controller{
 		if(cmd.equals("openProject"))
 		{
 			o.ask(cmd,this);
+		}
+		if(cmd.equals("saveProject"))
+		{
+			try {
+				project.save();
+			} catch (Exception e) {
+				System.out.println("Error in save.");
+				e.printStackTrace();
+			}
 		}
 	}
 	

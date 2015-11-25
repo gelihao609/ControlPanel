@@ -36,7 +36,9 @@ public abstract class Element extends Observable {
     	this._name = name;
     	this._id = this.hashCode();
     	this._children = new ArrayList<Task>();
+    	this._startDate = new Date();
 	}
+
 	public Element(String name, int duration, Element parent) {
     	this._name = name;
     	this._id = this.hashCode();
@@ -45,6 +47,15 @@ public abstract class Element extends Observable {
         //This happens when adding a parent
         _children = new ArrayList<Task>();
         }
+	
+	public Element(String name, Date start) {
+    	this._name = name;
+    	this._id = this.hashCode();
+    	this._children = new ArrayList<Task>();
+    	this._startDate = start;
+	}
+
+
 	/**
      * 
      */
@@ -52,7 +63,7 @@ public abstract class Element extends Observable {
     public int getId() {
 		return _id;
 	}
-
+ 
 	public String getName() {
 		return _name;
 	}
@@ -65,7 +76,12 @@ public abstract class Element extends Observable {
 	{
 		return _children!=null?(ArrayList<Task>) _children:null;
 	}
-
+	public Element getParent() {
+		return _parent;
+	}
+	public String getDuration() {
+		return Integer.toString(_duration);
+	}
 	/**
      * 
      */
@@ -79,5 +95,14 @@ public abstract class Element extends Observable {
     protected Element _parent;
 	protected void addChild(Task task) {
 		_children.add(task);
+	}
+	public Date getStartDate() {
+		return _startDate;
+	}
+	public void setDuration(int time){
+		_duration = time;
+	}
+	public void setID(String id){
+		_id = Integer.parseInt(id);
 	}
 }
