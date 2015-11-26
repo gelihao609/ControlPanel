@@ -63,5 +63,10 @@ public Task get(int index) {
 	
 	return pool.get(index);
 }
+public void clear() {
+	pool.clear();
+	setChanged();
+	notifyObservers(head);
+}
 
 }

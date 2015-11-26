@@ -50,5 +50,10 @@ public int size() {
 public Resource get(int i) {
 	return resources.get(i);
 }
+public void clear() {
+	resources.clear();
+	setChanged();
+	notifyObservers(this);
+}
 
 }

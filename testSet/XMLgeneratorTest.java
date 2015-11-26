@@ -11,7 +11,7 @@ public class XMLgeneratorTest {
 		try {
 			loader.createXML(p);
 			System.out.println("XML generated");
-			Project pp = loader.readXML("projectWithPredec");
+			//Project pp = loader.readXML("projectWithPredec");
 		} catch (Exception e) {
 			System.out.println("XML generate Error");
 			e.printStackTrace();

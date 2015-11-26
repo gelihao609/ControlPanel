@@ -30,6 +30,14 @@ public class Resource {
     	_references = new ArrayList<Task>();
 	}
 
+	public Resource(String name, String type, String rate, String id) {
+    	this._id = Integer.parseInt(id);
+    	this._name = name;
+    	this._rate = rate;
+    	this._type = type;
+    	_references = new ArrayList<Task>();
+	}
+
 	public int getId() {
 		return _id;
 	}
@@ -68,4 +76,5 @@ public class Resource {
 		_references.add(task);
 		
 	}
+
 }

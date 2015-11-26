@@ -1,14 +1,13 @@
 package boundary;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,28 +29,6 @@ import Entity.*;
 /**Gateway used to load XML into objects and parse object into XML
  * 
  * 
- */
-/*
- * Project XML:
- * <Project>
- * 	<ID><\ID>
- * 	<Name><\Name>
- * <predecessors><\predecessors>
- * 	<TaskID><\TaskID>
- * <successors><\successors>
- * 	<TaskID><\TaskID>
- * <children><\children>
- * 	<TaskID><\TaskID>
- * <parent><\parent>
- * 	<TaskID><\TaskID>
- * 
- * <Task>
- * 	<ID><\ID>
- * 	<Name><\Name>
- * 	<assignedResource>
- * <\Task>
- * <Resource>
- * <\Project>
  */
 public class LoaderGateway implements ILoader {
 
@@ -154,7 +131,7 @@ public class LoaderGateway implements ILoader {
         	elmentRsc.setAttributeNode(id);
         	//Attribute Name
         	Attr name = document.createAttribute("Name");
-        	id.setValue(resource.getName());
+        	name.setValue(resource.getName());
         	elmentRsc.setAttributeNode(name);
         	//Attribute Type
         	Attr type = document.createAttribute("Type");
@@ -162,7 +139,7 @@ public class LoaderGateway implements ILoader {
         	elmentRsc.setAttributeNode(type);
         	//Attribute rate
         	Attr rate = document.createAttribute("Rate");
-        	rate.setValue(resource.getType());
+        	rate.setValue(resource.getCost());
         	elmentRsc.setAttributeNode(rate);
         	elementProj.appendChild(elmentRsc);
     	}
@@ -171,13 +148,15 @@ public class LoaderGateway implements ILoader {
     	Transformer transformer = transformerFactory.newTransformer();
     	DOMSource source = new DOMSource(document);
     	
-    	StreamResult streamResult = new StreamResult(new File(project.getName()+".ProjectML"));
+    	StreamResult streamResult = new StreamResult(makeFile(project));
     	transformer.transform(source,streamResult);
     }
     
-   public void readXML(Project project, String filename) throws SAXException, IOException, ParserConfigurationException
+
+
+public void readXML(Project project, File fileName) throws SAXException, IOException, ParserConfigurationException, ParseException
    {
-	   File xmlfile = new File(filename+".ProjectML");
+	   File xmlfile = fileName;
 	   DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 	   DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 	   Document document = documentBuilder.parse(xmlfile);
@@ -198,7 +177,9 @@ public class LoaderGateway implements ILoader {
 		   project.setID(id);
 	   }
 	   else System.out.println("load project error");
-	   NodeList taskList = document.getElementsByTagName("Task"); 
+	   //load all tasks
+	   NodeList taskList = document.getElementsByTagName("Task");
+	   HashMap<Integer,Task> taskContainer = new HashMap<Integer,Task>();
 	   for(int i=0;i<taskList.getLength();i++)
 	   {
 		   Node taskNode = taskList.item(i);		   
@@ -208,53 +189,105 @@ public class LoaderGateway implements ILoader {
 			   String name = task.getAttribute("Name");
 			   String duration = task.getAttribute("Duration");
 			   String description = task.getAttribute("Description");
-			   // TODO set task parent value 
-			   //get predecessor
-			   NodeList predNodeList = task.getChildNodes();
-			   for(int i1=0;i1<predNodeList.getLength();i1++)
-			   {
-				   Node predNode = predNodeList.item(i);		   
-				   if(predNode.getNodeType()==Node.ELEMENT_NODE)
-				   {
-					   Element pred = (Element) predNode;
-				   }
-			   }
+			   String id = task.getAttribute("ID");
+			   taskContainer.put(Integer.parseInt(id),new Task(name,duration,description,project,id));
 			}
-		   }
-	   //add attributes
-	   
-	   List<Task> taskPoolSet = new ArrayList<Task>();
-	   
-	   for(int i=0;i<list.getLength();i++)
+		}
+	   //load all resources
+	   NodeList resourceList = document.getElementsByTagName("Resource");
+	   HashMap<Integer,Resource> resourceContainer = new HashMap<Integer,Resource>();
+	   for(int i=0;i<resourceList.getLength();i++)
 	   {
-		   Node node = list.item(i);
-		   if(node.getNodeType()==Node.ELEMENT_NODE)
+		   Node resNode = resourceList.item(i);		   
+		   if(resNode.getNodeType()==Node.ELEMENT_NODE)
 		   {
-			   Element element = (Element) node;
-			   NodeList taskPoolList = element.getElementsByTagName("TaskPool");
-			   Node taskPool = taskPoolList.item(0);
-			   if(taskPool.getNodeType()==Node.ELEMENT_NODE)
-			   {
-				   Element taskPoolElement = (Element) taskPool;
-				   NodeList taskSet = taskPoolElement.getElementsByTagName("Task");
-				   for(int iii=0;iii<taskSet.getLength();iii++)
+			   Element res = (Element) resNode;
+			   String name = res.getAttribute("Name");
+			   String type = res.getAttribute("Type");
+			   String rate = res.getAttribute("Rate");
+			   String id = res.getAttribute("ID");
+			   Resource newRes = new Resource(name,type,rate,id);
+			   resourceContainer.put(Integer.parseInt(id),newRes);
+			   project.addResource(newRes);
+			}
+		}
+
+	   //set parent,predecessor and assigned resource pointers
+	   for(int i=0;i<taskList.getLength();i++)
+	   {
+		   setParentPredAssignedRsc(taskList.item(i),taskContainer,resourceContainer,project);
+	   }	   
+   }
+
+private void setParentPredAssignedRsc(Node taskNode, HashMap<Integer, Task> taskContainer, HashMap<Integer, Resource> resourceContainer, Project project) {
+		
+	   if(taskNode.getNodeType()==Node.ELEMENT_NODE)
+	   {
+		   Element task = (Element) taskNode;
+		   Task current = taskContainer.get(Integer.parseInt(task.getAttribute("ID")));
+		   NodeList parentNodeList = task.getElementsByTagName("Parent");
+		   Node parentNode = parentNodeList.item(0);
+	   if(parentNode.getNodeType()==Node.ELEMENT_NODE)
+	   {
+		   Element parentElement = (Element) parentNode;
+		   String parentId = parentElement.getAttribute("Ref");
+		   //if parent is not project, then add, and remove child pointer from project
+		   if(taskContainer.containsKey(Integer.parseInt(parentId)))
 				   {
-					   if(taskSet.item(iii).getNodeType()==Node.ELEMENT_NODE)
-					   {
-						   Element taskElement = (Element) taskSet.item(iii);
-
-						   String name = taskElement.getAttribute("Name");
-						   int id = Integer.parseInt(taskElement.getAttribute("ID"));
-						   taskPoolSet.add(new Task(id,name));
-					   }
+			   			current.setParent(taskContainer.get(Integer.parseInt(parentId)));
+			   			project.removeChild(current);
+				   }  
+	   }
+	   //get predecessor
+	   NodeList predNodeList = task.getElementsByTagName("Predecessor");
+	   for(int i1=0;i1<predNodeList.getLength();i1++)
+	   {
+		   Node predNode = predNodeList.item(i1);		   
+		   if(predNode.getNodeType()==Node.ELEMENT_NODE)
+		   {
+			   Element pred = (Element) predNode;
+			   String predId = pred.getAttribute("Ref");
+			   if(taskContainer.containsKey(Integer.parseInt(predId)))
+			   {
+				   if(current==null)
+				   {
+					   System.out.println("Error in loader.");
 				   }
-
+				   current.addPredecessor(taskContainer.get(Integer.parseInt(predId)));
+			   }
+		   }
+		   
+	   }
+	   //get assigned resource
+	   NodeList resNodeList = task.getElementsByTagName("AssignedRsc");
+	   for(int i2=0;i2<resNodeList.getLength();i2++)
+	   {
+		   Node resNode = resNodeList.item(i2);		   
+		   if(resNode.getNodeType()==Node.ELEMENT_NODE)
+		   {
+			   Element res = (Element) resNode;
+			   String resId = res.getAttribute("Ref");
+			   if(resourceContainer.containsKey(Integer.parseInt(resId)))
+			   {
+				   current.addAssignedResource((resourceContainer.get(Integer.parseInt(resId))));
 			   }
 		   }
 	   }
-   }
-
+	    project.addTasks(current);
+	   }
+	
 }
+
+private File makeFile(Project project) {
+	   DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+	   String timeStamp = dateFormat.format(new Date());
+		File path = new File(System.getProperty("user.dir")+"\\PCP Output\\"
+	   +timeStamp+"_"+project.getName()+".ProjectML");
+		File parentDir = path.getParentFile();
+		if(!parentDir.exists()) parentDir.mkdirs();
+		return path;
+	}
+
 private Date parseStringToDate(String time) throws ParseException {
 	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	return sdf.parse(time);

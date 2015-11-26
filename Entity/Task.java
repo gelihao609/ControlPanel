@@ -2,12 +2,7 @@ package Entity;
 
 import java.util.*;
 
-/**
- * 
- */
 public class Task extends Element {
-
-
     /**
      * @param name
      * @param parent
@@ -34,15 +29,9 @@ public class Task extends Element {
 		_successors.add(task);		
 	}
 
-	/**
-	 * @param _name
-	 * @param _id
-	 */
 	public Task(String name) {
 		super(name);
 	}
-
-	
 
 	/**
 	 * @param _id
@@ -52,25 +41,24 @@ public class Task extends Element {
 		super(id, name);
 	}
 	
-	public Task(String name, String duration, String description, Element parent) {		
-		super(name,Integer.parseInt(duration),parent);
-		parent.addChild(this);
+	//for load usage
+	public Task(String name, String duration, String description, Element parent,String id) {		
+		super(name,Integer.parseInt(duration),parent,Integer.parseInt(id));
 		_description=description;
 		_predecessors = new ArrayList<Task>();
+		_successors = new ArrayList<Task>();
 		_resources = new ArrayList<Resource>();
 	}
 
 	public Task(String name, String duration, String description, ArrayList<Task> pred,
-			ArrayList<Resource> assignedResource, Project project) {
-		super(name,Integer.parseInt(duration),project);
-		project.addChild(this);
+			ArrayList<Resource> assignedResource, Project parent) {
+		super(name,Integer.parseInt(duration),parent);
 		_description=description;
 		_predecessors = pred;
 		_successors = new ArrayList<Task>();
 		linkSelfAsSuccessor(pred);
 		_resources = assignedResource;
-		linkTaskAsReferenceForResource(assignedResource);
-		
+		linkTaskAsReferenceForResource(assignedResource);		
 	}
 
 	private void linkTaskAsReferenceForResource(ArrayList<Resource> assignedResource) {
@@ -89,11 +77,6 @@ public class Task extends Element {
 	{
 	}
     
-    private String _description;
-    private List<Task> _successors;
-    private List<Task> _predecessors;
-    private List<Resource> _resources;
-    
 	public String getDescr() {
 		return _description;
 	}
@@ -105,8 +88,22 @@ public class Task extends Element {
 	public ArrayList<Resource> getResource() {
 		return (ArrayList<Resource>) _resources;
 	}
-
-
 	
+	 public void addPredecessor(Task t)
+	 {
+		 _predecessors.add(t);
+		 t.addSucessor(this);
+	 }
+	 
+	 public void addAssignedResource(Resource r)
+	 {
+		 _resources.add(r);
+		 r.addReference(this);
+	 }
+	    
+	    private String _description;
+	    private List<Task> _successors;
+	    private List<Task> _predecessors;
+	    private List<Resource> _resources;
 
 }

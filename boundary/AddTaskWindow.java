@@ -144,7 +144,7 @@ public class AddTaskWindow implements Oracle {
 			}
 			private Task collect() {
 				String name = taskNameTF.getText();
-				String duration = durationTF.getText();
+				String duration = durationTF.getText();// TODO validate duration to be only numbers
 				String description = DescTA.getText();
 				ArrayList<Task> pred = new ArrayList<Task>(predlist.getSelectedValuesList());
 				// TODO validate predecessor
