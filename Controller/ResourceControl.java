@@ -30,6 +30,10 @@ public class ResourceControl implements Controller {
 		{
 			o.ask(cmd,this);
 		}
+		else if(cmd.equals("editResource"))
+		{
+			o.ask(cmd,this);
+		}
 		
 	}
 
