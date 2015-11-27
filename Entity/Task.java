@@ -3,6 +3,22 @@ package Entity;
 import java.util.*;
 
 public class Task extends Element {
+	 
+    private String _description;
+    private List<Task> _successors;
+    private List<Task> _predecessors;
+    private List<Resource> _resources;
+    /* do not allow following relations:
+     * O 
+     * |\
+     * | \
+     * |  O
+     * \  |
+     * 	\ |
+     * 	 \|
+     * 	  O
+     */
+    
     /**
      * @param name
      * @param parent
@@ -89,21 +105,59 @@ public class Task extends Element {
 		return (ArrayList<Resource>) _resources;
 	}
 	
-	 public void addPredecessor(Task t)
+	public void addPredecessor(Task t)
 	 {
 		 _predecessors.add(t);
 		 t.addSucessor(this);
 	 }
 	 
-	 public void addAssignedResource(Resource r)
+	public void addAssignedResource(Resource r)
 	 {
 		 _resources.add(r);
 		 r.addReference(this);
 	 }
-	    
-	    private String _description;
-	    private List<Task> _successors;
-	    private List<Task> _predecessors;
-	    private List<Resource> _resources;
 
+	public ArrayList<long[]> getAsgndRsreNonAvlbPrid() {
+		ArrayList<long[]> slots = new ArrayList<long[]>();
+		if(_resources==null) _resources = new ArrayList<Resource>();
+		for(Resource r : _resources)
+			{
+				for(Task t : r.getReferencedTasks())
+				{
+					 long[] slot = new long[2];
+					if(t.getStartDate()!=null)
+					{
+						//put start time and end time
+						slot[0]=t.getStartDate().getTime();
+						slot[1]=t.getEndDate().getTime();
+						slots.add(slot);
+					}
+				}
+			}
+			slots.sort(new Comparator<long[]>(){
+				@Override
+				public int compare(long[] before, long[] after) {
+					int result = 0;
+					if(before[0]<after[0]) result = -1;
+					else if(before[0]==after[0]) result = 0;
+					else result = 1;
+					return result;
+				}});
+			return slots;
+		}
+
+	public Date getPredLatestEndDate() {
+			long latestDate = 0;
+			for(Task t:_predecessors)
+			{
+				if(t.getEndDate().getTime()>latestDate)latestDate = t.getEndDate().getTime();
+			}
+			Date result = new Date();
+			result.setTime(latestDate);
+			return result;
+		}
+
+	public List<Task> getSuccessors() {
+			return _successors;
+		}
 }

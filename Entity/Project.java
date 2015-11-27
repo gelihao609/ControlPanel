@@ -86,6 +86,7 @@ public class Project extends Element {
 		_author="";
 		_resourcePool.clear();
 		_taskPool.clear();
+		_schedule.clear();
 		setChanged();
 		 this.notifyObservers();
 	}

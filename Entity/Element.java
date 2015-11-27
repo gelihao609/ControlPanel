@@ -32,6 +32,7 @@ public abstract class Element extends Observable {
     	this._id = this.hashCode();
     	this._children = new ArrayList<Task>();
     	this._startDate = new Date();
+    	this._duration = -1;
 	}
 
 	public Element(String name, int duration, Element parent) {
@@ -49,6 +50,7 @@ public abstract class Element extends Observable {
     	this._id = this.hashCode();
     	this._children = new ArrayList<Task>();
     	this._startDate = start;
+    	this._duration = -1;//default value, means duration not set
 	}
 	
 	public void removeChild(Task current) {
@@ -71,6 +73,22 @@ public abstract class Element extends Observable {
  
 	public String getName() {
 		return _name;
+	}
+	//set start date also set end date
+	public void setStartDate(Date d){
+		this._startDate = d;
+		Date endDate = new Date();
+		endDate.setTime(d.getTime() + _duration*Utility.MILLISECONDS_PER_DAY);
+		setEndDate(endDate); 
+	}
+
+	void setEndDate(Date d) {
+		this._endDate=d;
+		//is duration is not set, especially for project
+		if(this._duration==-1)
+		{
+			_duration = (int) Math.ceil(((_endDate.getTime()-_startDate.getTime())/Utility.MILLISECONDS_PER_DAY));
+		}
 	}
 
 	public void setName(String name) {
@@ -102,7 +120,9 @@ public abstract class Element extends Observable {
 	public Date getStartDate() {
 		return _startDate;
 	}
-	
+	public Date getEndDate() {
+		return _endDate;
+	}
 	public void setDuration(int time){
 		_duration = time;
 	}
@@ -115,7 +135,9 @@ public abstract class Element extends Observable {
 		_id= new Project().hashCode();
 		_name = "";
 		_startDate = new Date();
+		_endDate = null;
 		_children.clear();
+		_duration = -1;
 	}
 	
     protected int _id;
@@ -126,4 +148,6 @@ public abstract class Element extends Observable {
     protected double _percentageCompleted;
     protected List<Task> _children;
     protected Element _parent;
+    
+
 }

@@ -37,7 +37,7 @@ public class AddResourceWindow implements Oracle {
 		});
 	}
 	public AddResourceWindow(){}
-	public AddResourceWindow(Controller c) {
+	private AddResourceWindow(Controller c) {
 		initialize(c);
 	}
 	
