@@ -26,45 +26,18 @@ public class ScheduleView extends JTable implements View {
     
     private void init(Schedule sc){
     	schedule = sc;
+    	String[][] model = sc.getScheduleTable();
+	 	if(model==null) model = new String[][]{{"N/A","N/A"}};
 		 setModel(new DefaultTableModel(
-			new String[][] {
-				{"0", "Task1"},
-				{"1", "Task2"},
-				{"2", "Taks2,Task3"}},new String[] {"Day", "Tasks"}));
-		 
-		 	TaskPool tasks = sc.getTaskPool();
-		 	Project mainTask = tasks.getHead();
-		 	int depth=findDepth(mainTask);
-		 	String[][] table = new String[depth][2];
-		 	for(int i=0;i<mainTask.getChildren().size();i++)
-		 	{
-		 		if(i==0)//first task is 0 
-		 			{
-		 				table[i][0]="0";
-		 				//table[][]
-		 			}
-		 		else
-		 		{
-		 			
-		 		}
-		 	}
+			model,new String[] {"Date", "Tasks"}));
     }
-
-
-    private int findDepth(Element mainTask) {
-			
-		return 0;
-	}
-
-
 	/**
      * 
      */
     private Schedule schedule;
-
-
+    
 	@Override
 	public void update(Observable o, Object arg) {
-		init((Schedule)arg);
+		if(o.getClass()==Schedule.class)init((Schedule)o);//notified by Schedule
 	}
 }

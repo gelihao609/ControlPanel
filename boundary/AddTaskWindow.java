@@ -122,7 +122,7 @@ public class AddTaskWindow implements Oracle {
 		JScrollPane predSPane = new JScrollPane();
 		predSPane.setBounds(227, 29, 141, 75);
 		frame.getContentPane().add(predSPane);
-		
+		// TODO add an button for predecessor list to de-select 
 		JList<Task> predlist = new JList<Task>();
 		predSPane.setViewportView(predlist);
 		predlist.setModel(new ListTask(((TaskControl) c).getProject().getTaskPool()) {
@@ -131,7 +131,7 @@ public class AddTaskWindow implements Oracle {
 		JScrollPane resourceSPn = new JScrollPane();
 		resourceSPn.setBounds(227, 120, 141, 75);
 		frame.getContentPane().add(resourceSPn);
-		
+		// TODO add an button for resource list to de-select 
 		JList<Resource> resourcelist = new JList<Resource>();
 		resourceSPn.setViewportView(resourcelist);
 		resourcelist.setModel(new ListResource(((TaskControl) c).getProject().getResourcePool()) {
@@ -144,7 +144,7 @@ public class AddTaskWindow implements Oracle {
 			}
 			private Task collect() {
 				String name = taskNameTF.getText();
-				String duration = durationTF.getText();
+				String duration = durationTF.getText();// TODO validate duration to be only numbers
 				String description = DescTA.getText();
 				ArrayList<Task> pred = new ArrayList<Task>(predlist.getSelectedValuesList());
 				// TODO validate predecessor
