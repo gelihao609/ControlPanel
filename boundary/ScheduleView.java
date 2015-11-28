@@ -31,7 +31,7 @@ public class ScheduleView extends JTable implements View {
 				{"0", "Task1"},
 				{"1", "Task2"},
 				{"2", "Taks2,Task3"}},new String[] {"Day", "Tasks"}));
-		 
+		 	 
 		 	TaskPool tasks = sc.getTaskPool();
 		 	Project mainTask = tasks.getHead();
 		 	int depth=findDepth(mainTask);
