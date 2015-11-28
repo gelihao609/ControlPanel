@@ -92,11 +92,11 @@ public class ControlPanel implements Oracle {
 		Menu projectMenu = new Menu("Project");
 		Menu taskMenu = new Menu("Task");
 		Menu resourceMenu = new Menu("Resource");
-		Menu viewMenu = new Menu("View");
+//		Menu viewMenu = new Menu("View");
 		_menuBar.add(projectMenu);
 		_menuBar.add(taskMenu);
 		_menuBar.add(resourceMenu);
-		_menuBar.add(viewMenu);
+//		_menuBar.add(viewMenu);
 		//addMenuItem in Project
 		MenuItem createProject = new MenuItem("Create");
 		MenuItem openProject = new MenuItem("Open...");
@@ -112,19 +112,24 @@ public class ControlPanel implements Oracle {
 		MenuItem addTask = new MenuItem("Add task");
 		MenuItem editTask = new MenuItem("Edit task");
 		MenuItem deleteTask = new MenuItem("Delete task");
+		MenuItem viewTask = new MenuItem("View task");
 		taskMenu.add(addTask);
 		taskMenu.add(editTask);
+		taskMenu.add(viewTask);
 		taskMenu.add(deleteTask);
+		
 		//addMenuItem in Resource
 		MenuItem addResource = new MenuItem("Add resource");
 		MenuItem editResource = new MenuItem("Edit resource");
+		MenuItem delResource = new MenuItem("Delete resource");
 		resourceMenu.add(addResource);
 		resourceMenu.add(editResource);
+		resourceMenu.add(delResource);
 		//addMenuItem in View
-		MenuItem viewTask = new MenuItem("view task");
-		MenuItem viewResource = new MenuItem("view resource");
-		viewMenu.add(viewTask);
-		viewMenu.add(viewResource);
+//		MenuItem viewTask = new MenuItem("view task");
+//		MenuItem viewResource = new MenuItem("view resource");
+//		viewMenu.add(viewTask);
+//		viewMenu.add(viewResource);
 		//define controller, command, and oracle of a menuItem
 		//Project
 		createProject.addController(pc, "createProject",new CreateProjectWindow());
@@ -137,6 +142,7 @@ public class ControlPanel implements Oracle {
 		//Task
 		TaskControl tc = new TaskControl(project);
 		addTask.addController(tc, "addTask", new AddTaskWindow());//addTask
+		viewTask.addController(tc, "viewTask", _taskView);//addTask
 		//Resource
 		ResourceControl rc = new ResourceControl(project);
 		addResource.addController(rc, "addResource", new AddResourceWindow());

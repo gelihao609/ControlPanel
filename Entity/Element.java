@@ -83,7 +83,7 @@ public abstract class Element extends Observable {
 	}
 	
 	public Element getParent() {
-		return _parent;
+		return _parent!=null?(Element) _parent:null;
 	}
 	
 	public String getDuration() {
@@ -100,7 +100,10 @@ public abstract class Element extends Observable {
 		_children.add(task);
 	}
 	public Date getStartDate() {
-		return _startDate;
+		return _startDate!=null?(Date) _startDate:null;
+	}
+	public Date getEndDate() {
+		return _endDate!=null?(Date) _endDate:null;
 	}
 	
 	public void setDuration(int time){

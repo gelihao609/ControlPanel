@@ -82,11 +82,15 @@ public class Task extends Element {
 	}
 
 	public ArrayList<Task> getPredecessor() {
-		return (ArrayList<Task>) _predecessors;
+		return _predecessors!=null?(ArrayList<Task>) _predecessors:null;
+	}
+	
+	public ArrayList<Task> getSuccessor() {
+		return _successors!=null?(ArrayList<Task>) _successors:null;
 	}
 
 	public ArrayList<Resource> getResource() {
-		return (ArrayList<Resource>) _resources;
+		return _resources!=null?(ArrayList<Resource>) _resources:null;
 	}
 	
 	 public void addPredecessor(Task t)

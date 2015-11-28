@@ -1,11 +1,15 @@
 package boundary;
 
-import java.util.*;
+import java.util.Observable;
 
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 
+import Controller.Controller;
 import Entity.Project;
 import Entity.Task;
 import Entity.TaskPool;
@@ -13,7 +17,7 @@ import Entity.TaskPool;
 /**
  * 
  */
-public class TaskView extends JTree implements View {
+public class TaskView extends JTree implements TreeSelectionListener,View,Oracle {
     /**
 	 * 
 	 */
@@ -21,9 +25,15 @@ public class TaskView extends JTree implements View {
 	/**
      * Default constructor
      */
+	
+
     public TaskView(Project p) 
     {
     	initialize(p);
+    	this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+
+    	//Listen for when the selection changes.
+    	this.addTreeSelectionListener(this);
     }
 	public void initialize(Project p)
     {
@@ -41,7 +51,7 @@ public class TaskView extends JTree implements View {
 						if(t.getChildren()!=null)
 						for(int i=0;i<t.getChildren().size();i++)
 						{
-							DefaultMutableTreeNode newSon = new DefaultMutableTreeNode(t.getChildren().get(i).getName());
+							DefaultMutableTreeNode newSon = new DefaultMutableTreeNode(t.getChildren().get(i));
 							parent.add(newSon);
 							traverse(newSon,t.getChildren().get(i));
 						}
@@ -54,10 +64,39 @@ public class TaskView extends JTree implements View {
     /**
      * 
      */
+	
+	
     private TaskPool pool;
 	@Override
 	public void update(Observable o, Object arg) {			
 		initialize((Project)arg);
 		//System.out.println("enter Taskview update");
+	}
+	
+	private Entity.Element seltask;
+	
+	public Entity.Element getSelected()
+	{
+		return seltask;
+	}
+	public void valueChanged(TreeSelectionEvent e) {
+	    //Returns the last path element of the selection.
+	    //This method is useful only when the selection model allows a single selection.
+		
+	    DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
+
+	    if (node == null)
+	    //Nothing is selected.  
+	    return;
+
+	    Object nodeInfo = node.getUserObject();
+	    seltask= (Entity.Element) nodeInfo;
+	        
+	    
+	    //System.out.println(nodeInfo.toString() + ":  \n    ");	    
+
+	}
+	public Object ask(String cmd,Controller control){
+		return getSelected();
 	}
 }
