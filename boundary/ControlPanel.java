@@ -13,6 +13,9 @@ import Controller.ResourceControl;
 import Controller.ScheduleControl;
 import Controller.TaskControl;
 import Entity.Project;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -47,7 +50,7 @@ public class ControlPanel implements Oracle {
 		_mainWindow = new JFrame();
 		_mainWindow.setResizable(false);
 		_mainWindow.setTitle("Control Panel");
-		_mainWindow.setBounds(100, 100, 900, 600);
+		_mainWindow.setBounds(100, 100, 905, 600);
 		_mainWindow.setVisible(true);
 		_mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//define menuBar
@@ -80,14 +83,24 @@ public class ControlPanel implements Oracle {
 		JScrollPane resourceSPane = new JScrollPane(_resourceView);
 		rightPanel.add(resourceSPane);
 		//set panel dimension
-		leftPanel.setPreferredSize(new Dimension(300,500));
+		leftPanel.setPreferredSize(new Dimension(300, 500));
 		centerPanel.setPreferredSize(new Dimension(300,500));
 		rightPanel.setPreferredSize(new Dimension(300,500));
 		//set inner sPane dimension
-		leftScdllPane.setBounds(5, 5, 295, 495);
-		centerTaskSPane.setBounds(5, 5, 295, 495);
-		resourceSPane.setBounds(5, 5, 295, 495);
-		_mainWindow.pack();
+		leftScdllPane.setBounds(5, 5, 295, 480);
+		centerTaskSPane.setBounds(5, 5, 295, 480);
+		resourceSPane.setBounds(5, 5, 295, 480);
+		//scrollPane clear buttons
+		JButton btnClearScd = new JButton("UnSelect");
+		btnClearScd.setBounds(215, 485, 85, 20);
+		leftPanel.add(btnClearScd);
+		JButton btnClearTsk = new JButton("UnSelect");
+		btnClearTsk.setBounds(213, 485, 85, 20);
+		centerPanel.add(btnClearTsk);
+		JButton btnClearRsc = new JButton("UnSelect");
+		btnClearRsc.setBounds(212, 485, 85, 20);
+		rightPanel.add(btnClearRsc);	
+		
 		//addMenu
 		Menu projectMenu = new Menu("Project");
 		Menu taskMenu = new Menu("Task");
@@ -142,7 +155,21 @@ public class ControlPanel implements Oracle {
 		ResourceControl rc = new ResourceControl(project);
 		addResource.addController(rc, "addResource", new AddResourceWindow());
 		editResource.addController(rc, "editResource", _resourceView);
-		viewResource.addController(rc, "viewResource",_resourceView );
+		viewResource.addController(rc, "viewResource",_resourceView );		
+		//clear buttons actions
+		btnClearScd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					}
+				});
+		btnClearTsk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					}
+				});
+		btnClearRsc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				_resourceView.clearSelection();
+					}
+				});
 	}
 
 	public Object ask(String cmd,Controller c)

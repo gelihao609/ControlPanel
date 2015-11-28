@@ -47,7 +47,7 @@ public class ResourceView extends JTable implements Oracle,View {
 		 setModel(new DefaultTableModel(
 				 table,new String[] {"Resource","Type","Daily Cost"}));	
 		 JTable table1 = this;
-		 ListSelectionModel cellSelectionModel = table1.getSelectionModel();
+		ListSelectionModel cellSelectionModel = table1.getSelectionModel();
  	    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
  	    
  	    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
@@ -58,7 +58,8 @@ public class ResourceView extends JTable implements Oracle,View {
  	       	int selectedRow = table1.getSelectedRow();
  	       // int selectedColumn = table1.getSelectedColumn();
  	       // Object cell = table1.getValueAt(selectedRow, selectedColumn);
- 	        selected = p.get(selectedRow);
+ 	        if(selectedRow>-1)selected = p.get(selectedRow);
+ 	        else System.out.println("selection fails");
  	       // System.out.println("Selected: " + p.get(selectedRow).getClass());
 // 	       ViewAssociatedTasksWindow win = new ViewAssociatedTasksWindow(cell);
 // 	       MenuItem viewAssTasks = new MenuItem("View Associated Tasks");
@@ -80,12 +81,10 @@ public class ResourceView extends JTable implements Oracle,View {
     }
     private ResourcePool pool;
     private Resource selected;
-    
     public Resource getSelected()
     {
     	return selected;
     }
-    
 	@Override
 	public void update(Observable o, Object arg) {
 		initialize((ResourcePool)arg);
