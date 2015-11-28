@@ -51,6 +51,7 @@ public class ProjectControl implements Controller{
 		{
 			try {
 				save();
+				JOptionPane.showMessageDialog(new JFrame("Succeed"), "Your project is saved.");
 			} catch (Exception e) {
 				System.out.println("Error in save.");
 				e.printStackTrace();

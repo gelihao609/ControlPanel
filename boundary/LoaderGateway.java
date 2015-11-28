@@ -148,7 +148,7 @@ public class LoaderGateway implements ILoader {
     	Transformer transformer = transformerFactory.newTransformer();
     	DOMSource source = new DOMSource(document);
     	
-    	StreamResult streamResult = new StreamResult(makeFile(project));
+    	StreamResult streamResult = new StreamResult(Utility.makeFile(project, this));
     	transformer.transform(source,streamResult);
     }
     
@@ -278,15 +278,7 @@ private void setParentPredAssignedRsc(Node taskNode, HashMap<Integer, Task> task
 	
 }
 
-private File makeFile(Project project) {
-	   DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-	   String timeStamp = dateFormat.format(new Date());
-		File path = new File(System.getProperty("user.dir")+"\\PCP Output\\"
-	   +timeStamp+"_"+project.getName()+".ProjectML");
-		File parentDir = path.getParentFile();
-		if(!parentDir.exists()) parentDir.mkdirs();
-		return path;
-	}
+
 
 private Date parseStringToDate(String time) throws ParseException {
 	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
