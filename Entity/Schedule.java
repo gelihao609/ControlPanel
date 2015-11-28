@@ -53,8 +53,8 @@ public class Schedule extends Observable{
 				{	
 					if(t.getStartDate()!=null) System.out.println("Something is wrong in bfs");
 					else{
-						//find latest predecessor's end date + 1 as tentative start date
-						long tentativeTime=t.getPredLatestEndDate().getTime()+Utility.MILLISECONDS_PER_DAY;
+						//find latest predecessor's end date as tentative start date
+						long tentativeTime=t.getPredLatestEndDate().getTime();
 						Date tentativeStartDate = new Date();
 						tentativeStartDate.setTime(tentativeTime);
 						//find date when all assigned resources are available during current task period 
@@ -66,9 +66,7 @@ public class Schedule extends Observable{
 			//after set all successor's date of current
 		}
 		//set Project EndDate by iterating to find latest endDate
-		setProjectEndDate(tasksToSchedule);
-
-		
+		setProjectEndDate(tasksToSchedule);	
 	}
 	
 	private void setProjectEndDate(ArrayList<Task> tasksToSchedule) {
@@ -95,7 +93,8 @@ public class Schedule extends Observable{
 			if(nonAvlbSlot.get(i+1)[0]-nonAvlbSlot.get(i)[1]>=duration*Utility.MILLISECONDS_PER_DAY)
 			{
 				resultDate=new Date();
-				resultDate.setTime(nonAvlbSlot.get(i)[1]+Utility.MILLISECONDS_PER_DAY);
+				//resultDate.setTime(nonAvlbSlot.get(i)[1]+Utility.MILLISECONDS_PER_DAY);
+				resultDate.setTime(nonAvlbSlot.get(i)[1]);
 				break;
 			}
 		}
@@ -103,7 +102,9 @@ public class Schedule extends Observable{
 		if(resultDate==null) 
 		{
 			resultDate = new Date();
-			resultDate.setTime(nonAvlbSlot.get(nonAvlbSlot.size()-1)[1]+Utility.MILLISECONDS_PER_DAY);
+			//resultDate.setTime(nonAvlbSlot.get(nonAvlbSlot.size()-1)[1]+Utility.MILLISECONDS_PER_DAY);
+			resultDate.setTime(nonAvlbSlot.get(nonAvlbSlot.size()-1)[1]);
+
 		}
 		return resultDate;
 	}
@@ -129,7 +130,7 @@ public class Schedule extends Observable{
 			{
 				//for each task, if current Date is after its startDate and before its endDate then ad into row
 				if(t.getStartDate().getTime()<=startTime+i*Utility.MILLISECONDS_PER_DAY&&
-						t.getEndDate().getTime()>=startTime+i*Utility.MILLISECONDS_PER_DAY)
+						t.getEndDate().getTime()>startTime+i*Utility.MILLISECONDS_PER_DAY)
 					row[1]+=t+" ";
 			}
 			scheduleTable.add(row);
@@ -159,6 +160,10 @@ public class Schedule extends Observable{
 	}
 	public void export() throws FileNotFoundException, IOException {
 		((XLSLoader)xlsLoader).export(Utility.makeFile(pool.getHead(),xlsLoader),"schedule",table);
+		
+	}
+	public void resetTaskDates() {
+		pool.resetTaskDates();
 		
 	}
 	

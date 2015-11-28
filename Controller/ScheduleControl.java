@@ -27,6 +27,7 @@ public class ScheduleControl implements Controller{
 	@Override
 	public void execute(String cmd, Oracle o) {
 			if(cmd.equals("generateSchedule")){
+				schedule.resetTaskDates();
 				schedule.makeScheduleAsStringArray();
 			}
 			if(cmd.equals("exportSchedule"))

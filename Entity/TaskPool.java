@@ -80,6 +80,13 @@ public void sortStartDateASC(ArrayList<Task> list) {
 				}
 			});
 }
-
+public void resetTaskDates() {
+	//reset tasks start/end date null
+	for(Task t:pool)
+	{
+			t.setStartDate(null);
+			t.setEndDate(null);
+	}	
+}
 
 }

@@ -77,17 +77,22 @@ public abstract class Element extends Observable {
 	//set start date also set end date
 	public void setStartDate(Date d){
 		this._startDate = d;
+		if(d!=null){
 		Date endDate = new Date();
 		endDate.setTime(d.getTime() + _duration*Utility.MILLISECONDS_PER_DAY);
 		setEndDate(endDate); 
+		}
 	}
 
 	void setEndDate(Date d) {
 		this._endDate=d;
-		//is duration is not set, especially for project
+		if(d!=null)
+		{
+		//if duration is not set, especially for project
 		if(this._duration==-1)
 		{
 			_duration = (int) Math.ceil(((_endDate.getTime()-_startDate.getTime())/Utility.MILLISECONDS_PER_DAY));
+		}
 		}
 	}
 
