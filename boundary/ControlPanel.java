@@ -118,6 +118,7 @@ public class ControlPanel implements Oracle {
 		//addMenuItem in Resource
 		MenuItem addResource = new MenuItem("Add resource");
 		MenuItem editResource = new MenuItem("Edit resource");
+		MenuItem viewAssTasks = new MenuItem("View Associated Tasks");
 		resourceMenu.add(addResource);
 		resourceMenu.add(editResource);
 		//addMenuItem in View
@@ -140,6 +141,8 @@ public class ControlPanel implements Oracle {
 		//Resource
 		ResourceControl rc = new ResourceControl(project);
 		addResource.addController(rc, "addResource", new AddResourceWindow());
+		editResource.addController(rc, "editResource", new AddResourceWindow());
+		viewAssTasks.addController(rc, "viewAssTasks",_resourceView );
 	}
 
 	public Object ask(String cmd,Controller c)
