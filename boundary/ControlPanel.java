@@ -132,6 +132,7 @@ public class ControlPanel implements Oracle {
 		
 		ScheduleControl sc = new ScheduleControl(project);
 		generScdl.addController(sc, "generateSchedule",null);
+		expSchedule.addController(sc, "exportSchedule",null);
 		//Task
 		TaskControl tc = new TaskControl(project);
 		addTask.addController(tc, "addTask", new AddTaskWindow());//addTask

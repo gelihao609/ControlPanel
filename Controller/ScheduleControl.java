@@ -1,5 +1,6 @@
 package Controller;
 
+import java.io.IOException;
 import java.util.*;
 
 import Entity.Project;
@@ -28,6 +29,19 @@ public class ScheduleControl implements Controller{
 			if(cmd.equals("generateSchedule")){
 				schedule.makeScheduleAsStringArray();
 			}
+			if(cmd.equals("exportSchedule"))
+			{
+				export();
+			}
+	}
+
+	private void export() {
+		try {
+			schedule.export();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

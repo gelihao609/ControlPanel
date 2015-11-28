@@ -1,17 +1,23 @@
 package Entity;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Queue;
 
+import boundary.XLSLoader;
+
 public class Schedule extends Observable{
 	private TaskPool pool;
 	private String[][] table;
+	private ILoader xlsLoader;
 	
 	public Schedule(TaskPool p){
 		pool=p;
+		xlsLoader = new XLSLoader();
 	}
 	//Set Task Start/End Date and Project End Date (No consideration of childTask)
 	private void setTaskStartDate(){
@@ -150,6 +156,10 @@ public class Schedule extends Observable{
 		table = null;
 		setChanged();
 		notifyObservers();
+	}
+	public void export() throws FileNotFoundException, IOException {
+		((XLSLoader)xlsLoader).export(Utility.makeFile(pool.getHead(),xlsLoader),"schedule",table);
+		
 	}
 	
 	
