@@ -91,14 +91,14 @@ public class ControlPanel implements Oracle {
 		centerTaskSPane.setBounds(5, 5, 295, 480);
 		resourceSPane.setBounds(5, 5, 295, 480);
 		//scrollPane clear buttons
-		JButton btnClearScd = new JButton("UnSelect");
-		btnClearScd.setBounds(215, 485, 85, 20);
+		JButton btnClearScd = new JButton("Clear");
+		btnClearScd.setBounds(228, 485, 70, 20);
 		leftPanel.add(btnClearScd);
-		JButton btnClearTsk = new JButton("UnSelect");
-		btnClearTsk.setBounds(213, 485, 85, 20);
+		JButton btnClearTsk = new JButton("Clear");
+		btnClearTsk.setBounds(228, 485, 70, 20);
 		centerPanel.add(btnClearTsk);
-		JButton btnClearRsc = new JButton("UnSelect");
-		btnClearRsc.setBounds(212, 485, 85, 20);
+		JButton btnClearRsc = new JButton("Clear");
+		btnClearRsc.setBounds(227, 485, 70, 20);
 		rightPanel.add(btnClearRsc);	
 		
 		//addMenu
@@ -155,7 +155,8 @@ public class ControlPanel implements Oracle {
 		//Task
 		TaskControl tc = new TaskControl(project);
 		addTask.addController(tc, "addTask", new AddTaskWindow());//addTask
-		viewTask.addController(tc, "viewTask", _taskView);//addTask
+		editTask.addController(tc, "editTask", _taskView);
+		viewTask.addController(tc, "viewTask", _taskView);
 		//Resource
 		ResourceControl rc = new ResourceControl(project);
 		addResource.addController(rc, "addResource", new AddResourceWindow());
@@ -168,6 +169,7 @@ public class ControlPanel implements Oracle {
 				});
 		btnClearTsk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				_taskView.clearSelection();
 					}
 				});
 		btnClearRsc.addActionListener(new ActionListener() {
@@ -183,15 +185,7 @@ public class ControlPanel implements Oracle {
 	}
 	
 	private JFrame _mainWindow;
-
-    /**
-     * 
-     */
     private MenuBar _menuBar;
-
-    /**
-     * 
-     */
     private ProjectView _projectView;
     private ScheduleView _scheduleView;
     private ResourceView _resourceView;

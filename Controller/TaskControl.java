@@ -2,10 +2,14 @@ package Controller;
 
 import java.util.*;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import Entity.Project;
 import Entity.ResourcePool;
 import Entity.Task;
 import Entity.TaskPool;
+import boundary.EditTaskWindow;
 import boundary.Oracle;
 import boundary.ViewTaskWindow;
 
@@ -37,6 +41,15 @@ public class TaskControl implements Controller {
 				Oracle viewWindow = new ViewTaskWindow(result);
 				viewWindow.ask(null, this);
 			}
+			else JOptionPane.showMessageDialog(new JFrame("Message"), "Please select a task first.");
+
+		} else if (cmd.equals("editTask")) {
+			Task result = (Task) o.ask(cmd, this);
+			if (result != null) {
+				Oracle editWindow = new EditTaskWindow(result);
+				editWindow.ask(null, this);
+			}
+			else JOptionPane.showMessageDialog(new JFrame("Message"), "Please select a task first.");
 		}
 
 	}
@@ -51,6 +64,10 @@ public class TaskControl implements Controller {
 
 	public void addTaskToTaskPool(Task temT) {
 		taskpool.add(temT);
+	}
+	
+	public void modifyTaskInTaskPool(Task temT){
+		taskpool.update(temT);
 	}
 
 }

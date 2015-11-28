@@ -2,6 +2,9 @@ package Controller;
 
 import java.util.*;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import Entity.Project;
 import Entity.Resource;
 import Entity.ResourcePool;
@@ -31,19 +34,19 @@ public class ResourceControl implements Controller {
 		if (cmd.equals("addResource")) {
 			o.ask(cmd, this);
 		} else if (cmd.equals("viewResource")) {
-
 			Resource result = (Resource) o.ask(cmd, this);
 			if (result != null) {
 				Oracle viewWindow = new ViewResourceWindow(result);
 				viewWindow.ask(null, this);
-
 			}
+			else JOptionPane.showMessageDialog(new JFrame("Message"), "Please select a resource first.");
 		} else if (cmd.equals("editResource")) {
 			Resource result = (Resource) o.ask(cmd, this);
 			if (result != null) {
 				Oracle editWindow = new AddResourceWindow(result);
 				editWindow.ask("editResource", this);
 			}
+			else JOptionPane.showMessageDialog(new JFrame("Message"), "Please select a resource first.");
 		}
 
 	}
