@@ -163,7 +163,10 @@ public class Schedule extends Observable{
 		
 	}
 	public void resetTaskDates() {
+		table = null;
 		pool.resetTaskDates();
+		//set project duration -1,which means unknown
+		pool.getHead().setDuration(-1);
 		
 	}
 	
