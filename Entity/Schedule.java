@@ -67,7 +67,7 @@ public class Schedule extends Observable{
 	
 	private void setProjectEndDate(ArrayList<Task> tasksToSchedule) {
 		if(tasksToSchedule.size()==0)System.out.println("Something is wrong after bfs");
-		Date projectEndDate = tasksToSchedule.get(0).getEndDate();
+		Date projectEndDate = tasksToSchedule.get(0).getEndDate();//pre-set the first task's endDate as project endDate
 		for(Task t:tasksToSchedule){			
 			if(t.getEndDate().after(projectEndDate))projectEndDate = t.getEndDate();
 		}
@@ -121,7 +121,7 @@ public class Schedule extends Observable{
 			row[1]="";
 			for(Task t:TaskToSchedule)
 			{
-				//for each task, if current Date is after its startDate and before its endDate then add into row
+				//for each task, if current Date is after its startDate and before its endDate then ad into row
 				if(t.getStartDate().getTime()<=startTime+i*Utility.MILLISECONDS_PER_DAY&&
 						t.getEndDate().getTime()>=startTime+i*Utility.MILLISECONDS_PER_DAY)
 					row[1]+=t+" ";
