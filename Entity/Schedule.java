@@ -2,7 +2,10 @@ package Entity;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -141,8 +144,10 @@ public class Schedule extends Observable{
 			table[i][0] = scheduleTable.get(i)[0];
 			table[i][1] = scheduleTable.get(i)[1];
 		}
+		setAbsoluteDate(table);
 	}
 		else table = null;		
+		
 		setChanged();
 		notifyObservers();
 	}
@@ -166,8 +171,30 @@ public class Schedule extends Observable{
 		table = null;
 		pool.resetTaskDates();
 		//set project duration -1,which means unknown
-		pool.getHead().setDuration(-1);
-		
+		pool.getHead().setDuration(-1);		
+	}
+	//give date as exact date and bypass holidays
+	private void setAbsoluteDate(String[][] tableModel){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date start = pool.getHead().getStartDate();
+		Calendar currentCal = Calendar.getInstance();
+		currentCal.setTime(start);
+		for(String[] t:tableModel)
+		{
+			int numInAWeek = currentCal.get(Calendar.DAY_OF_WEEK);
+			//Sunday
+			if(numInAWeek==1)
+			{
+				currentCal.add(Calendar.DATE, 1);
+			}
+			if(numInAWeek==7)
+			{
+				currentCal.add(Calendar.DATE, 2);
+			}
+			t[0] = dateFormat.format(currentCal.getTime());
+			//increment by 1
+			currentCal.add(Calendar.DATE, 1);
+		}
 	}
 	
 	
