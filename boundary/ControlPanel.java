@@ -92,22 +92,20 @@ public class ControlPanel implements Oracle {
 		Menu projectMenu = new Menu("Project");
 		Menu taskMenu = new Menu("Task");
 		Menu resourceMenu = new Menu("Resource");
-		Menu viewMenu = new Menu("View");
+		Menu scheduleMenu = new Menu("Schedule");
 		_menuBar.add(projectMenu);
 		_menuBar.add(taskMenu);
 		_menuBar.add(resourceMenu);
-		_menuBar.add(viewMenu);
-		//addMenuItem in Project
+		_menuBar.add(scheduleMenu);
 		MenuItem createProject = new MenuItem("Create");
 		MenuItem openProject = new MenuItem("Open...");
 		MenuItem saveProject = new MenuItem("Save");
-		MenuItem generScdl = new MenuItem("Generate Schedule");
 		MenuItem closeProject = new MenuItem("Close");
 		projectMenu.add(createProject);
 		projectMenu.add(openProject);
 		projectMenu.add(saveProject);
 		projectMenu.add(closeProject);
-		projectMenu.add(generScdl);	
+		
 		//addMenuItem in Task
 		MenuItem addTask = new MenuItem("Add task");
 		MenuItem editTask = new MenuItem("Edit task");
@@ -118,28 +116,30 @@ public class ControlPanel implements Oracle {
 		//addMenuItem in Resource
 		MenuItem addResource = new MenuItem("Add resource");
 		MenuItem editResource = new MenuItem("Edit resource");
+		MenuItem viewResource = new MenuItem("View Resource");
 		resourceMenu.add(addResource);
 		resourceMenu.add(editResource);
-		//addMenuItem in View
-		MenuItem viewTask = new MenuItem("view task");
-		MenuItem viewResource = new MenuItem("view resource");
-		viewMenu.add(viewTask);
-		viewMenu.add(viewResource);
-		//define controller, command, and oracle of a menuItem
-		//Project
+		resourceMenu.add(viewResource);
 		createProject.addController(pc, "createProject",new CreateProjectWindow());
 		saveProject.addController(pc,"saveProject",null);// TODO add save as fileChooser
 		openProject.addController(pc,"openProject",new FileChooser());
 		closeProject.addController(pc,"closeProject",null);
 		//Schedule
-		ScheduleControl sc = new ScheduleControl(project.getSchedule());
-		generScdl.addController(sc, "generateSchedule",null);// TODO generateSchedule
+		MenuItem generScdl = new MenuItem("Generate Schedule");
+		scheduleMenu.add(generScdl);
+		MenuItem expSchedule = new MenuItem("Export Schedule");
+		scheduleMenu.add(expSchedule);
+		
+		ScheduleControl sc = new ScheduleControl(project);
+		generScdl.addController(sc, "generateSchedule",null);
 		//Task
 		TaskControl tc = new TaskControl(project);
 		addTask.addController(tc, "addTask", new AddTaskWindow());//addTask
 		//Resource
 		ResourceControl rc = new ResourceControl(project);
 		addResource.addController(rc, "addResource", new AddResourceWindow());
+		editResource.addController(rc, "editResource", new AddResourceWindow());
+		viewResource.addController(rc, "viewResource",_resourceView );
 	}
 
 	public Object ask(String cmd,Controller c)

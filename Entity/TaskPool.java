@@ -1,6 +1,7 @@
 package Entity;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -35,7 +36,7 @@ public void deleteTask(Task t)
 public void add(Task t) {
 	pool.add(t);
 	setChanged();
-	notifyObservers(head);
+	notifyObservers();
 }
 public int size()
 {
@@ -66,7 +67,19 @@ public Task get(int index) {
 public void clear() {
 	pool.clear();
 	setChanged();
-	notifyObservers(head);
+	notifyObservers("clear");
 }
+public void sortStartDateASC(ArrayList<Task> list) {
+	list.sort(new Comparator<Task>()
+			{
+				@Override
+				public int compare(Task current, Task after) {
+					if(current.getStartDate().before(after.getStartDate())) return -1;
+					else if (current.getStartDate().after(after.getStartDate())) return 1;
+					else return 0;
+				}
+			});
+}
+
 
 }

@@ -6,6 +6,7 @@ import Entity.Project;
 import Entity.Resource;
 import Entity.ResourcePool;
 import boundary.Oracle;
+import boundary.ViewResourceWindow;
 
 /**
  * 
@@ -27,6 +28,21 @@ public class ResourceControl implements Controller {
 	@Override
 	public void execute(String cmd, Oracle o) {
 		if(cmd.equals("addResource"))
+		{
+			o.ask(cmd,this);
+		}
+		else if(cmd.equals("viewResource"))
+		{
+			
+			Resource result = (Resource) o.ask(cmd,this);
+			if(result!=null)
+			{
+				Oracle viewWindow = new ViewResourceWindow(result);
+				viewWindow.ask(null, this);
+				
+			}
+		}
+				else if(cmd.equals("editResource"))
 		{
 			o.ask(cmd,this);
 		}
