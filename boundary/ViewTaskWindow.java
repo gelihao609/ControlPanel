@@ -229,7 +229,7 @@ public class ViewTaskWindow implements Oracle{
 		else
 			succTA.setText("N/A");
 		
-		if(t.getParent()!=null)
+		if(t.getParent().getName()!="")
 			parentTF.setText(t.getParent().getName());
 		else
 			parentTF.setText("N/A");
