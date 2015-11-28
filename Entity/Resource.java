@@ -77,4 +77,9 @@ public class Resource {
 		
 	}
 
+	public List<Task> getReferencedTasks() {
+		// TODO Auto-generated method stub
+		return _references;
+	}
+
 }

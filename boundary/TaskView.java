@@ -57,7 +57,7 @@ public class TaskView extends JTree implements View {
     private TaskPool pool;
 	@Override
 	public void update(Observable o, Object arg) {			
-		initialize((Project)arg);
+		initialize(((TaskPool)o).getHead());
 		//System.out.println("enter Taskview update");
 	}
 }

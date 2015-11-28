@@ -20,7 +20,8 @@ public class AddResourceWindow implements Oracle {
 	private JTextField nameTF;
 	private JTextField costTF;
 	private JComboBox<String> typeComboBox;
-
+	String command;
+	private JButton btnAdd;
 	/**
 	 * Launch the application.
 	 */
@@ -37,7 +38,7 @@ public class AddResourceWindow implements Oracle {
 		});
 	}
 	public AddResourceWindow(){}
-	public AddResourceWindow(Controller c) {
+	private AddResourceWindow(Controller c) {
 		initialize(c);
 	}
 	
@@ -76,24 +77,48 @@ public class AddResourceWindow implements Oracle {
 		frame.getContentPane().add(costTF);
 		costTF.setColumns(10);
 		
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Resource temR = collect();
-				((ResourceControl) c).addResourceToResourcePool(temR);
-				frame.dispose();
-			}
-
-			private Resource collect() {
-				String name = nameTF.getText();
-				String rate = costTF.getText();
-				String type = (String) typeComboBox.getSelectedItem();
-				return new Resource(name,rate,type);
-			}
-		});
-		btnAdd.setBounds(12, 122, 97, 25);
-		frame.getContentPane().add(btnAdd);
+		if(command.equals("addResource"))
+		{
+			JButton btnAdd = new JButton("Add");
+			btnAdd.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Resource temR = collect();
+					((ResourceControl) c).addResourceToResourcePool(temR);
+					frame.dispose();
+				}
+				private Resource collect() {
+					String name = nameTF.getText();
+					String rate = costTF.getText();
+					String type = (String) typeComboBox.getSelectedItem();
+					return new Resource(name,rate,type);
+				}
 		
+			});
+			btnAdd.setBounds(12, 122, 97, 25);
+			frame.getContentPane().add(btnAdd);
+		}
+		else if(command.equals("editResource"))
+		{
+			JButton btnEdit = new JButton("Edit");
+			btnEdit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Resource temR = collect();
+					((ResourceControl) c).addResourceToResourcePool(temR);
+					frame.dispose();
+				}
+				private Resource collect() {
+					String name = nameTF.getText();
+					String rate = costTF.getText();
+					String type = (String) typeComboBox.getSelectedItem();
+					return new Resource(name,rate,type);
+				}
+		
+		});
+
+			btnEdit.setBounds(12, 122, 97, 25);
+			frame.getContentPane().add(btnEdit);
+		}
+				
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -104,12 +129,9 @@ public class AddResourceWindow implements Oracle {
 		frame.getContentPane().add(btnCancel);
 	}
 	
-	
-	
-	
-	
 	@Override
 	public Object ask(String cmd, Controller control) {
+		command=cmd;
 		initialize(control);
 		return null;
 	}

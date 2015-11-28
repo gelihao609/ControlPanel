@@ -31,7 +31,7 @@ public class ResourceControl implements Controller {
 		{
 			o.ask(cmd,this);
 		}
-		if(cmd.equals("viewAssTasks"))
+		else if(cmd.equals("viewAssTasks"))
 		{
 			
 			Resource result = (Resource) o.ask(cmd,this);
@@ -41,6 +41,10 @@ public class ResourceControl implements Controller {
 				viewWindow.ask(null, this);
 				
 			}
+		}
+				else if(cmd.equals("editResource"))
+		{
+			o.ask(cmd,this);
 		}
 		
 	}
