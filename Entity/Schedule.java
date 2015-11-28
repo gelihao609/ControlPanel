@@ -163,7 +163,7 @@ public class Schedule extends Observable{
 		setChanged();
 		notifyObservers();
 	}
-	public void export() throws FileNotFoundException, IOException {
+	public void export() throws FileNotFoundException, IOException, NullPointerException {
 		((XLSLoader)xlsLoader).export(Utility.makeFile(pool.getHead(),xlsLoader),"schedule",table);
 		
 	}

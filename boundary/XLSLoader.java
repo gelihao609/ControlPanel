@@ -14,7 +14,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import Entity.ILoader;
 
 public class XLSLoader implements ILoader {	
-    public  void export(File fileName, String tabName, String[][] data) throws FileNotFoundException, IOException
+    public  void export(File fileName, String tabName, String[][] data) throws FileNotFoundException, IOException, NullPointerException
     {
         //Create new workbook and tab
         Workbook wb = new HSSFWorkbook();
