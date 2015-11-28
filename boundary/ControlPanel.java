@@ -117,9 +117,11 @@ public class ControlPanel implements Oracle {
 		MenuItem addResource = new MenuItem("Add resource");
 		MenuItem editResource = new MenuItem("Edit resource");
 		MenuItem viewResource = new MenuItem("View Resource");
+		MenuItem delResource = new MenuItem("Delete resource");
 		resourceMenu.add(addResource);
 		resourceMenu.add(editResource);
 		resourceMenu.add(viewResource);
+		resourceMenu.add(delResource);
 		createProject.addController(pc, "createProject",new CreateProjectWindow());
 		saveProject.addController(pc,"saveProject",null);// TODO add save as fileChooser
 		openProject.addController(pc,"openProject",new FileChooser());
@@ -139,7 +141,7 @@ public class ControlPanel implements Oracle {
 		//Resource
 		ResourceControl rc = new ResourceControl(project);
 		addResource.addController(rc, "addResource", new AddResourceWindow());
-		editResource.addController(rc, "editResource", new AddResourceWindow());
+		editResource.addController(rc, "editResource", _resourceView);
 		viewResource.addController(rc, "viewResource",_resourceView );
 	}
 

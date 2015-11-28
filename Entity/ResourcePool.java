@@ -42,7 +42,22 @@ public void add(Resource r) {
 	setChanged();
 	notifyObservers(this);
 }
-
+public void modify(Resource r) {
+	for(int i=0;i<resources.size();i++)
+	{
+		if(r.getId() == get(i).getId()){
+			this.get(i).setName(r.getName());
+			this.get(i).setRate(r.getCost());
+			this.get(i).setType(r.getType());
+		}
+	}
+	setChanged();
+	notifyObservers(this);
+	
+//	for(int i = 0; i < resources.size(); i++) {   
+//	    System.out.print(resources.get(i));
+//	} 
+}
 public int size() {
 	return resources.size();
 	
@@ -55,5 +70,8 @@ public void clear() {
 	setChanged();
 	notifyObservers(this);
 }
-
+//public setModifiedProps(Resource resource)
+//{
+//	//traverse thru list resources in pool and find a match with resource id of addResWindow
+//}
 }

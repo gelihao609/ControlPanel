@@ -49,7 +49,19 @@ public class Resource {
 	public void setName(String name) {
 		this._name = name;
 	}
-
+	
+	public void setRate(String rate) {
+		this._rate = rate;
+	}
+	
+	public void setType(String type) {
+		this._type = type;
+	}
+	public void setID(int id) {
+		this._id = id;
+	}
+	
+	
 	private int _id;
 	private String _name;
 	//-- Is these attributes necessary?
