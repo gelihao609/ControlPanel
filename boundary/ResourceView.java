@@ -1,5 +1,7 @@
 package boundary;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -23,7 +25,6 @@ public class ResourceView extends JTable implements Oracle,View {
     public ResourceView(ResourcePool p) {
     	initialize(p);
     	
-    	 
     	
 		
     }
@@ -51,19 +52,28 @@ public class ResourceView extends JTable implements Oracle,View {
  	    
  	    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
  	      public void valueChanged(ListSelectionEvent e) {
- 	        String selectedData = null;
+ 	        //String selectedData = null;
  	        table1.setColumnSelectionAllowed(false);
  	       	table1.setRowSelectionAllowed(true);
- 	       	
- 	        int selectedRow = table1.getSelectedRow();
+ 	       	int selectedRow = table1.getSelectedRow();
  	       // int selectedColumn = table1.getSelectedColumn();
  	       // Object cell = table1.getValueAt(selectedRow, selectedColumn);
  	        selected = p.get(selectedRow);
- 	        System.out.println("Selected: " + p.get(selectedRow).getClass());
+ 	       // System.out.println("Selected: " + p.get(selectedRow).getClass());
 // 	       ViewAssociatedTasksWindow win = new ViewAssociatedTasksWindow(cell);
 // 	       MenuItem viewAssTasks = new MenuItem("View Associated Tasks");
 // 			viewAssTasks.setEnabled(true);
- 	        
+// 	       delResourcebutton.addActionListener(new ActionListener() {
+//
+// 	    	    @Override
+// 	    	    public void actionPerformed(ActionEvent arg0) {
+// 	    	        // check for selected row first
+// 	    	        if (table.getSelectedRow() != -1) {
+// 	    	            // remove selected row from the model
+// 	    	            model.removeRow(table.getSelectedRow());
+// 	    	        }
+// 	    	    }
+// 	    	});
  	      }
 
  	    });

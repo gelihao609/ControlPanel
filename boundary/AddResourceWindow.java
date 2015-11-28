@@ -21,7 +21,8 @@ public class AddResourceWindow implements Oracle {
 	private JTextField costTF;
 	private JComboBox<String> typeComboBox;
 	String command;
-	private JButton btnAdd;
+	//private JButton btnAdd;
+	private Resource r;
 	/**
 	 * Launch the application.
 	 */
@@ -41,9 +42,18 @@ public class AddResourceWindow implements Oracle {
 	private AddResourceWindow(Controller c) {
 		initialize(c);
 	}
-	
+	public AddResourceWindow(Resource result) {
+		r=result;
+	}
 	public void initialize(Controller c) {
-		frame = new JFrame("Add Resource");
+		if(command.equals("addResource"))
+		{
+			frame = new JFrame("Add Resource");
+		}
+		else if(command.equals("editResource"))
+		{
+			frame = new JFrame("Edit Resource");
+		}
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setBounds(450, 300, 242, 194);
@@ -100,17 +110,24 @@ public class AddResourceWindow implements Oracle {
 		else if(command.equals("editResource"))
 		{
 			JButton btnEdit = new JButton("Edit");
+			nameTF.setText(r.getName());
+			costTF.setText(r.getCost());
+			typeComboBox.setSelectedItem(r.getType());
 			btnEdit.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Resource temR = collect();
-					((ResourceControl) c).addResourceToResourcePool(temR);
 					frame.dispose();
+					Resource tempR = collect();
+					((ResourceControl) c).modifyResourceInResourcePool(tempR);
+					
 				}
-				private Resource collect() {
+				private Resource collect() {					
 					String name = nameTF.getText();
 					String rate = costTF.getText();
 					String type = (String) typeComboBox.getSelectedItem();
-					return new Resource(name,rate,type);
+					r.setName(name);
+					r.setRate(rate);
+					r.setType(type);
+					return r;
 				}
 		
 		});
