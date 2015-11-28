@@ -28,7 +28,7 @@ public class ScheduleView extends JTable implements View {
     	schedule = sc;
     	String[][] model = sc.getScheduleTable();
 	 	if(model==null) model = new String[][]{{"N/A","N/A"}};
-		 setModel(new DefaultTableModel(
+		 setModel(new DefaultTableModel(		
 			model,new String[] {"Date", "Tasks"}));
     }
 	/**
