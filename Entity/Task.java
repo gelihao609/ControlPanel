@@ -77,7 +77,7 @@ public class Task extends Element {
 		_resources = assignedResource;
 		linkTaskAsReferenceForResource(assignedResource);		
 	}
-
+	//constructor with children defined
 	public Task(String name, String duration, String description, ArrayList<Task> pred,
 			ArrayList<Resource> assignedResource, ArrayList<Task> children, Project parent) {
 		super(name,Integer.parseInt(duration),parent,children);
@@ -143,6 +143,7 @@ public class Task extends Element {
 				for(Task t : r.getReferencedTasks())
 				{
 					 long[] slot = new long[2];
+					 //find out tasks with assigned date
 					if(t.getStartDate()!=null)
 					{
 						//put start time and end time

@@ -70,7 +70,7 @@ public abstract class Element extends Observable {
     public Element(String name, int duration, Project parent, ArrayList<Task> children) {
     	this._name = name;
     	this._id = this.hashCode();
-        _duration = duration;
+    	_duration = duration;//tentative duration input by user, the actual duration only knows when Start/End Date is known
         _parent = parent;
         _children = children;
         //use this to get all predecessors and successors of a task and let all of them to be children
@@ -111,9 +111,12 @@ public abstract class Element extends Observable {
 	public void setStartDate(Date d){
 		this._startDate = d;
 		if(d!=null){
-		Date endDate = new Date();
-		endDate.setTime(d.getTime() + _duration*Utility.MILLISECONDS_PER_DAY);
-		setEndDate(endDate); 
+		if(_duration!=-1)
+			{
+				Date endDate = new Date();
+				endDate.setTime(d.getTime() + _duration*Utility.MILLISECONDS_PER_DAY);
+				setEndDate(endDate); 
+			}
 		}
 	}
 
@@ -160,9 +163,15 @@ public abstract class Element extends Observable {
 	}
 	
 	protected void addChild(Task task) {
+		//adding a child means it becomes composite, the original duration is no longer valid
+		resetDuration();
 		HashSet<Task> childrenSet = new HashSet<Task>(_children);
 		if(!childrenSet.contains(task))_children.add(task);
 	}
+	private void resetDuration() {
+		_duration = -1;	
+	}
+
 	public Date getStartDate() {
 		return _startDate!=null?(Date) _startDate:null;
 	}

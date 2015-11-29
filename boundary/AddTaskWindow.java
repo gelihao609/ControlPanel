@@ -194,8 +194,10 @@ public class AddTaskWindow implements Oracle {
 				ArrayList<Resource> assignedResource = new ArrayList<Resource>(resourcelist.getSelectedValuesList());
 				// TODO validate resource assign
 				ArrayList<Task> child = new ArrayList<Task>(childrenlist.getSelectedValuesList());
-			//return new Task(name,duration,description,pred,assignedResource,((TaskControl) c).getProject());
-			return new Task(name,duration,description,pred,assignedResource,child,((TaskControl) c).getProject());
+			if(child.size()==0)
+				return new Task(name,duration,description,pred,assignedResource,((TaskControl) c).getProject());
+			else 
+				return new Task(name,duration,description,pred,assignedResource,child,((TaskControl) c).getProject());
 
 			}			
 		});

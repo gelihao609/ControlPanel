@@ -88,7 +88,7 @@ public class ProjectView extends JPanel implements View {
 	
 	private void setTextfield()
 	{
-		authrorNameTF.setText(project.getName());
+		authrorNameTF.setText(project.getAuthorName());
 		compNameTF.setText(project.getCompanyName());
 		projNameTF.setText(project.getProjectName());
 		startDateTF.setText(project.getStartDateInString());

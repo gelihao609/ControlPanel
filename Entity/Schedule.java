@@ -22,66 +22,124 @@ public class Schedule extends Observable{
 		pool=p;
 		xlsLoader = new XLSLoader();
 	}
-	//Set Task Start/End Date and Project End Date (No consideration of childTask)
+	//Set Task Start/End Date and Project End Date (No consideration of 2 level children)
 	private void setTaskStartDate(){
-		ArrayList<Task> tasksToSchedule = (ArrayList<Task>) pool.getHead()._children;
-		//BFS search
-		Queue<Task> taskQueue = new LinkedList<Task>();
-		//find tasks without predecessors
-		for(int i=0;i<tasksToSchedule.size();i++)
-		{
-			Task current = tasksToSchedule.get(i);
-			//find not-assigned-date tasks
-			if(current.getStartDate()==null)
-			{
-				//find tasks with no predecessors
-				if(current.getPredecessor().size()==0)
-				{
-					//find date when all assigned resources are available during current task period 
-					current.setStartDate(getEaliestPossibleDate(current,current._parent.getStartDate()));
-					//enqueue
-					taskQueue.offer(current);
-				}
-			}
-		}
-		//iterate
-		while(taskQueue.peek() != null)
-		{
-			Task current=taskQueue.poll();
-			//find child nodes
-			ArrayList<Task> succe = (ArrayList<Task>) current.getSuccessors();
-			if(succe.size()!=0)
-			{
-				for(Task t:succe)
-				{	
-					if(t.getStartDate()!=null) System.out.println("Something is wrong in bfs");
-					else{
-						//find latest predecessor's end date as tentative start date
-						long tentativeTime=t.getPredLatestEndDate().getTime();
-						Date tentativeStartDate = new Date();
-						tentativeStartDate.setTime(tentativeTime);
-						//find date when all assigned resources are available during current task period 
-						t.setStartDate(getEaliestPossibleDate(t,tentativeStartDate));
-						taskQueue.offer(t);
-					}
-				}
-			}
-			//after set all successor's date of current
-		}
-		//set Project EndDate by iterating to find latest endDate
-		setProjectEndDate(tasksToSchedule);	
+		setTaskStartDateForHeadTasks(pool.getHead(),"",null);
 	}
 	
-	private void setProjectEndDate(ArrayList<Task> tasksToSchedule) {
+	private void setTaskStartDateForHeadTasks(Element projectOrTask, String message, Date tentative) {
+			ArrayList<Task> tasksToSchedule = projectOrTask.getChildren();
+				//BFS search
+				Queue<Task> taskQueue = new LinkedList<Task>();
+				//find tasks without predecessors, use parent's date as tentative start date
+				for(int i=0;i<tasksToSchedule.size();i++)
+				{
+					Task current = tasksToSchedule.get(i);
+					//find not-assigned-date tasks
+					if(current.getStartDate()==null)
+					{
+						//find tasks with no predecessors
+						if(current.getPredecessor().size()==0)
+						{
+							//simple task find date when all assigned resources are available during current task period
+							if(current.getChildren().size()==0)
+							{
+								//composite task is a successor
+								if(message.equals("fromSuccessor"))
+								{
+									current.setStartDate(getEaliestDateFromSrc(current,tentative));
+								}
+								else{
+									//its parent may not set start time because the parent is composite
+									Date tentativeDate =null;
+									//composite task is a head task,set its start time
+									if(current.getParent().getStartDate()==null)
+											{
+												tentativeDate = findAnSetStartDate(current.getParent());
+												current.getParent().setStartDate(tentativeDate);
+											}
+									//simple task
+									else 
+										{
+											tentativeDate = current.getParent().getStartDate();
+										}	
+									current.setStartDate(getEaliestDateFromSrc(current,tentativeDate));
+								}
+							}
+							//enqueue
+							taskQueue.offer(current);
+						}
+					}
+				}
+				//select start date for successor composite task 
+				if(message.equals("fromSuccessor"))
+				{
+					if(projectOrTask.getStartDate()!=null) System.out.print("Something wrong in successor composite task");
+					else
+					{	
+						Date startDateForComposite=tasksToSchedule.get(0).getStartDate();
+						for(Task t: tasksToSchedule)
+						{
+							if(t.getStartDate()==null)System.out.print("Something wrong in successor composite task");
+							else if(t.getStartDate().before(startDateForComposite))startDateForComposite=t.getStartDate();
+						}
+						projectOrTask.setStartDate(startDateForComposite);
+					}
+				}
+				//iterate from headTasks (no predecessors)
+				while(taskQueue.peek() != null)
+				{
+					Task current=taskQueue.poll();
+					//find child nodes
+					ArrayList<Task> succe = (ArrayList<Task>) current.getSuccessors();
+					if(succe.size()!=0)
+					{
+						for(Task t:succe)
+						{	
+							if(t.getStartDate()!=null) System.out.println("Something is wrong in bfs");
+							else{
+								//find latest predecessor's end date as tentative start date
+								long tentativeTime=t.getPredLatestEndDate().getTime();
+								Date tentativeStartDate = new Date();
+								tentativeStartDate.setTime(tentativeTime);
+								//Simple task: find date when all assigned resources are available during current task period 
+								if(t.getChildren().size()==0)
+									t.setStartDate(getEaliestDateFromSrc(t,tentativeStartDate));
+								//Lv1 Composite task: 
+								//1. get tasks without predecessors and get their start date
+								else
+									setTaskStartDateForHeadTasks(t,"fromSuccessor",tentativeStartDate);
+								
+								taskQueue.offer(t);//enqueue
+								
+							}
+						}
+					}
+					//after set all successor's date of current
+				}
+				//set Project EndDate by iterating to find latest endDate
+					setElementEndDate(tasksToSchedule,projectOrTask);	
+
+	}
+	//when the parent is not project, it needs to find out the start date
+	private Date findAnSetStartDate(Element current) {
+		Date result = null;
+		if(current.getStartDate()==null) result = findAnSetStartDate(current.getParent());
+		else{result = current.getStartDate();}
+		return result;
+	}
+	//for project and composite task
+	private void setElementEndDate(ArrayList<Task> tasksToSchedule, Element needDateElement) {
 		if(tasksToSchedule.size()==0)System.out.println("Something is wrong after bfs");
 		Date projectEndDate = tasksToSchedule.get(0).getEndDate();//pre-set the first task's endDate as project endDate
 		for(Task t:tasksToSchedule){			
 			if(t.getEndDate().after(projectEndDate))projectEndDate = t.getEndDate();
 		}
-		pool.getHead().setEndDate(projectEndDate);
+		needDateElement.setEndDate(projectEndDate);
 	}
+	
 	//with tentative date from predecessors or project, get final date
-	private Date getEaliestPossibleDate(Task current, Date tentativeTime) {
+	private Date getEaliestDateFromSrc(Task current, Date tentativeTime) {
 		int duration = Integer.parseInt(current.getDuration());
 		ArrayList<long[]> nonAvlbSlot = current.getAsgndRsreNonAvlbPrid();
 		//if nonAvlSlot has no value or if tentative endTime is before start time of nonAvlbSlot
