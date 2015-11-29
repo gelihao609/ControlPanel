@@ -11,7 +11,6 @@ import javax.swing.tree.TreeSelectionModel;
 
 import Controller.Controller;
 import Entity.Project;
-import Entity.Task;
 import Entity.TaskPool;
 
 /**
@@ -70,7 +69,7 @@ public class TaskView extends JTree implements TreeSelectionListener,View,Oracle
 	@Override
 	public void update(Observable o, Object arg) {			
 		initialize(((TaskPool)o).getHead());
-		//System.out.println("enter Taskview update");
+		//System.out.println("enter TaskView update");
 	}
 	
 	private Entity.Element seltask;

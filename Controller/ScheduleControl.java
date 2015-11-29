@@ -1,7 +1,6 @@
 package Controller;
 
 import java.io.IOException;
-import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +14,8 @@ import boundary.Oracle;
  */
 public class ScheduleControl implements Controller{
 
+	private Schedule schedule;
+
     /**
      * Default constructor
      */
@@ -25,7 +26,6 @@ public class ScheduleControl implements Controller{
 		this.schedule=project.getSchedule();
 	}
 
-	private Schedule schedule;
 
 	@Override
 	public void execute(String cmd, Oracle o) {

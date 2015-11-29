@@ -3,15 +3,16 @@ package boundary;
 import java.awt.EventQueue;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import Controller.*;
-import Entity.Project;
 
 public class FileChooser extends JFileChooser implements Oracle {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public FileChooser(String string) {
 		super(string);
 	}

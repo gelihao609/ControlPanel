@@ -19,6 +19,7 @@ public class Schedule extends Observable{
 	private ILoader xlsLoader;
 	
 	public Schedule(TaskPool p){
+		
 		pool=p;
 		xlsLoader = new XLSLoader();
 	}

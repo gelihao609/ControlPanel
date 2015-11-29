@@ -1,7 +1,5 @@
 package boundary;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -10,7 +8,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.Controller;
-import Entity.Project;
 import Entity.Resource;
 import Entity.ResourcePool;
 
@@ -18,7 +15,10 @@ public class ResourceView extends JTable implements Oracle,View {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6516654267471861621L;
+	/**
+	 * 
+	 */
 	/**
      * Default constructor
      */

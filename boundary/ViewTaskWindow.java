@@ -5,24 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import Controller.Controller;
-import Controller.TaskControl;
-import Entity.Resource;
-import Entity.ResourcePool;
 import Entity.Task;
-import Entity.TaskPool;
 import boundary.Oracle;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.swing.JList;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListDataListener;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class ViewTaskWindow implements Oracle{

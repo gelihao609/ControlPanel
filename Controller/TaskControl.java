@@ -1,12 +1,10 @@
 package Controller;
 
-import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Entity.Project;
-import Entity.ResourcePool;
 import Entity.Task;
 import Entity.TaskPool;
 import boundary.EditTaskWindow;
@@ -18,18 +16,17 @@ import boundary.ViewTaskWindow;
  */
 public class TaskControl implements Controller {
 
+	private Project project;
+	private TaskPool taskpool;
 	/**
 	 * Default constructor
 	 */
 	public TaskControl(Project p) {
 		setProject(p);
 		taskpool = p.getTaskPool();
-		resourcePool = p.getResourcePool();
 	}
 
-	private Project project;
-	private TaskPool taskpool;
-	private ResourcePool resourcePool;
+
 
 	@Override
 	public void execute(String cmd, Oracle o) {

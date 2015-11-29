@@ -2,7 +2,6 @@ package boundary;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 
 import javax.swing.JMenuItem;
 
@@ -14,6 +13,12 @@ import Controller.Controller;
 public class MenuItem extends JMenuItem {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2647346354844996554L;
+
+
+	/**
      * Default constructor
      */
     public MenuItem(String s) {

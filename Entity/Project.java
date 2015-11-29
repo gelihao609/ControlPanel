@@ -17,6 +17,13 @@ import boundary.LoaderGateway;
  * 
  */
 public class Project extends Element {
+	
+    private ResourcePool _resourcePool;
+    private TaskPool _taskPool;
+    private ILoader _XMLloader;
+    private String _author;
+    private String _company;
+    private Schedule _schedule;
 
 	public Project() {
 		super("");
@@ -115,10 +122,5 @@ public class Project extends Element {
 	{
 		 _XMLloader.load(filename,this);
 	}
-    private ResourcePool _resourcePool;
-    private TaskPool _taskPool;
-    private ILoader _XMLloader;
-    private String _author;
-    private String _company;
-    private Schedule _schedule;
+
 }

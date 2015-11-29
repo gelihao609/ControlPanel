@@ -10,6 +10,7 @@ public class TaskPool extends Observable{
 	
 private List<Task> pool;
 private Project head;
+
 public TaskPool(Project head){
 	pool = new ArrayList<Task>();
 	this.head = head;

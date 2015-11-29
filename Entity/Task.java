@@ -179,7 +179,7 @@ public class Task extends Element {
 	public List<Task> getSuccessors() {
 			return _successors;
 		}
-	//travse to find all the predecessors and successors of a task and put result in a hashSet
+	//traverse to find all the predecessors and successors of a task and put result in a hashSet
 	public void collectAllPreSucc(HashSet<Task> taskContainer) {
 		if(_predecessors.size()!=0)
 		{

@@ -3,7 +3,6 @@ package Controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,13 +11,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import Entity.Project;
-import boundary.LoaderGateway;
 import boundary.Oracle;
 
 /**
  * 
  */
 public class ProjectControl implements Controller{
+	
+	private Project project;
 
     /**
      * Default constructor
@@ -82,7 +82,6 @@ public class ProjectControl implements Controller{
 		project.load(selectedFile);		
 	}
 	
-	private Project project;
 
 	public void clear() {
 		project.clear();

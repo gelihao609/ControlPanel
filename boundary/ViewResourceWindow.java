@@ -13,7 +13,6 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.sun.javafx.tk.Toolkit.Task;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

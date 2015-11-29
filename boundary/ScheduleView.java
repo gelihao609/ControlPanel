@@ -5,10 +5,7 @@ import java.util.*;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Entity.Element;
-import Entity.Project;
 import Entity.Schedule;
-import Entity.TaskPool;
 
 /**
  * 
@@ -16,6 +13,11 @@ import Entity.TaskPool;
 public class ScheduleView extends JTable implements View {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1987337478602775179L;
+
+	/**
      * Default constructor
      * @param sc 
      */

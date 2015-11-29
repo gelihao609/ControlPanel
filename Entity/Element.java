@@ -3,6 +3,15 @@ package Entity;
 import java.util.*;
 
 public abstract class Element extends Observable {
+	
+    protected int _id;
+    protected String _name;
+    protected int _duration;
+    protected Date _startDate;
+    protected Date _endDate;
+    protected double _percentageCompleted;
+    protected List<Task> _children;
+    protected Element _parent;
     /**
      * Default constructor
      */
@@ -195,14 +204,7 @@ public abstract class Element extends Observable {
 		_duration = -1;
 	}
 	
-    protected int _id;
-    protected String _name;
-    protected int _duration;
-    protected Date _startDate;
-    protected Date _endDate;
-    protected double _percentageCompleted;
-    protected List<Task> _children;
-    protected Element _parent;
+
     
 
 }

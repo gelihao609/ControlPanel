@@ -6,6 +6,12 @@ import java.util.*;
  * 
  */
 public class Resource {
+	
+	private int _id;
+	private String _name;
+	private String _type;
+	private String _rate;
+	private List<Task> _references;
 
 	/**
      * Default constructor
@@ -61,16 +67,6 @@ public class Resource {
 		this._id = id;
 	}
 	
-	
-	private int _id;
-	private String _name;
-	//-- Is these attributes necessary?
-	private Date _startDate;
-	private Date _endDate;
-	//--------------------//
-	private String _type;
-	private String _rate;
-	private List<Task> _references;
 	public String getType() {
 		return _type;
 	}
@@ -90,7 +86,6 @@ public class Resource {
 	}
 
 	public List<Task> getReferencedTasks() {
-		// TODO Auto-generated method stub
 		return _references;
 	}
 

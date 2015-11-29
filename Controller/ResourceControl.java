@@ -1,6 +1,5 @@
 package Controller;
 
-import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -16,6 +15,8 @@ import boundary.ViewResourceWindow;
  * 
  */
 public class ResourceControl implements Controller {
+	
+	private ResourcePool pool;
 
 	/**
 	 * Default constructor
@@ -27,7 +28,6 @@ public class ResourceControl implements Controller {
 		pool = project.getResourcePool();
 	}
 
-	private ResourcePool pool;
 
 	@Override
 	public void execute(String cmd, Oracle o) {
