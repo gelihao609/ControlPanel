@@ -86,11 +86,16 @@ public void resetTaskDates() {
 	{
 			t.setStartDate(null);
 			t.setEndDate(null);
+			if(t.getChildren().size()!=0)
+			{
+				t.setDuration(-1);//reset composite task duration to -1
+			}
 	}	
 }
 public void update(Task temT) {
 	// TODO Auto-generated method stub
 	
 }
+
 
 }

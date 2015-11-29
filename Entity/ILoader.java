@@ -1,5 +1,7 @@
 package Entity;
 
+import java.io.File;
+
 /**
  * 
  */
@@ -32,6 +34,7 @@ package Entity;
  * <\Project>
  */
 public interface ILoader {
-	
+	public void save(File filename, Object model);
+	public void load(File finename,Object model);
 
 }

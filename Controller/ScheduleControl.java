@@ -26,13 +26,12 @@ public class ScheduleControl implements Controller{
 	}
 
 	private Schedule schedule;
-	private boolean isExportXLSError=false;
 
 	@Override
 	public void execute(String cmd, Oracle o) {
 			if(cmd.equals("generateSchedule")){
+				schedule.resetTaskDatesNDuration();
 				schedule.makeScheduleAsStringArray();
-				schedule.resetTaskDates();
 			}
 			if(cmd.equals("exportSchedule"))
 			{

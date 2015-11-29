@@ -109,15 +109,15 @@ public class Project extends Element {
 	}
 	public void save() throws Exception
 	{
-		_XMLloader.createXML(this);
+		_XMLloader.save(null,this);
 	}
 	public void load(File filename) throws SAXException, IOException, ParserConfigurationException, ParseException
 	{
-		 _XMLloader.readXML(this,filename);
+		 _XMLloader.load(filename,this);
 	}
     private ResourcePool _resourcePool;
     private TaskPool _taskPool;
-    private LoaderGateway _XMLloader;
+    private ILoader _XMLloader;
     private String _author;
     private String _company;
     private Schedule _schedule;

@@ -50,15 +50,14 @@ public class Schedule extends Observable{
 									current.setStartDate(getEaliestDateFromSrc(current,tentative));
 								}
 								else{
-									//its parent may not set start time because the parent is composite
 									Date tentativeDate =null;
-									//composite task is a head task,set its start time
+									//set start date for non-successor composite task
 									if(current.getParent().getStartDate()==null)
 											{
 												tentativeDate = findAnSetStartDate(current.getParent());
 												current.getParent().setStartDate(tentativeDate);
 											}
-									//simple task
+									//set start date for non-successor simple task
 									else 
 										{
 											tentativeDate = current.getParent().getStartDate();
@@ -77,7 +76,7 @@ public class Schedule extends Observable{
 					if(projectOrTask.getStartDate()!=null) System.out.print("Something wrong in successor composite task");
 					else
 					{	
-						Date startDateForComposite=tasksToSchedule.get(0).getStartDate();
+						Date startDateForComposite=tasksToSchedule.get(0).getStartDate();//temporary value
 						for(Task t: tasksToSchedule)
 						{
 							if(t.getStartDate()==null)System.out.print("Something wrong in successor composite task");
@@ -86,7 +85,7 @@ public class Schedule extends Observable{
 						projectOrTask.setStartDate(startDateForComposite);
 					}
 				}
-				//iterate from headTasks (no predecessors)
+				//iterate from headTasks
 				while(taskQueue.peek() != null)
 				{
 					Task current=taskQueue.poll();
@@ -131,11 +130,11 @@ public class Schedule extends Observable{
 	//for project and composite task
 	private void setElementEndDate(ArrayList<Task> tasksToSchedule, Element needDateElement) {
 		if(tasksToSchedule.size()==0)System.out.println("Something is wrong after bfs");
-		Date projectEndDate = tasksToSchedule.get(0).getEndDate();//pre-set the first task's endDate as project endDate
+		Date elementEndDate = tasksToSchedule.get(0).getEndDate();//pre-set the first task's endDate as project endDate
 		for(Task t:tasksToSchedule){			
-			if(t.getEndDate().after(projectEndDate))projectEndDate = t.getEndDate();
+			if(t.getEndDate().after(elementEndDate))elementEndDate = t.getEndDate();
 		}
-		needDateElement.setEndDate(projectEndDate);
+		needDateElement.setEndDate(elementEndDate);
 	}
 	
 	//with tentative date from predecessors or project, get final date
@@ -222,10 +221,11 @@ public class Schedule extends Observable{
 		notifyObservers();
 	}
 	public void export() throws FileNotFoundException, IOException, NullPointerException {
-		((XLSLoader)xlsLoader).export(Utility.makeFile(pool.getHead(),xlsLoader),"schedule",table);
+		xlsLoader.save(Utility.makeFile(pool.getHead(),xlsLoader), table);
+		//((XLSLoader)xlsLoader).export(Utility.makeFile(pool.getHead(),xlsLoader),"schedule",table);
 		
 	}
-	public void resetTaskDates() {
+	public void resetTaskDatesNDuration() {
 		table = null;
 		pool.resetTaskDates();
 		//set project duration -1,which means unknown

@@ -39,7 +39,7 @@ public class LoaderGateway implements ILoader {
     	
     }
     
-    public void createXML(Project project) throws Exception{
+    private void createXML(Project project) throws Exception{
     	DocumentBuilderFactory doucumentBuilderFactory = DocumentBuilderFactory.newInstance();
     	DocumentBuilder documentBuilder = doucumentBuilderFactory.newDocumentBuilder();
     	Document document = documentBuilder.newDocument();
@@ -154,7 +154,7 @@ public class LoaderGateway implements ILoader {
     
 
 
-public void readXML(Project project, File fileName) throws SAXException, IOException, ParserConfigurationException, ParseException
+private void readXML(Project project, File fileName) throws SAXException, IOException, ParserConfigurationException, ParseException
    {
 	   File xmlfile = fileName;
 	   DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -283,5 +283,27 @@ private void setParentPredAssignedRsc(Node taskNode, HashMap<Integer, Task> task
 private Date parseStringToDate(String time) throws ParseException {
 	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	return sdf.parse(time);
+}
+
+
+
+@Override
+public void save(File filename, Object model) {
+	try {
+		createXML((Project)model);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+}
+
+@Override
+public void load(File fileName, Object model) {
+	try {
+		readXML((Project)model,fileName);
+	} catch (SAXException | IOException | ParserConfigurationException | ParseException e) {
+		e.printStackTrace();
+	}
+	
 }
 }

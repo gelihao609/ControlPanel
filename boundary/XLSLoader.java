@@ -14,7 +14,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import Entity.ILoader;
 
 public class XLSLoader implements ILoader {	
-    public  void export(File fileName, String tabName, String[][] data) throws FileNotFoundException, IOException, NullPointerException
+    private  void export(File fileName, String tabName, String[][] data) throws FileNotFoundException, IOException, NullPointerException
     {
         //Create new workbook and tab
         Workbook wb = new HSSFWorkbook();
@@ -42,6 +42,22 @@ public class XLSLoader implements ILoader {
         //Export Data
         wb.write(fileOut);
         fileOut.close();
+        wb.close();
  
     }
+
+	@Override
+	public void save(File filename, Object model) {
+		try {
+			export(filename, "Schedule", (String[][])model);
+		} catch (NullPointerException | IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void load(File finename, Object model) {
+		
+	}
 }
