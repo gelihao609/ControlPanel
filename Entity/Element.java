@@ -67,7 +67,40 @@ public abstract class Element extends Observable {
 		parent.addChild((Task)this);
 	}
 
-    public int getId() {
+    public Element(String name, int duration, Project parent, ArrayList<Task> children) {
+    	this._name = name;
+    	this._id = this.hashCode();
+        _duration = duration;
+        _parent = parent;
+        _children = children;
+        //use this to get all predecessors and successors of a task and let all of them to be children
+        HashSet<Task> allChildren = collectChildrenNPredSucc(children);
+        if(allChildren.size()!=0)setParentforChildren(allChildren);
+        _parent.addChild((Task)this);
+    }
+
+	private void setParentforChildren(HashSet<Task> allChildren) {
+		for(Task t:allChildren)
+		{
+			t.setParent(this);
+		}
+		
+	}
+
+	private HashSet<Task> collectChildrenNPredSucc(ArrayList<Task> children) {
+		HashSet<Task> taskContainer = new HashSet<Task>();
+		if(children.size()!=0)
+		{
+			for(Task t: children)
+			{
+				taskContainer.add(t);
+				t.collectAllPreSucc(taskContainer);
+			}
+		}
+		return taskContainer;
+	}
+
+	public int getId() {
 		return _id;
 	}
  
@@ -113,14 +146,22 @@ public abstract class Element extends Observable {
 		return Integer.toString(_duration);
 	}
 	
-	public void setParent(Element e)
+	public void setParent(Element parent)
 	{
-		_parent = e;
-		e.addChild((Task)this);
+		//detach original parent
+		if(_parent!=null)
+		{
+			_parent.getChildren().remove(this);
+		}
+		//assign to current parent
+		_parent = parent;
+		//notify parent
+		parent.addChild((Task)this);
 	}
 	
 	protected void addChild(Task task) {
-		_children.add(task);
+		HashSet<Task> childrenSet = new HashSet<Task>(_children);
+		if(!childrenSet.contains(task))_children.add(task);
 	}
 	public Date getStartDate() {
 		return _startDate!=null?(Date) _startDate:null;

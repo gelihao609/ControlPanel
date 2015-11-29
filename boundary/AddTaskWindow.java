@@ -90,6 +90,7 @@ public class AddTaskWindow implements Oracle {
 		taskNameTF.setColumns(10);
 		
 		durationTF = new JTextField();
+		durationTF.setToolTipText("If you add children, duration will be calculated in terms of children.");
 		durationTF.setBounds(99, 39, 116, 22);
 		frame.getContentPane().add(durationTF);
 		durationTF.setColumns(10);
@@ -192,7 +193,10 @@ public class AddTaskWindow implements Oracle {
 				// TODO validate predecessor
 				ArrayList<Resource> assignedResource = new ArrayList<Resource>(resourcelist.getSelectedValuesList());
 				// TODO validate resource assign
-			return new Task(name,duration,description,pred,assignedResource,((TaskControl) c).getProject());
+				ArrayList<Task> child = new ArrayList<Task>(childrenlist.getSelectedValuesList());
+			//return new Task(name,duration,description,pred,assignedResource,((TaskControl) c).getProject());
+			return new Task(name,duration,description,pred,assignedResource,child,((TaskControl) c).getProject());
+
 			}			
 		});
 		btnCancel.addActionListener(new ActionListener() {

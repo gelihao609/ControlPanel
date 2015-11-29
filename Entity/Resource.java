@@ -85,8 +85,8 @@ public class Resource {
 	}
 
 	public void addReference(Task task) {
-		_references.add(task);
-		
+		HashSet<Task> referenceSet = new HashSet<Task>(_references);
+		if(!referenceSet.contains(task))_references.add(task);
 	}
 
 	public List<Task> getReferencedTasks() {

@@ -42,7 +42,8 @@ public class Task extends Element {
 	}
 
 	private void addSucessor(Task task) {
-		_successors.add(task);		
+		HashSet<Task> successorSet = new HashSet<Task>(_successors);
+		if(!successorSet.contains(task))_successors.add(task);		
 	}
 
 	public Task(String name) {
@@ -75,6 +76,17 @@ public class Task extends Element {
 		linkSelfAsSuccessor(pred);
 		_resources = assignedResource;
 		linkTaskAsReferenceForResource(assignedResource);		
+	}
+
+	public Task(String name, String duration, String description, ArrayList<Task> pred,
+			ArrayList<Resource> assignedResource, ArrayList<Task> children, Project parent) {
+		super(name,Integer.parseInt(duration),parent,children);
+		_description=description;
+		_predecessors = pred;
+		_successors = new ArrayList<Task>();
+		linkSelfAsSuccessor(pred);
+		_resources = assignedResource;
+		linkTaskAsReferenceForResource(assignedResource);
 	}
 
 	private void linkTaskAsReferenceForResource(ArrayList<Resource> assignedResource) {
@@ -111,13 +123,15 @@ public class Task extends Element {
 	
 	public void addPredecessor(Task t)
 	 {
-		 _predecessors.add(t);
-		 t.addSucessor(this);
+		HashSet<Task> predecessorSet = new  HashSet<Task>(_predecessors);
+		if(!predecessorSet.contains(t))_predecessors.add(t);
+		t.addSucessor(this);
 	 }
 	 
 	public void addAssignedResource(Resource r)
 	 {
-		 _resources.add(r);
+		HashSet<Resource> resourceSet = new  HashSet<Resource>(_resources);
+		if(!resourceSet.contains(r))_resources.add(r);
 		 r.addReference(this);
 	 }
 
@@ -164,4 +178,24 @@ public class Task extends Element {
 	public List<Task> getSuccessors() {
 			return _successors;
 		}
+	//travse to find all the predecessors and successors of a task and put result in a hashSet
+	public void collectAllPreSucc(HashSet<Task> taskContainer) {
+		if(_predecessors.size()!=0)
+		{
+			for(Task t:_predecessors)
+			{
+				taskContainer.add(t);
+				if(t.getPredecessor().size()!=0)t.collectAllPreSucc(taskContainer);
+			}
+		}
+		if(_successors.size()!=0)
+		{
+			for(Task t:_successors)
+			{
+				taskContainer.add(t);
+				if(t.getSuccessor().size()!=0)t.collectAllPreSucc(taskContainer);
+			}
+		}
+
+	}
 }
