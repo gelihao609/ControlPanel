@@ -294,8 +294,9 @@ public class EditTaskWindow implements Oracle {
 		if(unassignReComBox.getSelectedItem()!=null)
 		{
 			taskToEdit.unassignResource((Resource)unassignReComBox.getSelectedItem());
-			((Resource)unassignReComBox.getSelectedItem());
+			((Resource)unassignReComBox.getSelectedItem()).removeTaskReference(taskToEdit);
 		}
+		
 	}
 	private void setField() {
 		nameTF.setText(taskToEdit.getName());
