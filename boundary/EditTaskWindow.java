@@ -9,7 +9,6 @@ import Controller.TaskControl;
 import Entity.Element;
 import Entity.ListResource;
 import Entity.ListTask;
-import Entity.Project;
 import Entity.Resource;
 import Entity.Task;
 
@@ -39,6 +38,14 @@ public class EditTaskWindow implements Oracle {
 	private JComboBox<Task> RchildcomboBox;
 	private JComboBox<Element> rPcombox;
 	private JComboBox<Resource> unassignReComBox;
+	private ArrayList<Resource> selectedResourceToAssign;
+	private Task selectedParentToChange;
+	private Task selectedParentToAdd;
+	private ArrayList<Task> selectedPredToAdd;
+	private ArrayList<Task> selectedSuccToAdd;
+	private ArrayList<Task> selectedChildToAdd;
+
+
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -107,6 +114,11 @@ public class EditTaskWindow implements Oracle {
 		JButton btnOk = new JButton("OK");
 		btnOk.setBounds(150, 453, 97, 25);
 		frame.getContentPane().add(btnOk);
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(259, 453, 97, 25);
@@ -147,7 +159,7 @@ public class EditTaskWindow implements Oracle {
 		btnAddSubtask.setBounds(342, 100, 136, 25);
 		frame.getContentPane().add(btnAddSubtask);
 		
-		JButton btnAddParanttask = new JButton("Add Parent-task");
+		JButton btnAddParanttask = new JButton("Add Parent");
 		btnAddParanttask.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -155,7 +167,7 @@ public class EditTaskWindow implements Oracle {
 		btnAddParanttask.setBounds(342, 133, 136, 25);
 		frame.getContentPane().add(btnAddParanttask);
 		
-		JButton btnChangeParanttask = new JButton("Change Parent-task");
+		JButton btnChangeParanttask = new JButton("Change Parent");
 		btnChangeParanttask.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -188,7 +200,7 @@ public class EditTaskWindow implements Oracle {
 		JButton btnAssignResource = new JButton("Assign Resource");
 		btnAssignResource.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Resource> selectedResource = new ArrayList<Resource>(rplist.getSelectedValuesList());
+				selectedResourceToAssign = new ArrayList<Resource>(rplist.getSelectedValuesList());
 			}
 		});
 		btnAssignResource.setBounds(342, 248, 136, 25);
@@ -255,6 +267,11 @@ public class EditTaskWindow implements Oracle {
 		for(Task i:taskToEdit.getChildren()){ RchildcomboBox.addItem(i);}
 		for(int i=0;i<taskToEdit.getResource().size();i++){ unassignReComBox.addItem(taskToEdit.getResource().get(i));}
 		if(taskToEdit.getParent().getClass()==Task.class){rPcombox.addItem(taskToEdit.getParent());}; 
+		RPcomboBox.setSelectedIndex(-1);
+		RScomboBox.setSelectedIndex(-1);
+		RchildcomboBox.setSelectedIndex(-1);
+		unassignReComBox.setSelectedIndex(-1);
+		rPcombox.setSelectedIndex(-1);
 	}
 	
 	@Override
