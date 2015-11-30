@@ -179,6 +179,15 @@ public class Task extends Element {
 	public List<Task> getSuccessors() {
 			return _successors;
 		}
+	
+	public void removeSuccessor(Task t)
+	{
+		_successors.remove(t);
+	}
+	public void removePredecessor(Task t)
+	{
+		_predecessors.remove(t);
+	}
 	//traverse to find all the predecessors and successors of a task and put result in a hashSet
 	public void collectAllPreSucc(HashSet<Task> taskContainer) {
 		if(_predecessors.size()!=0)

@@ -85,6 +85,10 @@ public class Resource {
 		if(!referenceSet.contains(task))_references.add(task);
 	}
 
+	public void removeTaskReference(Task task) {
+		_references.remove(task);
+	}
+	
 	public List<Task> getReferencedTasks() {
 		return _references;
 	}

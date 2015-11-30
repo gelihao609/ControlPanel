@@ -67,7 +67,7 @@ public class TaskView extends JTree implements TreeSelectionListener,View,Oracle
 	
     private TaskPool pool;
 	@Override
-	public void update(Observable o, Object arg) {			
+	public void update(Observable o, Object arg) {	
 		initialize(((TaskPool)o).getHead());
 		//System.out.println("enter TaskView update");
 	}

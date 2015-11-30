@@ -32,7 +32,9 @@ public void addResourceToTask(Element task, Resource res)
 }
 public void deleteTask(Task t)
 {
-	
+	pool.remove(t);
+	setChanged();
+	notifyObservers();
 }
 public void add(Task t) {
 	pool.add(t);

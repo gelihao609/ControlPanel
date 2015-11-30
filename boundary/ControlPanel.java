@@ -157,6 +157,7 @@ public class ControlPanel implements Oracle {
 		addTask.addController(tc, "addTask", new AddTaskWindow());//addTask
 		editTask.addController(tc, "editTask", _taskView);
 		viewTask.addController(tc, "viewTask", _taskView);
+		deleteTask.addController(tc, "deleteTask", _taskView);
 		//Resource
 		ResourceControl rc = new ResourceControl(project);
 		addResource.addController(rc, "addResource", new AddResourceWindow());

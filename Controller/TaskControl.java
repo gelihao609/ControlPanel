@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import Entity.Project;
 import Entity.Task;
 import Entity.TaskPool;
+import boundary.DeleteTaskWindow;
 import boundary.EditTaskWindow;
 import boundary.Oracle;
 import boundary.ViewTaskWindow;
@@ -47,6 +48,13 @@ public class TaskControl implements Controller {
 				editWindow.ask(null, this);
 			}
 			else JOptionPane.showMessageDialog(new JFrame("Message"), "Please select a task first.");
+		} else if (cmd.equals("deleteTask")) {
+			Task result = (Task) o.ask(cmd, this);
+			if (result != null) {
+				Oracle delWindow = new DeleteTaskWindow(result);
+				delWindow.ask(null, this);
+			}
+			else JOptionPane.showMessageDialog(new JFrame("Message"), "Please select a task first.");
 		}
 
 	}
@@ -65,6 +73,10 @@ public class TaskControl implements Controller {
 	
 	public void modifyTaskInTaskPool(Task temT){
 		taskpool.update(temT);
+	}
+	
+	public void delTaskFromTaskPool(Task temT){
+		taskpool.deleteTask(temT);
 	}
 
 }
