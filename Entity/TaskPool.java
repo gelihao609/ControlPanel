@@ -95,9 +95,10 @@ public void resetTaskDates() {
 			}
 	}	
 }
-public void update(Task temT) {
-	// TODO Auto-generated method stub
-	
+
+public void informObservers() {
+	setChanged();
+	notifyObservers();
 }
 
 

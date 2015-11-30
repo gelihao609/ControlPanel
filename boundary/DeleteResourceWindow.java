@@ -8,20 +8,7 @@ import Controller.Controller;
 import Controller.ResourceControl;
 import Entity.Resource;
 import Entity.Task;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-import org.apache.poi.util.SystemOutLogger;
-
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
-import java.awt.BorderLayout;
 
 public class DeleteResourceWindow implements Oracle {
 
@@ -88,7 +75,4 @@ public class DeleteResourceWindow implements Oracle {
 	}
 
 	private Resource r;
-	private JTextField textFieldResourceName;
-	private JTextField textFieldType;
-	private JTextField textFieldCost;
-}
+	}

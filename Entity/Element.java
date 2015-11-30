@@ -191,7 +191,7 @@ public abstract class Element extends Observable {
 		
 	}
 
-	private HashSet<Task> collectChildrenNPredSucc(ArrayList<Task> children) {
+	public HashSet<Task> collectChildrenNPredSucc(ArrayList<Task> children) {
 		HashSet<Task> taskContainer = new HashSet<Task>();
 		if(children.size()!=0)
 		{

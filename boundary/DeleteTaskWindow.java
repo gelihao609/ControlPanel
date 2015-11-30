@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Controller.Controller;
-import Controller.ResourceControl;
 import Entity.Task;
 import Controller.TaskControl;
+
 public class DeleteTaskWindow implements Oracle{
 	private JFrame frame;
 	public static void main(String[] args) {

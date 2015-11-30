@@ -71,12 +71,18 @@ public class TaskControl implements Controller {
 		taskpool.add(temT);
 	}
 	
-	public void modifyTaskInTaskPool(Task temT){
-		taskpool.update(temT);
+	public void modifyTaskInTaskPool(){
+		taskpool.informObservers();
 	}
 	
 	public void delTaskFromTaskPool(Task temT){
 		taskpool.deleteTask(temT);
+	}
+
+
+
+	public void updateView() {
+		
 	}
 
 }

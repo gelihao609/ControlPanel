@@ -9,16 +9,13 @@ import Controller.TaskControl;
 import Entity.ListResource;
 import Entity.ListTask;
 import Entity.Resource;
-import Entity.ResourcePool;
 import Entity.Task;
-import Entity.TaskPool;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListDataListener;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -188,9 +185,12 @@ public class AddTaskWindow implements Oracle {
 				frame.dispose();
 			}
 			private Task collect() {
-				String name = taskNameTF.getText();
-				String duration = durationTF.getText();// TODO validate duration to be only numbers
-				String description = DescTA.getText();
+				String name=taskNameTF.getText();
+				if(name.equals("")) name="Untitled";
+				String duration = durationTF.getText();
+				if(duration.equals("")) duration="-1";
+				String description="";
+				if(DescTA.getText()!=null) description = DescTA.getText();
 				ArrayList<Task> pred = new ArrayList<Task>(predlist.getSelectedValuesList());
 				// TODO validate predecessor
 				ArrayList<Resource> assignedResource = new ArrayList<Resource>(resourcelist.getSelectedValuesList());

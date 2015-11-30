@@ -173,8 +173,14 @@ public class Task extends Element {
 					return result;
 				}});
 			return slots;
-		}
-
+		}	
+	public void removePredecessorNsuccessor(Task taskToRemove) {
+		_predecessors.remove(taskToRemove);
+		taskToRemove.removeSuccessor(this);
+	}
+	public void setDescr(String text) {
+		_description = text;
+	}
 	public Date getPredLatestEndDate() {
 			long latestDate = 0;
 			for(Task t:_predecessors)
@@ -243,9 +249,6 @@ public class Task extends Element {
 	public String toString() {
 		return _name;
 	}
-	public void removePredecessorNsuccessor(Task taskToRemove) {
-		_predecessors.remove(taskToRemove);
-		taskToRemove.removeSuccessor(this);
-	}
+
 
 }
