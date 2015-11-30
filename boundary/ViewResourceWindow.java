@@ -45,7 +45,7 @@ public class ViewResourceWindow implements Oracle {
 	}
 
 	public void initialize(Controller c) {
-		frame = new JFrame("View Associated Tasks");
+		frame = new JFrame("View Resource");
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setBounds(450, 300, 432, 276);
@@ -65,7 +65,7 @@ public class ViewResourceWindow implements Oracle {
 		asscTasks.setEditable(false);
 		String tasks = "";
 		for (int i = 0; i < r.getReferencedTasks().size(); i++) {
-			tasks = tasks + (r.getReferencedTasks().get(i)).toString();
+			tasks = tasks + (r.getReferencedTasks().get(i)).toString()+"\n";
 		}
 		asscTasks.setText(tasks);
 		

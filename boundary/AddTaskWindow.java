@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 
 import Controller.Controller;
 import Controller.TaskControl;
+import Entity.ListResource;
+import Entity.ListTask;
 import Entity.Resource;
 import Entity.ResourcePool;
 import Entity.Task;
@@ -208,44 +210,9 @@ public class AddTaskWindow implements Oracle {
 		});	
 		}
 
-
-
 	@Override
 	public Object ask(String cmd, Controller control) {
 			initialize(control);
 		return null;
-	}
-	
-	private class ListTask implements ListModel<Task> {
-		TaskPool values;
-		public ListTask(TaskPool ts){
-				values=ts;
-			}
-		@Override
-		public Task getElementAt(int index) {
-			return values.get(index);
-		}
-		@Override
-		public int getSize() {
-			return values.size();
-		}
-		public void addListDataListener(ListDataListener l) {}
-		public void removeListDataListener(ListDataListener l) {}
-	}
-	private class ListResource implements ListModel<Resource> {
-		ResourcePool values;
-		public ListResource(ResourcePool ts){
-				values=ts;
-			}
-		@Override
-		public Resource getElementAt(int index) {
-			return values.get(index);
-		}
-		@Override
-		public int getSize() {
-			return values.size();
-		}
-		public void addListDataListener(ListDataListener l) {}
-		public void removeListDataListener(ListDataListener l) {}
 	}
 }

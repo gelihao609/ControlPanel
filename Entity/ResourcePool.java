@@ -42,6 +42,11 @@ public void add(Resource r) {
 	setChanged();
 	notifyObservers(this);
 }
+public void delete(Resource r) {
+	resources.remove(r);
+	setChanged();
+	notifyObservers(this);
+}
 public void modify(Resource r) {
 	for(int i=0;i<resources.size();i++)
 	{

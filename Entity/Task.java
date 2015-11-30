@@ -19,7 +19,9 @@ public class Task extends Element {
      * 	  O
      */
     
+    /************Constructors*******************/
     /**
+     * 
      * @param name
      * @param parent
      * @param children
@@ -33,23 +35,13 @@ public class Task extends Element {
 		this._predecessors = predecessors;
 		this._successors = successors;
 	}
-
-	private void linkSelfAsSuccessor(List<Task> predecessors) {
-		for(int i=0;i<predecessors.size();i++)
-		{
-			predecessors.get(i).addSucessor(this);
-		}		
-	}
-
-	private void addSucessor(Task task) {
-		HashSet<Task> successorSet = new HashSet<Task>(_successors);
-		if(!successorSet.contains(task))_successors.add(task);		
-	}
-
-	public Task(String name) {
+    /**
+     * 
+     * @param name
+     */
+    public Task(String name) {
 		super(name);
 	}
-
 	/**
 	 * @param _id
 	 * @param _name
@@ -59,6 +51,14 @@ public class Task extends Element {
 	}
 	
 	//for load usage
+	/**
+	 * 
+	 * @param name
+	 * @param duration
+	 * @param description
+	 * @param parent
+	 * @param id
+	 */
 	public Task(String name, String duration, String description, Element parent,String id) {		
 		super(name,Integer.parseInt(duration),parent,Integer.parseInt(id));
 		_description=description;
@@ -66,7 +66,15 @@ public class Task extends Element {
 		_successors = new ArrayList<Task>();
 		_resources = new ArrayList<Resource>();
 	}
-
+	/**
+	 * 
+	 * @param name
+	 * @param duration
+	 * @param description
+	 * @param pred
+	 * @param assignedResource
+	 * @param parent
+	 */
 	public Task(String name, String duration, String description, ArrayList<Task> pred,
 			ArrayList<Resource> assignedResource, Project parent) {
 		super(name,Integer.parseInt(duration),parent);
@@ -77,6 +85,16 @@ public class Task extends Element {
 		_resources = assignedResource;
 		linkTaskAsReferenceForResource(assignedResource);		
 	}
+	/**
+	 * 
+	 * @param name
+	 * @param duration
+	 * @param description
+	 * @param pred
+	 * @param assignedResource
+	 * @param children
+	 * @param parent
+	 */
 	//constructor with children defined
 	public Task(String name, String duration, String description, ArrayList<Task> pred,
 			ArrayList<Resource> assignedResource, ArrayList<Task> children, Project parent) {
@@ -88,21 +106,13 @@ public class Task extends Element {
 		_resources = assignedResource;
 		linkTaskAsReferenceForResource(assignedResource);
 	}
+	
+	
+	/************public methods***********/
 
-	private void linkTaskAsReferenceForResource(ArrayList<Resource> assignedResource) {
-		for(int i=0;i<assignedResource.size();i++)
-		{
-			assignedResource.get(i).addReference(this);
-		}			
-	}
-
-	@Override
-	public String toString() {
-		return _name;
-	}
-
-	public void unassignResource()
+	public void unassignResource(Resource r)//added input argument
 	{
+		_resources.remove(r);
 	}
     
 	public String getDescr() {
@@ -208,4 +218,34 @@ public class Task extends Element {
 		}
 
 	}
+	
+	/************Private methods***********/
+	private void linkSelfAsSuccessor(List<Task> predecessors) {
+		for(int i=0;i<predecessors.size();i++)
+		{
+			predecessors.get(i).addSucessor(this);
+		}		
+	}
+
+	private void addSucessor(Task task) {
+		HashSet<Task> successorSet = new HashSet<Task>(_successors);
+		if(!successorSet.contains(task))_successors.add(task);		
+	}
+
+	private void linkTaskAsReferenceForResource(ArrayList<Resource> assignedResource) {
+		for(int i=0;i<assignedResource.size();i++)
+		{
+			assignedResource.get(i).addReference(this);
+		}			
+	}
+
+	@Override
+	public String toString() {
+		return _name;
+	}
+	public void removePredecessorNsuccessor(Task taskToRemove) {
+		_predecessors.remove(taskToRemove);
+		taskToRemove.removeSuccessor(this);
+	}
+
 }

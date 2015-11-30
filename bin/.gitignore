@@ -7,8 +7,7 @@ projectWithPredec.xml
 *.prefs
 *.mdj
 *.project
-/Controller/
-/Entity/
 /ProjectManagementTool/
 /boundary/
 /testSet/
+/Entity/
