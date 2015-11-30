@@ -8,6 +8,7 @@ import Entity.Project;
 import Entity.Resource;
 import Entity.ResourcePool;
 import boundary.AddResourceWindow;
+import boundary.DeleteResourceWindow;
 import boundary.Oracle;
 import boundary.ViewResourceWindow;
 
@@ -37,7 +38,7 @@ public class ResourceControl implements Controller {
 			Resource result = (Resource) o.ask(cmd, this);
 			if (result != null) {
 				Oracle viewWindow = new ViewResourceWindow(result);
-				viewWindow.ask(null, this);
+				viewWindow.ask("viewResource", this);
 			}
 			else JOptionPane.showMessageDialog(new JFrame("Message"), "Please select a resource first.");
 		} else if (cmd.equals("editResource")) {
@@ -45,6 +46,14 @@ public class ResourceControl implements Controller {
 			if (result != null) {
 				Oracle editWindow = new AddResourceWindow(result);
 				editWindow.ask("editResource", this);
+			}
+			else JOptionPane.showMessageDialog(new JFrame("Message"), "Please select a resource first.");
+		}
+		else if (cmd.equals("delResource")) {
+			Resource result = (Resource) o.ask(cmd, this);
+			if (result != null) {
+				Oracle deleteWindow = new DeleteResourceWindow(result);
+				deleteWindow.ask("delResource", this);
 			}
 			else JOptionPane.showMessageDialog(new JFrame("Message"), "Please select a resource first.");
 		}
@@ -58,6 +67,10 @@ public class ResourceControl implements Controller {
 	}
 	public void addResourceToResourcePool(Resource temR) {
 		pool.add(temR);
+
+	}
+	public void deleteResourceFromResourcePool(Resource temR) {
+		pool.delete(temR);
 
 	}
 

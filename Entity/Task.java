@@ -110,8 +110,9 @@ public class Task extends Element {
 	
 	/************public methods***********/
 
-	public void unassignResource()
+	public void unassignResource(Resource r)//added input argument
 	{
+		_resources.remove(r);
 	}
     
 	public String getDescr() {

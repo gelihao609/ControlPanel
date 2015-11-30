@@ -86,6 +86,7 @@ public class Resource {
 	}
 
 	public List<Task> getReferencedTasks() {
+//		return _references!=null?(List<Task>) _references:null;
 		return _references;
 	}
 
