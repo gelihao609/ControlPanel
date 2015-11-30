@@ -161,7 +161,8 @@ public class ControlPanel implements Oracle {
 		ResourceControl rc = new ResourceControl(project);
 		addResource.addController(rc, "addResource", new AddResourceWindow());
 		editResource.addController(rc, "editResource", _resourceView);
-		viewResource.addController(rc, "viewResource",_resourceView );		
+		viewResource.addController(rc, "viewResource",_resourceView );	
+		delResource.addController(rc, "delResource",_resourceView );
 		//clear buttons actions
 		btnClearScd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
