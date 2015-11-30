@@ -9,7 +9,7 @@ public class XMLgeneratorTest {
 		Project p = projectGenerator.projectWithPredec();
 		LoaderGateway loader = new LoaderGateway();
 		try {
-			loader.createXML(p);
+			//loader.createXML(p);
 			System.out.println("XML generated");
 			//Project pp = loader.readXML("projectWithPredec");
 		} catch (Exception e) {
