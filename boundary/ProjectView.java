@@ -26,6 +26,7 @@ public class ProjectView extends JPanel implements View {
     private JTextField compNameTF;
     private JTextField projNameTF;
     private JTextField startDateTF;
+	private JLabel durationL;
 	
 	
 	/**
@@ -65,10 +66,18 @@ public class ProjectView extends JPanel implements View {
 		this.add(startDateTF);
 		startDateTF.setColumns(10);
 		startDateTF.setEditable(false);
+		
+		JLabel lblNewLabel = new JLabel("Duration: ");
+		add(lblNewLabel);
+		durationL = new JLabel("N/A");
+		add(durationL);
 
 		loadProject(p);
 		setTextfield();
 		project.addObserver(this);
+		project.getSchedule().addObserver(this);
+		
+		
 	}
 
 	public Project getProject() {
@@ -81,17 +90,22 @@ public class ProjectView extends JPanel implements View {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-			//System.out.println("update is called.");
-			project=(Project) arg0;
-			setTextfield();
+				if(arg0.getClass()==Project.class)project=(Project) arg0;
+				setTextfield();			
 	}
 	
+	private void setDuration(String duration) {
+		if(duration.equals("1")) durationL.setText("1 Day");
+		else if(duration.equals("-1"))durationL.setText("N/A");
+		else durationL.setText(duration+" Days");
+	}
+
 	private void setTextfield()
 	{
 		authrorNameTF.setText(project.getAuthorName());
 		compNameTF.setText(project.getCompanyName());
 		projNameTF.setText(project.getProjectName());
 		startDateTF.setText(project.getStartDateInString());
+		setDuration(project.getDuration());
 	}
-
 }
