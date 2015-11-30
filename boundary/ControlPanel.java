@@ -112,10 +112,12 @@ public class ControlPanel implements Oracle {
 		_menuBar.add(scheduleMenu);
 		MenuItem createProject = new MenuItem("Create");
 		MenuItem openProject = new MenuItem("Open...");
+		MenuItem editProject = new MenuItem("Edit");
 		MenuItem saveProject = new MenuItem("Save");
 		MenuItem closeProject = new MenuItem("Close");
 		projectMenu.add(createProject);
 		projectMenu.add(openProject);
+		projectMenu.add(editProject);
 		projectMenu.add(saveProject);
 		projectMenu.add(closeProject);
 		//addMenuItem in Task
@@ -142,6 +144,7 @@ public class ControlPanel implements Oracle {
 		createProject.addController(pc, "createProject",new CreateProjectWindow());
 		saveProject.addController(pc,"saveProject",null);// TODO add save as fileChooser
 		openProject.addController(pc,"openProject",new FileChooser());
+		editProject.addController(pc,"editProject",new EditProjectWindow());// TODO add save as fileChooser
 		closeProject.addController(pc,"closeProject",null);
 		//Schedule
 		MenuItem generScdl = new MenuItem("Generate Schedule");

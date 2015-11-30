@@ -30,17 +30,6 @@ public class ProjectControl implements Controller{
     	project = p;
     }
 
-	public void createProject(){
-    	
-    }
-    
-    public void openProject(){
-    	
-    }
-   public void generateShedule()
-   {
-	   
-   }
 	@Override
 	public void execute(String cmd, Oracle o) {
 		if(cmd.equals("createProject"))
@@ -61,6 +50,10 @@ public class ProjectControl implements Controller{
 		{	
 				o.ask(cmd,this);
 		}
+		if(cmd.equals("editProject"))
+		{
+			o.ask(cmd,this);
+		}
 		if(cmd.equals("closeProject"))
 		{	
 				clear();
@@ -68,6 +61,10 @@ public class ProjectControl implements Controller{
 		
 	}
 	
+	public Project getProject()
+	{
+		return project;
+	}
 	
 	public void setProjectProperties(Project p)
 	{
