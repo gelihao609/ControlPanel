@@ -234,4 +234,11 @@ public class Task extends Element {
 	public String toString() {
 		return _name;
 	}
+	public void removePredecessor(Task taskToRemove) {
+		_predecessors.remove(taskToRemove);
+		taskToRemove.removeSuccessor(this);
+	}
+	private void removeSuccessor(Task task) {
+		_successors.remove(task);
+	}
 }

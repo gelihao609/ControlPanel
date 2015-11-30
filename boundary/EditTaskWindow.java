@@ -245,7 +245,7 @@ public class EditTaskWindow implements Oracle {
 		RchildcomboBox.setBounds(12, 327, 190, 22);
 		frame.getContentPane().add(RchildcomboBox);
 		
-		JLabel lblRemoveParenttask = new JLabel("Remove parent-task:");
+		JLabel lblRemoveParenttask = new JLabel("Remove parent:");
 		lblRemoveParenttask.setBounds(12, 353, 136, 16);
 		frame.getContentPane().add(lblRemoveParenttask);
 
@@ -283,7 +283,19 @@ public class EditTaskWindow implements Oracle {
 				t.addPredecessor(taskToEdit);
 			}
 		}
-
+		if(RPcomboBox.getSelectedItem()!=null)
+		{
+			taskToEdit.removePredecessor((Task)RPcomboBox.getSelectedItem());
+		}
+		if(RScomboBox.getSelectedItem()!=null)
+		{
+			((Task)RScomboBox.getSelectedItem()).removePredecessor(taskToEdit);
+		}
+		if(unassignReComBox.getSelectedItem()!=null)
+		{
+			taskToEdit.unassignResource((Resource)unassignReComBox.getSelectedItem());
+			((Resource)unassignReComBox.getSelectedItem());
+		}
 	}
 	private void setField() {
 		nameTF.setText(taskToEdit.getName());
