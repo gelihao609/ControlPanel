@@ -26,6 +26,7 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 
 public class EditTaskWindow implements Oracle {
+	
 	private JFrame frame;
 	private Task taskToEdit;
 	private JTextField nameTF;
@@ -116,7 +117,7 @@ public class EditTaskWindow implements Oracle {
 		frame.getContentPane().add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				editTask();
 			}
 		});
 		
@@ -145,7 +146,7 @@ public class EditTaskWindow implements Oracle {
 		JButton btnAddPre = new JButton("Add Predecessor");
 		btnAddPre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				selectedPredToAdd = new ArrayList<Task>(tplist.getSelectedValuesList());
 			}
 		});
 		btnAddPre.setBounds(342, 33, 136, 25);
@@ -153,7 +154,12 @@ public class EditTaskWindow implements Oracle {
 		
 		JButton btnAddSuccessor = new JButton("Add Successor");
 		btnAddSuccessor.setBounds(342, 67, 136, 25);
-		frame.getContentPane().add(btnAddSuccessor);
+		frame.getContentPane().add(btnAddSuccessor);	
+		btnAddSuccessor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				selectedSuccToAdd = new ArrayList<Task>(tplist.getSelectedValuesList());
+			}
+		});
 		
 		JButton btnAddSubtask = new JButton("Add Sub-task");
 		btnAddSubtask.setBounds(342, 100, 136, 25);
@@ -257,6 +263,27 @@ public class EditTaskWindow implements Oracle {
 		
 		setField();
 		
+	}
+	protected void editTask() {
+		if(selectedResourceToAssign!=null)
+		{
+			for(Resource r:selectedResourceToAssign){
+				taskToEdit.addAssignedResource(r);
+			}
+		}
+		if(selectedPredToAdd!=null)
+		{
+			for(Task t:selectedPredToAdd){
+				taskToEdit.addPredecessor(t);
+			}
+		}
+		if(selectedSuccToAdd!=null) 
+		{
+			for(Task t:selectedSuccToAdd){
+				t.addPredecessor(taskToEdit);
+			}
+		}
+
 	}
 	private void setField() {
 		nameTF.setText(taskToEdit.getName());
