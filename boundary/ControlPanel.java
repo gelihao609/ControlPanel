@@ -183,7 +183,30 @@ public class ControlPanel implements Oracle {
 				frame.setContentPane(scrollPane);
 				frame.setBounds(500, 500, 500, 500);
 				//scrollPane.setPreferredSize(new Dimension(450, 110));
-				textArea.setText("Tip:Click on clear to unselect a selection in Task and Resource view"+"\n"+"Project Management Concepts:A project consists of resources and tasks\nResources can be labor, equipment, or material.\n A resource has a name and a daily cost.\nDeliverables:A deliverable is a file (.uml, .doc, .java, .jar, .xml, etc.) or a presentation.\nTask Properties:A task has a name, description, duration, start time, end time, percent completed, a list of deliverables, and a list of required resources.\nThere are two types of tasks: simple and composite.\nA composite task has sub-tasks. In particular, a composite task has a start sub-task, and a list of final sub-tasks. Of course a sub-task can be simple or composite.The project itself can be viewed as a single composite task called main with no predecessors of successors:\nThe tool can also:\nSave and read projects to a file in ProjectML format\nSave task schedules in .xls format\nModify the project schedule so that rows are labeled by actual dates rather than day numbers.\n Allow the project manager to specify the start date from a calendar.\nIt has three JPanels to your GUI: tasks, resources, and schedule. In the tasks panel display all of the tasks using a JTree control. In the resource panel list all of the resources. In the schedule panel display the schedule using JTable. Tasks and resources should be selectable. So when the user selects a task or resource, then selects edit from a menu, automatically the selected task or resource is the one to be edited.");
+				textArea.setText("Tip:Click on clear to unselect a selection in Task and Resource view\n"
+						+ "1) Project Management Concepts:A project consists of resources and tasks\n"
+						+ "2) Resources can be labor, equipment, or material.\n"
+						+ "3) A resource has a name and a daily cost.\n"
+						+ "4) Deliverables:A deliverable is a file (.uml, .doc, .java, .jar, .xml, etc.) or a presentation.\n"
+						+ "5) Task Properties:A task has a name, description, duration, start time, end time, percent completed, "
+						+ 		"a list of deliverables, and a list of required resources.\n"
+						+ "6) There are two types of tasks: simple and composite.\n"
+						+ "7) A composite task has sub-tasks. In particular, a composite task has a start sub-task, "
+						+ 		"and a list of final sub-tasks. Of course a sub-task can be simple or composite.\n"
+						+ "8) The project itself can be viewed as a single composite task called main with no predecessors of "
+						+ 		"successors:\n"
+						+ "9) The tool can also:\nSave and read projects to a file in ProjectML format\n"
+						+ "10) Save task schedules in .xls format\n"
+						+ "11) Modify the project schedule so that rows are labeled by actual dates rather than day numbers.\n"
+						+ "12) Allow the project manager to specify the start date from a calendar.\n"
+						+ "13) It has three JPanels to your GUI: tasks, resources, and schedule.\n"
+						+ "14) In the tasks panel display all of the tasks using a JTree control.\n"
+						+ "15) In the resource panel list all of the resources.\n"
+						+ "16) In the schedule panel display the schedule using JTable.\n"
+						+ "17) Tasks and resources should be selectable. \n"
+						+ "18) So when the user selects a task or resource, then selects edit from a menu, "
+						+ 	"automatically the selected task or resource is the one to best edited.");
+				textArea.setLineWrap(true);
 				textArea.setEditable(false);
 				frame.setVisible(true);
 			}});
