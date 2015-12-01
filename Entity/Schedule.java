@@ -52,11 +52,12 @@ public class Schedule extends Observable{
 								}
 								else{
 									Date tentativeDate =null;
-									//set start date for non-successor composite task
+									//set start date for non-successor composite task's subtask
 									if(current.getParent().getStartDate()==null)
 											{
-												tentativeDate = findAnSetStartDate(current.getParent());
-												current.getParent().setStartDate(tentativeDate);
+												//tentativeDate = findAnSetStartDate(current.getParent());
+												//current.getParent().setStartDate(tentativeDate);
+												current.setStartDate(getEaliestDateFromSrc(current,tentative));//suttask set itself 
 											}
 									//set start date for non-successor simple task
 									else 
@@ -65,6 +66,10 @@ public class Schedule extends Observable{
 										}	
 									current.setStartDate(getEaliestDateFromSrc(current,tentativeDate));
 								}
+							}
+							else
+							{	//this is for a composite task to set its start date
+								setTaskStartDateForHeadTasks(current, "", current.getParent().getStartDate());
 							}
 							//enqueue
 							taskQueue.offer(current);
