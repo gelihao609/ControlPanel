@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import Controller.Controller;
 import Controller.ProjectControl;
 import Controller.ResourceControl;
@@ -91,9 +93,9 @@ public class ControlPanel implements Oracle {
 		centerTaskSPane.setBounds(5, 5, 295, 480);
 		resourceSPane.setBounds(5, 5, 295, 480);
 		//scrollPane clear buttons
-		JButton btnClearScd = new JButton("Clear");
-		btnClearScd.setBounds(228, 485, 70, 20);
-		leftPanel.add(btnClearScd);
+//		JButton btnClearScd = new JButton("Clear");
+//		btnClearScd.setBounds(228, 485, 70, 20);
+//		leftPanel.add(btnClearScd);
 		JButton btnClearTsk = new JButton("Clear");
 		btnClearTsk.setBounds(228, 485, 70, 20);
 		centerPanel.add(btnClearTsk);
@@ -106,10 +108,12 @@ public class ControlPanel implements Oracle {
 		Menu taskMenu = new Menu("Task");
 		Menu resourceMenu = new Menu("Resource");
 		Menu scheduleMenu = new Menu("Schedule");
+		Menu helpMenu = new Menu("Help");
 		_menuBar.add(projectMenu);
 		_menuBar.add(taskMenu);
 		_menuBar.add(resourceMenu);
 		_menuBar.add(scheduleMenu);
+		_menuBar.add(helpMenu);
 		MenuItem createProject = new MenuItem("Create");
 		MenuItem openProject = new MenuItem("Open...");
 		MenuItem editProject = new MenuItem("Edit");
@@ -152,6 +156,9 @@ public class ControlPanel implements Oracle {
 		MenuItem expSchedule = new MenuItem("Export Schedule");
 		scheduleMenu.add(expSchedule);
 		
+		MenuItem helpProject = new MenuItem("Documentation");
+		helpMenu.add(helpProject);
+		
 		ScheduleControl sc = new ScheduleControl(project);
 		generScdl.addController(sc, "generateSchedule",null);
 		expSchedule.addController(sc, "exportSchedule",null);
@@ -167,11 +174,25 @@ public class ControlPanel implements Oracle {
 		editResource.addController(rc, "editResource", _resourceView);
 		viewResource.addController(rc, "viewResource",_resourceView );	
 		delResource.addController(rc, "delResource",_resourceView );
-		//clear buttons actions
-		btnClearScd.addActionListener(new ActionListener() {
+		
+		helpProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-					}
-				});
+				JFrame frame = new JFrame("Documentation");
+				JTextArea textArea = new JTextArea(5, 30);
+				JScrollPane scrollPane = new JScrollPane(textArea);
+				frame.setContentPane(scrollPane);
+				frame.setBounds(500, 500, 500, 500);
+				//scrollPane.setPreferredSize(new Dimension(450, 110));
+				textArea.setText("Tip:Click on clear to unselect a selection in Task and Resource view"+"\n"+"Project Management Concepts:A project consists of resources and tasks\nResources can be labor, equipment, or material.\n A resource has a name and a daily cost.\nDeliverables:A deliverable is a file (.uml, .doc, .java, .jar, .xml, etc.) or a presentation.\nTask Properties:A task has a name, description, duration, start time, end time, percent completed, a list of deliverables, and a list of required resources.\nThere are two types of tasks: simple and composite.\nA composite task has sub-tasks. In particular, a composite task has a start sub-task, and a list of final sub-tasks. Of course a sub-task can be simple or composite.The project itself can be viewed as a single composite task called main with no predecessors of successors:\nThe tool can also:\nSave and read projects to a file in ProjectML format\nSave task schedules in .xls format\nModify the project schedule so that rows are labeled by actual dates rather than day numbers.\n Allow the project manager to specify the start date from a calendar.\nIt has three JPanels to your GUI: tasks, resources, and schedule. In the tasks panel display all of the tasks using a JTree control. In the resource panel list all of the resources. In the schedule panel display the schedule using JTable. Tasks and resources should be selectable. So when the user selects a task or resource, then selects edit from a menu, automatically the selected task or resource is the one to be edited.");
+				textArea.setEditable(false);
+				frame.setVisible(true);
+			}});
+		
+		//clear buttons actions
+//		btnClearScd.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//					}
+//				});
 		btnClearTsk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				_taskView.clearSelection();
