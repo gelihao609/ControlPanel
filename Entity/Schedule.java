@@ -45,39 +45,29 @@ public class Schedule extends Observable{
 							//simple task find date when all assigned resources are available during current task period
 							if(current.getChildren().size()==0)
 							{
-								//composite task is a successor
-								if(message.equals("fromSuccessor"))
+								//composite task's subtasks
+								if(message.equals("inner"))
 								{
 									current.setStartDate(getEaliestDateFromSrc(current,tentative));
 								}
-								else{
-									Date tentativeDate =null;
-									//set start date for non-successor composite task's subtask
-									if(current.getParent().getStartDate()==null)
-											{
-												//tentativeDate = findAnSetStartDate(current.getParent());
-												//current.getParent().setStartDate(tentativeDate);
-												current.setStartDate(getEaliestDateFromSrc(current,tentative));//suttask set itself 
-											}
 									//set start date for non-successor simple task
 									else 
 										{
-											tentativeDate = current.getParent().getStartDate();
+											current.setStartDate(getEaliestDateFromSrc(current,current.getParent().getStartDate()));
 										}	
-									current.setStartDate(getEaliestDateFromSrc(current,tentativeDate));
-								}
 							}
 							else
 							{	//this is for a composite task to set its start date
-								setTaskStartDateForHeadTasks(current, "", current.getParent().getStartDate());
+								setTaskStartDateForHeadTasks(current, "inner", current.getParent().getStartDate());
 							}
 							//enqueue
-							taskQueue.offer(current);
+						taskQueue.offer(current);
 						}
 					}
 				}
-				//select start date for successor composite task 
-				if(message.equals("fromSuccessor"))
+
+				//select start date for composite task 
+				if(message.equals("inner"))
 				{
 					if(projectOrTask.getStartDate()!=null) System.out.print("Something wrong in successor composite task");
 					else
@@ -113,7 +103,7 @@ public class Schedule extends Observable{
 								//Lv1 Composite task: 
 								//1. get tasks without predecessors and get their start date
 								else
-									setTaskStartDateForHeadTasks(t,"fromSuccessor",tentativeStartDate);
+									setTaskStartDateForHeadTasks(t,"inner",tentativeStartDate);
 								
 								taskQueue.offer(t);//enqueue
 								
