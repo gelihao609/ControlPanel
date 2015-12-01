@@ -79,7 +79,7 @@ public class DeleteTaskWindow implements Oracle{
 			if(t.getParent()!=null)
 				(t.getParent()).removeChild(t);
 			
-			else if(t.getChildren().size()!=0){
+			if(t.getChildren().size()!=0){
 				for(int i=0;i<t.getChildren().size();i++){
 					for(int j=0;j<t.getChildren().get(i).getResource().size();j++){
 						t.getChildren().get(i).getResource().get(j).removeTaskReference(t.getChildren().get(i));
@@ -87,12 +87,12 @@ public class DeleteTaskWindow implements Oracle{
 					((TaskControl) c).delTaskFromTaskPool(t.getChildren().get(i));					
 				}
 			}
-			else if(t.getPredecessor().size()!=0){
+			 if(t.getPredecessor().size()!=0){
 				for(int i=0;i<t.getPredecessor().size();i++){
 					t.getPredecessor().get(i).removeSuccessor(t);
 				}
 			}
-			else if(t.getSuccessor().size()!=0){
+			 if(t.getSuccessor().size()!=0){
 				for(int i=0;i<t.getSuccessor().size();i++){
 					t.getSuccessor().get(i).removePredecessor(t);
 				}
