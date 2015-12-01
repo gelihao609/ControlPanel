@@ -37,7 +37,7 @@ public class DeleteTaskWindow implements Oracle{
 		
 		String str="";
 		int flag=0;
-		if(t.getParent().getName()!=""){
+		if(t.getParent()!=null){
 			str=t.getName()+" has parent:";
 			str=str+t.getParent().getName()+" ";
 			str=str+"\n";
@@ -76,7 +76,7 @@ public class DeleteTaskWindow implements Oracle{
 		}
 		else if(flag==1 && choice==0){
 			
-			if(t.getParent().getName()!="")
+			if(t.getParent()!=null)
 				(t.getParent()).removeChild(t);
 			
 			else if(t.getChildren().size()!=0){
